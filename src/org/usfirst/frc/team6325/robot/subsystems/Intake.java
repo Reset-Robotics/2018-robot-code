@@ -2,11 +2,14 @@ package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
-	WPI_TalonSRX leftIntakeWheel = new WPI_TalonSRX(RobotMap.leftIntakeWheel);
-	WPI_TalonSRX rightIntakeWheel = new WPI_TalonSRX(RobotMap.rightIntakeWheel);
+	WPI_VictorSPX leftIntakeWheel = new WPI_VictorSPX(RobotMap.leftIntakeWheel);
+	WPI_VictorSPX rightIntakeWheel = new WPI_VictorSPX(RobotMap.rightIntakeWheel);
 	
 
 	public void setIntakePower(double power) {
