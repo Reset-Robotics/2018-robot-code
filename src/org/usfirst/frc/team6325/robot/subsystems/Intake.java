@@ -2,9 +2,9 @@ package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
 
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {

@@ -20,5 +20,5 @@ public class RobotMap {
 	public static int rightFrontWheel = 5;
 	public static int rightBackWheel = 5;
 	
-	public static final int[][] FRONT_PIVOT_SOLENOIDS = {{4,5}, {6,7}};
+	public static final int[] SHIFTER_PORTS = {4,5};
 }

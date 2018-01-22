@@ -34,9 +34,11 @@ public class Drivetrain extends Subsystem {
 	WPI_VictorSPX backRight = new WPI_VictorSPX(RobotMap.backRight);
 	private AHRS navx = new AHRS(SerialPort.Port.kMXP);
 	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_PORTS[0], RobotMap.SHIFTER_PORTS[1]);
+	boolean isHighGear;
 	public Timer timer = new Timer();
 	 EncoderFollower left;
 	 EncoderFollower right;
+	 
 	
 	public Drivetrain() {
 		this.backLeft.follow(leftDriveMaster);
@@ -57,7 +59,20 @@ public class Drivetrain extends Subsystem {
     	rightDriveMaster.set(rightVal);
     }
     
-   
+	public void shift() {
+		if(shifter.get()==Value.kForward) {
+			shifter.set(Value.kReverse);
+			isHighGear = false;
+		}
+		else {
+			shifter.set(Value.kForward);
+			isHighGear = true;
+		}
+			
+	}
+	public boolean isHighGear() {
+		return isHighGear;
+	}
     public void killMotors(){
 		leftDriveMaster.set(0);
 		rightDriveMaster.set(0);
@@ -151,5 +166,6 @@ public class Drivetrain extends Subsystem {
         public static final double wheel_base_width = 0.0;
         public static final int ticks_per_rev = 4096; // CTRE Mag Encoder
         public static final double dt = 0.02; // 
+        public static final double distancePerPulse = (wheel_diameter*Math.PI)/ticks_per_rev;
 	}
 }
