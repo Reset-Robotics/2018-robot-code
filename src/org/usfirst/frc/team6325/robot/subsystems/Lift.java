@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
+import org.usfirst.frc.team6325.robot.commands.JoystickLift;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -62,7 +63,7 @@ public class Lift extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new JoystickLift());
 		
 	}
 

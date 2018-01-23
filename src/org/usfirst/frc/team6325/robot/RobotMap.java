@@ -21,4 +21,6 @@ public class RobotMap {
 	public static int rightBackWheel = 5;
 	
 	public static final int[] SHIFTER_PORTS = {4,5};
+	public static final int [] LEFT_INTAKE = {6,7};
+	public static final int [] RIGHT_INTAKE= {8,9};
 }

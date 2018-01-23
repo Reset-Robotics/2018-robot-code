@@ -50,7 +50,16 @@ public class Drivetrain extends Subsystem {
 		this.rightDriveMaster.setInverted(true);
 		this.backRight.setInverted(true);
 		this.frontRight.setInverted(true);
+		this.leftDriveMaster.configContinuousCurrentLimit(30,0); // desired current after limit
+		this.leftDriveMaster.configPeakCurrentLimit(35, 0); // max current
+		this.leftDriveMaster.configPeakCurrentDuration(100, 0); // how long after max current to be limited (ms)
+		this.leftDriveMaster.enableCurrentLimit(true);
+		this.rightDriveMaster.configContinuousCurrentLimit(30,0); // desired current after limit
+		this.rightDriveMaster.configPeakCurrentLimit(35, 0); // max current
+		this.rightDriveMaster.configPeakCurrentDuration(100, 0); // how long after max current to be limited (ms)
+		this.rightDriveMaster.enableCurrentLimit(true);
 		navx.reset();
+		navx.zeroYaw();
 	
 	}
 	
