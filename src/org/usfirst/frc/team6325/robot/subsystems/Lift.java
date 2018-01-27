@@ -22,6 +22,8 @@ public class Lift extends Subsystem {
 		this.rightSlave.setInverted(true);
 		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		
+		configPIDF(0,0,0,0); // TUNE VALUES
 	}
 	
 	public void moveLift(double rightSide, double leftSide) {
@@ -38,7 +40,7 @@ public class Lift extends Subsystem {
         rightMaster.set(ControlMode.MotionMagic, pos);
     }
 	public void configMotionMagic(int cruiseVelocity, int acceleration) {
-		configPIDF(0,0,0,0); // TUNE VALUES
+		
         leftMaster.configMotionCruiseVelocity(cruiseVelocity, 0);
         leftMaster.configMotionAcceleration(acceleration, 0);
         rightMaster.configMotionCruiseVelocity(cruiseVelocity, 0);
