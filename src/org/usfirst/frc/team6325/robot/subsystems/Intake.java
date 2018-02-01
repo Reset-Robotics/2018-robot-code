@@ -15,7 +15,6 @@ public class Intake extends Subsystem {
 	WPI_VictorSPX leftIntakeWheel = new WPI_VictorSPX(RobotMap.leftIntakeWheel);
 	WPI_VictorSPX rightIntakeWheel = new WPI_VictorSPX(RobotMap.rightIntakeWheel);
 	private DoubleSolenoid intakePiston = new DoubleSolenoid(RobotMap.LEFT_INTAKE[0], RobotMap.LEFT_INTAKE[1]);
-	
 
 	public void setIntakePower(double power) {
 		leftIntakeWheel.set(power);

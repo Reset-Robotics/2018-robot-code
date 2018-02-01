@@ -1,10 +1,13 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
+import java.io.File;
+
 import org.usfirst.frc.team6325.robot.RobotMap;
 
 import org.usfirst.frc.team6325.robot.commands.TankJoystickDrive;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -15,6 +18,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
@@ -36,20 +40,32 @@ public class Drivetrain extends Subsystem {
 	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_PORTS[0], RobotMap.SHIFTER_PORTS[1]);
 	boolean isHighGear;
 	public Timer timer = new Timer();
-	 EncoderFollower left;
-	 EncoderFollower right;
+	EncoderFollower left;
+	EncoderFollower right;
+	Trajectory leftTrajectory;
+	Trajectory rightTrajectory;
+	File leftMotionProfile;
+	File rightMotionProfile;
+	boolean isProfileFinished;
 	 
 	
 	public Drivetrain() {
+		// Set Followers
 		this.backLeft.follow(leftDriveMaster);
 		this.frontLeft.follow(leftDriveMaster);
 		this.backRight.follow(rightDriveMaster);
 		this.frontRight.follow(rightDriveMaster);
+		// Set up Encoders
 		this.leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		this.rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		// Inverse motors
 		this.rightDriveMaster.setInverted(true);
 		this.backRight.setInverted(true);
 		this.frontRight.setInverted(true);
+		// Set Talon Mode
+		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);
+        this.rightDriveMaster.setNeutralMode(NeutralMode.Brake);
+		// Current Limiting
 		this.leftDriveMaster.configContinuousCurrentLimit(30,0); // desired current after limit
 		this.leftDriveMaster.configPeakCurrentLimit(35, 0); // max current
 		this.leftDriveMaster.configPeakCurrentDuration(100, 0); // how long after max current to be limited (ms)
@@ -60,6 +76,7 @@ public class Drivetrain extends Subsystem {
 		this.rightDriveMaster.enableCurrentLimit(true);
 		navx.reset();
 		navx.zeroYaw();
+		resetEncoders();
 	
 	}
 	
@@ -117,10 +134,12 @@ public class Drivetrain extends Subsystem {
 
     public double getEncoderDistanceMetersRight() {
         return (rightDriveMaster.getSelectedSensorPosition(0) * Math.PI * MotionProfiling.wheel_diameter) / MotionProfiling.ticks_per_rev;
+        // return (rightDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
 
     public double getEncoderDistanceMetersLeft() {
         return (leftDriveMaster.getSelectedSensorPosition(0) * Math.PI * MotionProfiling.wheel_diameter) / MotionProfiling.ticks_per_rev;
+        //return (leftDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
     
     public double getEncoderRawLeft() {
@@ -131,27 +150,34 @@ public class Drivetrain extends Subsystem {
         return rightDriveMaster.getSelectedSensorPosition(0);
     }
   
-    public void initPath(TankModifier modifier) {
-    	MotionProfiling.last_gyro_error = 0.0;
-        left = new EncoderFollower(modifier.getLeftTrajectory());
-        right = new EncoderFollower(modifier.getRightTrajectory());
+    public void initPath(String leftCSV, String rightCSV) {
+    	leftMotionProfile = new File(leftCSV);
+        rightMotionProfile = new File(rightCSV);
+        leftTrajectory = Pathfinder.readFromCSV(leftMotionProfile);
+        rightTrajectory = Pathfinder.readFromCSV(rightMotionProfile);
+        left = new EncoderFollower(leftTrajectory);
+        right = new EncoderFollower(leftTrajectory);
         left.configureEncoder(leftDriveMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         right.configureEncoder(rightDriveMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
+        navx.zeroYaw();
     	
     }
     public void executePath() {
     	double l = left.calculate(leftDriveMaster.getSelectedSensorPosition(0));
         double r = right.calculate(rightDriveMaster.getSelectedSensorPosition(0));
-
-        double gyro_heading = navx.getAngle();
+        double gyro_heading = navx.getYaw();
         double angle_setpoint = Pathfinder.r2d(left.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(angle_setpoint - gyro_heading);
         double turn = 0.8 * (-1.0/80.0) * angleDifference;
-        MotionProfiling.last_gyro_error = angleDifference;
-
         drive(l + turn, r - turn);
+        if(left.isFinished() && right.isFinished()) {
+        	isProfileFinished = true;
+        }
+    }
+    public boolean getIsProfileFinished() {
+        return isProfileFinished;
     }
 	public void initDefaultCommand() {
 		setDefaultCommand(new TankJoystickDrive());
@@ -162,9 +188,6 @@ public class Drivetrain extends Subsystem {
         public static double kp = 0.0;
         public static double ki = 0.0; // not used
         public static double kd = 0.0;
-        
-        
-        public static double last_gyro_error = 0.0;
 
         //hard constants TODO: UPDATE FOR 2018
         public static final double max_velocity = 0.0;
@@ -172,7 +195,8 @@ public class Drivetrain extends Subsystem {
         public static final double max_acceleration = 0.0;
         public static final double ka = 0.0; // to get to higher or lower speed quicker
         public static final double wheel_diameter = 6;
-        public static final double wheel_base_width = 0.0;
+        public static final double wheel_base_width = 27.11/12.0;
+        public static final double wheel_circumference = 6*Math.PI;
         public static final int ticks_per_rev = 4096; // CTRE Mag Encoder
         public static final double dt = 0.02; // 
         public static final double distancePerPulse = (wheel_diameter*Math.PI)/ticks_per_rev;
