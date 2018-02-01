@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6325.robot.commands;
+package org.usfirst.frc.team6325.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,8 +8,8 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class StopIntakeWheels extends Command {
-	public StopIntakeWheels() {
+public class SpinIntakeWheelsForward extends Command {
+	public SpinIntakeWheelsForward() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intake);
 	}
@@ -23,7 +23,7 @@ public class StopIntakeWheels extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(0);
+		Robot.intake.setIntakePower(1);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6325.robot.commands;
+package org.usfirst.frc.team6325.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,10 +8,10 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class ClampOut extends Command {
-	public ClampOut() {
+public class ArcadeJoystickDrive extends Command {
+	public ArcadeJoystickDrive() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.intake);
+		requires(Robot.drivetrain);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,8 +23,9 @@ public class ClampOut extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		
-		Robot.intake.clampOut();
+		double left = Robot.oi.joyDriver.getY() + Robot.oi.joyDriver.getX();
+		double right = Robot.oi.joyDriver.getY() - Robot.oi.joyDriver.getX();
+		Robot.drivetrain.drive (left, right);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -36,13 +37,13 @@ public class ClampOut extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		
+		Robot.drivetrain.killMotors();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		
+		Robot.drivetrain.killMotors();
 	}
 }

@@ -1,7 +1,8 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
-import org.usfirst.frc.team6325.robot.commands.JoystickLift;
+
+import org.usfirst.frc.team6325.robot.commands.Lift.JoystickLift;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;

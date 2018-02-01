@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6325.robot.commands;
+package org.usfirst.frc.team6325.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,10 +8,10 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class ArcadeJoystickDrive extends Command {
-	public ArcadeJoystickDrive() {
+public class StopIntakeWheels extends Command {
+	public StopIntakeWheels() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.drivetrain);
+		requires(Robot.intake);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,9 +23,7 @@ public class ArcadeJoystickDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double left = Robot.oi.joyDriver.getY() + Robot.oi.joyDriver.getX();
-		double right = Robot.oi.joyDriver.getY() - Robot.oi.joyDriver.getX();
-		Robot.drivetrain.drive (left, right);
+		Robot.intake.setIntakePower(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,13 +35,13 @@ public class ArcadeJoystickDrive extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drivetrain.killMotors();
+		
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drivetrain.killMotors();
+		
 	}
 }

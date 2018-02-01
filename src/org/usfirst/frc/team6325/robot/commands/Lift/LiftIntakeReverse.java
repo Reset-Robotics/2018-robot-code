@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6325.robot.commands;
+package org.usfirst.frc.team6325.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,10 +8,10 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class ClampIn extends Command {
-	public ClampIn() {
+public class LiftIntakeReverse extends Command {
+	public LiftIntakeReverse() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.intake);
+		requires(Robot.liftIntake);
 	}
 
 	// Called just before this Command runs the first time
@@ -23,8 +23,7 @@ public class ClampIn extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		
-		Robot.intake.clampIn();
+		Robot.liftIntake.spinLiftIntake(-1, -1); 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

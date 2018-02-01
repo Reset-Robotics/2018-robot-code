@@ -2,9 +2,10 @@ package org.usfirst.frc.team6325.robot.subsystems;
 
 import java.io.File;
 
+
 import org.usfirst.frc.team6325.robot.RobotMap;
 
-import org.usfirst.frc.team6325.robot.commands.TankJoystickDrive;
+import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
-import jaci.pathfinder.modifiers.TankModifier;
+
 
 /**
  *
