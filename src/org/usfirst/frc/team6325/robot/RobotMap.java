@@ -7,18 +7,18 @@ package org.usfirst.frc.team6325.robot;
  * floating around.
  */
 public class RobotMap {
-	public static int frontRight = 0;
-	public static int frontLeft = 1;
-	public static int midLeft = 2;
-	public static int midRight = 3;
+	public static int frontRight = 5;
+	public static int frontLeft = 2;
+	public static int midLeft = 1;
+	public static int midRight = 6;
 	public static int backRight = 4;
-	public static int backLeft = 5;
-	public static int rightIntakeWheel = 5;
-	public static int leftIntakeWheel = 5;
-	public static int leftFrontWheel = 5;
-	public static int leftBackWheel = 5;
-	public static int rightFrontWheel = 5;
-	public static int rightBackWheel = 5;
+	public static int backLeft = 3;
+	public static int rightIntakeWheel = 99;
+	public static int leftIntakeWheel = 99;
+	public static int leftFrontWheel = 99;
+	public static int leftBackWheel = 98;
+	public static int rightFrontWheel = 99;
+	public static int rightBackWheel = 99;
 	
 	public static final int[] SHIFTER_PORTS = {4,5};
 	public static final int [] LEFT_INTAKE = {6,7};
