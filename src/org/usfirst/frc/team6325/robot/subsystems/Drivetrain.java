@@ -62,7 +62,10 @@ public class Drivetrain extends Subsystem {
 		// Inverse motors
 		this.rightDriveMaster.setInverted(true);
 		this.backRight.setInverted(true);
-		this.frontRight.setInverted(true);
+		this.frontRight.setInverted(false);
+		this.backLeft.setInverted(true);
+		this.leftDriveMaster.setInverted(false);
+		this.frontLeft.setInverted(false);
 		// Set Talon Mode
 		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);
         this.rightDriveMaster.setNeutralMode(NeutralMode.Brake);
