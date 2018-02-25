@@ -15,24 +15,54 @@ public class Lift extends Subsystem {
 	WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.leftBackWheel);
 	WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightFrontWheel);
 	WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.rightBackWheel);
+	private static final int CRUISE_VELOCITY = 17600; // 1024
+	private static final int CRUISE_ACCELERATION = 11000; // 1024
+	private static final int CRUISE_VELOCITY_DOWN = (int) (CRUISE_VELOCITY * 0.7); // 1024
+	private static final int CRUISE_ACCELERATION_DOWN = (int) (CRUISE_ACCELERATION * 0.6); // 1024
 	
-	
+	public enum Positions {
+        Intake(300),
+        Driving(25000),
+        ScoreSwitch(50000),
+        ScoreScale(70000),
+        ScoreScaleLow(60000),
+        ScoreScaleHigh(72000),
+        ClimbingBar(67500),
+		Top(73000);
+        private int position;
+
+        Positions(int encPos) {
+            this.position = encPos;
+        }
+
+        public int getPosition() {
+            return this.position;
+        }
+    }
 	public Lift() {
 		this.leftSlave.follow(leftMaster);
 		this.rightSlave.follow(rightMaster);
 		this.rightMaster.setInverted(true);
 		this.rightSlave.setInverted(true);
-		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		// Set Talon mode
 		this.leftMaster.setNeutralMode(NeutralMode.Brake);
 		this.rightMaster.setNeutralMode(NeutralMode.Brake);
 		configPIDF(0,0,0,0); // TUNE VALUES
+		configMotionMagic(CRUISE_VELOCITY, CRUISE_ACCELERATION);
+	}
+	public int getQuadPos(int side) {
+		int[] arr = {leftMaster.getSelectedSensorPosition(0), rightMaster.getSelectedSensorPosition(0)};
+		return arr[side];	
 	}
 	
-	public void moveLift(double rightSide, double leftSide) {
-		rightMaster.set(rightSide);
-		leftMaster.set(leftSide);
+	public void moveLift(double pow) {
+		if ((getQuadPos(0) >= Positions.Top.getPosition() || getQuadPos(1) > Positions.Top.getPosition()) && pow>0 ) {
+			return;
+		}
+		rightMaster.set(ControlMode.PercentOutput, pow);
+		leftMaster.set(ControlMode.PercentOutput, pow);
 	}
 	public void moveToPos(int pos) {
 		leftMaster.set(ControlMode.Position, pos);
@@ -44,7 +74,6 @@ public class Lift extends Subsystem {
         rightMaster.set(ControlMode.MotionMagic, pos);
     }
 	public void configMotionMagic(int cruiseVelocity, int acceleration) {
-		
         leftMaster.configMotionCruiseVelocity(cruiseVelocity, 0);
         leftMaster.configMotionAcceleration(acceleration, 0);
         rightMaster.configMotionCruiseVelocity(cruiseVelocity, 0);
@@ -59,12 +88,6 @@ public class Lift extends Subsystem {
 	        rightMaster.config_kI(0, kI, 0);
 	        rightMaster.config_kD(0, kD, 0);
 	        rightMaster.config_kF(0, kF, 0);
-	    }
-	public int getLeftEncPos() {
-	        return leftMaster.getSelectedSensorPosition(0);
-	    }
-	public int getRightEncPos() {
-	        return rightMaster.getSelectedSensorPosition(0);
 	    }
 	
 	@Override

@@ -23,7 +23,7 @@ public class JoystickLift extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.lift.moveLift(Robot.oi.joySecondary.getY(), Robot.oi.joySecondary.getY());
+		Robot.lift.moveLift(-Robot.oi.joySecondary.getY());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

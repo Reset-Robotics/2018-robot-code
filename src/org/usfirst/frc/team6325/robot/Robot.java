@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team6325.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -8,6 +9,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
+import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6325.robot.subsystems.Intake;
@@ -31,6 +35,13 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+<<<<<<< HEAD
+	SendableChooser<Command> positionChooser = new SendableChooser<>();
+	SendableChooser<Command> preferenceChooser = new SendableChooser<>();
+=======
+	SendableChooser<AutoPosition> positionChooser;
+	SendableChooser<AutoPreference> preferenceChooser;
+>>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,9 +50,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ArcadeJoystickDrive());
+<<<<<<< HEAD
 		// chooser.addObject("My Auto", new MyAutoCommand());
+=======
+		chooser.addDefault("Default Auto", new ArcadeJoystickDrive());
+		chooser.addObject("My Auto", new MidSwitch('L'));
+>>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto Position", positionChooser);
+		SmartDashboard.putData("Auto Preference", preferenceChooser);
 	}
 
 	/**
@@ -72,7 +89,35 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		 String gameData;
+	     gameData = DriverStation.getInstance().getGameSpecificMessage();
+	     char switchSide = ' ';
+	     try {
+	       switchSide = gameData.charAt(0);
+	        } catch (IndexOutOfBoundsException ex) {
+	         System.out.println("No Game Data");
+	        }
+	     AutoPosition position = positionChooser.getSelected();
+	     AutoPreference preference = preferenceChooser.getSelected();
+		 autonomousCommand = chooser.getSelected();
+		 switch (position.getName() + '-' + preference.getName()) {
+         case "Left-Scale":
+            // autonomousCommand = new LeftScale();
+             break;
+         case "Left-Switch":
+            // autonomousCommand = new LeftSwitch();
+             break;
+         case "Middle-Switch":
+             autonomousCommand = new MidSwitch(switchSide);
+             break;
+         case "Right-Scale":
+            // autonomousCommand = new RightScale();
+             break;
+         case "Right-Switch":
+           //  autonomousCommand = new RightSwitch();
+             break;
+         default: break;
+     }
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
