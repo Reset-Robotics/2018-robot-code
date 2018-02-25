@@ -24,7 +24,11 @@ public class TankJoystickDrive extends Command {
 	@Override
 	protected void execute() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		double left = -Robot.oi.joySecondary.getX();
+=======
+		double left = -Robot.oi.joyDriver.getX();
+>>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 =======
 		double left = -Robot.oi.joyDriver.getX();
 >>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
