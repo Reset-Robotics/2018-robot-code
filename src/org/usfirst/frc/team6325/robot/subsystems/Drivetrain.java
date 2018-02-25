@@ -72,9 +72,6 @@ public class Drivetrain extends Subsystem {
 		this.backLeft.setInverted(true);
 		this.leftDriveMaster.setInverted(false);
 		this.frontLeft.setInverted(false);
-<<<<<<< HEAD
->>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
-=======
 >>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 		// Set Talon Mode
 		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);

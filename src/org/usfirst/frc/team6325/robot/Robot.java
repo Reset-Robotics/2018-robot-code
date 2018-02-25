@@ -36,13 +36,8 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 <<<<<<< HEAD
-<<<<<<< HEAD
 	SendableChooser<Command> positionChooser = new SendableChooser<>();
 	SendableChooser<Command> preferenceChooser = new SendableChooser<>();
-=======
-	SendableChooser<AutoPosition> positionChooser;
-	SendableChooser<AutoPreference> preferenceChooser;
->>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 =======
 	SendableChooser<AutoPosition> positionChooser;
 	SendableChooser<AutoPreference> preferenceChooser;
@@ -56,12 +51,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 <<<<<<< HEAD
-<<<<<<< HEAD
 		// chooser.addObject("My Auto", new MyAutoCommand());
-=======
-		chooser.addDefault("Default Auto", new ArcadeJoystickDrive());
-		chooser.addObject("My Auto", new MidSwitch('L'));
->>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
 =======
 		chooser.addDefault("Default Auto", new ArcadeJoystickDrive());
 		chooser.addObject("My Auto", new MidSwitch('L'));
