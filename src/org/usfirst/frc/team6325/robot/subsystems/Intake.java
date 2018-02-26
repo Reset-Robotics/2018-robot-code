@@ -30,6 +30,14 @@ public class Intake extends Subsystem {
 	public void clampOut() {
 		intakePiston.set(Value.kReverse);
 	}
+	public void toggleClamp() {
+		if(intakePiston.get()==Value.kForward) {
+			intakePiston.set(Value.kReverse);
+		}
+		else {
+			intakePiston.set(Value.kForward);
+		}
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

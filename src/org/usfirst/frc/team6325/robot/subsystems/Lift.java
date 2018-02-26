@@ -54,10 +54,10 @@ public class Lift extends Subsystem {
 		configPIDF(0,0,0,0); // TUNE VALUES
 		configMotionMagic(CRUISE_VELOCITY, CRUISE_ACCELERATION);
 	}
-	/*public int getQuadPos(int side) {
+	public int getQuadPos(int side) {
 		int[] arr = {leftMaster.getSelectedSensorPosition(0), rightMaster.getSelectedSensorPosition(0)};
 		return arr[side];	
-	} */
+	} 
 	
 	public void moveLift(double pow) {
 	/*	if ((getQuadPos(0) >= Positions.Top.getPosition() || getQuadPos(1) > Positions.Top.getPosition()) && pow>0 ) {
