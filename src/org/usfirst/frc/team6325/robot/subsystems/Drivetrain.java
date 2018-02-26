@@ -4,7 +4,7 @@ import java.io.File;
 
 
 import org.usfirst.frc.team6325.robot.RobotMap;
-
+import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -31,11 +31,11 @@ import jaci.pathfinder.modifiers.TankModifier;
  */
 public class Drivetrain extends Subsystem {
 	
-	WPI_VictorSPX frontLeft = new WPI_VictorSPX(RobotMap.frontLeft);
-	WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.midLeft);
+	WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
+	WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
 	WPI_VictorSPX backLeft = new WPI_VictorSPX (RobotMap.backLeft);
 	WPI_VictorSPX frontRight = new WPI_VictorSPX(RobotMap.frontRight);
-	WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RobotMap.midRight);
+	WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RobotMap.masterRight);
 	WPI_VictorSPX backRight = new WPI_VictorSPX(RobotMap.backRight);
 	private AHRS navx = new AHRS(SerialPort.Port.kMXP);
 	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_PORTS[0], RobotMap.SHIFTER_PORTS[1]);
@@ -58,21 +58,13 @@ public class Drivetrain extends Subsystem {
 		this.leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		this.rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		// Inverse motors
-<<<<<<< HEAD
 		this.rightDriveMaster.setInverted(false);
-		this.backRight.setInverted(false);
-		this.frontRight.setInverted(true);
-		this.leftDriveMaster.setInverted(true);
-		this.backLeft.setInverted(true);
-		this.backLeft.setInverted(false);
-=======
-		this.rightDriveMaster.setInverted(true);
 		this.backRight.setInverted(true);
-		this.frontRight.setInverted(false);
-		this.backLeft.setInverted(true);
+		this.frontRight.setInverted(true);
 		this.leftDriveMaster.setInverted(false);
-		this.frontLeft.setInverted(false);
->>>>>>> 9a0ef8c75a14aef27cffed2d1f5c8d7653ad26ac
+		this.backLeft.setInverted(false);
+		this.frontLeft.setInverted(true);
+
 		// Set Talon Mode
 		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);
         this.rightDriveMaster.setNeutralMode(NeutralMode.Brake);
@@ -98,6 +90,12 @@ public class Drivetrain extends Subsystem {
     public void killMotors() {
     	rightDriveMaster.set(0);
     	leftDriveMaster.set(0);
+    }
+    public void shiftIn() {
+    	shifter.set(Value.kForward);
+    }
+    public void shiftOut() {
+    	shifter.set(Value.kReverse);
     }
 	public void shift() {
 		if(shifter.get()==Value.kForward) {
@@ -241,7 +239,8 @@ public class Drivetrain extends Subsystem {
         isProfileFinished = false;
         resetEncoders();
         resetGyro();
-    }
+    } 
+    
 	public void initDefaultCommand() {
 		setDefaultCommand(new TankJoystickDrive());
 	}

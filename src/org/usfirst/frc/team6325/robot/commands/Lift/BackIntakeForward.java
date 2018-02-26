@@ -8,8 +8,8 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class LiftIntakeReverse extends Command {
-	public LiftIntakeReverse() {
+public class BackIntakeForward extends Command {
+	public BackIntakeForward() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.liftIntake);
 	}
@@ -23,7 +23,7 @@ public class LiftIntakeReverse extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.liftIntake.spinLiftIntake(-1); 
+		Robot.liftIntake.moveBackBelts(1);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

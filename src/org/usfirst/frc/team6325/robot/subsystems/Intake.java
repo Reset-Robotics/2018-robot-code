@@ -14,7 +14,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	WPI_VictorSPX leftIntakeWheel = new WPI_VictorSPX(RobotMap.leftIntakeWheel);
 	WPI_VictorSPX rightIntakeWheel = new WPI_VictorSPX(RobotMap.rightIntakeWheel);
-	private DoubleSolenoid intakePiston = new DoubleSolenoid(RobotMap.LEFT_INTAKE[0], RobotMap.LEFT_INTAKE[1]);
+	private DoubleSolenoid intakePiston = new DoubleSolenoid(RobotMap.INTAKE[0], RobotMap.INTAKE[1]);
+	
+	public Intake() {
+		//intakePiston.set(Value.kForward);
+	}
 
 	public void setIntakePower(double power) {
 		leftIntakeWheel.set(power);

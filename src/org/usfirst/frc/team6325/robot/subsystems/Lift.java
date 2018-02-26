@@ -8,13 +8,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem {
-	WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftFrontWheel);
-	WPI_TalonSRX leftSlave = new WPI_TalonSRX(RobotMap.leftBackWheel);
-	WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightFrontWheel);
-	WPI_TalonSRX rightSlave = new WPI_TalonSRX(RobotMap.rightBackWheel);
+	WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftMaster);
+	WPI_VictorSPX leftSlave = new WPI_VictorSPX(RobotMap.leftBackWheel);
+	WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMaster);
+	WPI_VictorSPX rightSlave = new WPI_VictorSPX(RobotMap.rightBackWheel);
 	private static final int CRUISE_VELOCITY = 17600; // 1024
 	private static final int CRUISE_ACCELERATION = 11000; // 1024
 	private static final int CRUISE_VELOCITY_DOWN = (int) (CRUISE_VELOCITY * 0.7); // 1024
@@ -52,15 +54,15 @@ public class Lift extends Subsystem {
 		configPIDF(0,0,0,0); // TUNE VALUES
 		configMotionMagic(CRUISE_VELOCITY, CRUISE_ACCELERATION);
 	}
-	public int getQuadPos(int side) {
+	/*public int getQuadPos(int side) {
 		int[] arr = {leftMaster.getSelectedSensorPosition(0), rightMaster.getSelectedSensorPosition(0)};
 		return arr[side];	
-	}
+	} */
 	
 	public void moveLift(double pow) {
-		if ((getQuadPos(0) >= Positions.Top.getPosition() || getQuadPos(1) > Positions.Top.getPosition()) && pow>0 ) {
+	/*	if ((getQuadPos(0) >= Positions.Top.getPosition() || getQuadPos(1) > Positions.Top.getPosition()) && pow>0 ) {
 			return;
-		}
+		} */
 		rightMaster.set(ControlMode.PercentOutput, pow);
 		leftMaster.set(ControlMode.PercentOutput, pow);
 	}
@@ -92,7 +94,7 @@ public class Lift extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new JoystickLift());
+		//setDefaultCommand(new JoystickLift());
 		
 	}
 

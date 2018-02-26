@@ -23,7 +23,7 @@ public class StopLiftIntake extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.liftIntake.spinLiftIntake(0, 0); 
+		Robot.liftIntake.spinLiftIntake(0); 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
