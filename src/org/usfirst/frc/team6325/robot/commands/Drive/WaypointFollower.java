@@ -2,21 +2,21 @@ package org.usfirst.frc.team6325.robot.commands.Drive;
 
 import org.usfirst.frc.team6325.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.followers.EncoderFollower;
 
 
-public class ProfileFollower extends Command {
-	String leftCSV, rightCSV;
+public class WaypointFollower extends Command {
+	Waypoint[] path;
 	EncoderFollower[] followers;
-	public ProfileFollower(String leftCSV, String rightCSV) {
-		leftCSV = this.leftCSV;
-		rightCSV = this.rightCSV;
-		setInterruptible(false);
-		followers = Robot.drivetrain.initPath(leftCSV, rightCSV);
+	public WaypointFollower(Waypoint[] path) {
+		 this.path = path;
+	     setInterruptible(false);
+	     followers = Robot.drivetrain.initPath(path);
 	}
 	@Override
 	protected void initialize() {
-		
+		Robot.drivetrain.resetForPath();
 		Robot.drivetrain.executePath(followers, false);
 	}
 	@Override

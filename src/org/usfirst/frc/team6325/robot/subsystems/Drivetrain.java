@@ -14,6 +14,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
@@ -31,20 +33,16 @@ import jaci.pathfinder.modifiers.TankModifier;
  */
 public class Drivetrain extends Subsystem {
 	
-	WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
-	WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
-	WPI_VictorSPX backLeft = new WPI_VictorSPX (RobotMap.backLeft);
-	WPI_VictorSPX frontRight = new WPI_VictorSPX(RobotMap.frontRight);
-	WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RobotMap.masterRight);
-	WPI_VictorSPX backRight = new WPI_VictorSPX(RobotMap.backRight);
-	private AHRS navx = new AHRS(SerialPort.Port.kMXP);
+	public WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
+	public WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
+	public WPI_VictorSPX backLeft = new WPI_VictorSPX (RobotMap.backLeft);
+	public WPI_VictorSPX frontRight = new WPI_VictorSPX(RobotMap.frontRight);
+	public WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RobotMap.masterRight);
+	public WPI_VictorSPX backRight = new WPI_VictorSPX(RobotMap.backRight);
+	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_PORTS[0], RobotMap.SHIFTER_PORTS[1]);
 	boolean isHighGear;
 	public Timer timer = new Timer();
-	Trajectory leftTrajectory;
-	Trajectory rightTrajectory;
-	File leftMotionProfile;
-	File rightMotionProfile;
 	boolean isProfileFinished = false;
 	 
 	
@@ -58,12 +56,15 @@ public class Drivetrain extends Subsystem {
 		this.leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		this.rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		// Inverse motors
+		
 		this.rightDriveMaster.setInverted(false);
 		this.backRight.setInverted(true);
 		this.frontRight.setInverted(true);
 		this.leftDriveMaster.setInverted(false);
 		this.backLeft.setInverted(false);
 		this.frontLeft.setInverted(true);
+		rightDriveMaster.setSensorPhase(true);
+		//leftDriveMaster.setSensorPhase(true);
 
 		// Set Talon Mode
 		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);
@@ -141,7 +142,7 @@ public class Drivetrain extends Subsystem {
         //return (leftDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
     public float getAngle() {
-    	return navx.getPitch();
+    	return -navx.getYaw();
     }
     public double getEncoderRawLeft() {
         return leftDriveMaster.getSelectedSensorPosition(0);
@@ -159,12 +160,14 @@ public class Drivetrain extends Subsystem {
     }
   
     public EncoderFollower[] initPath(String leftCSV, String rightCSV) {
-    	leftMotionProfile = new File(leftCSV);
-        rightMotionProfile = new File(rightCSV);
-        leftTrajectory = Pathfinder.readFromCSV(leftMotionProfile);
-        rightTrajectory = Pathfinder.readFromCSV(rightMotionProfile);
+    	File leftMotionProfile = new File(leftCSV);
+        File rightMotionProfile = new File(rightCSV);
+        System.err.println("File about to read");
+        Trajectory leftTrajectory = Pathfinder.readFromCSV(leftMotionProfile);
+        Trajectory rightTrajectory = Pathfinder.readFromCSV(rightMotionProfile);
+        System.err.println("File read");
         EncoderFollower left = new EncoderFollower(leftTrajectory);
-        EncoderFollower right = new EncoderFollower(leftTrajectory);
+        EncoderFollower right = new EncoderFollower(rightTrajectory);
         left.configureEncoder(leftDriveMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         right.configureEncoder(rightDriveMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
@@ -247,9 +250,9 @@ public class Drivetrain extends Subsystem {
 	
 	public static class MotionProfiling {
 		 //TODO: TUNE CONSTANTS
-        public static double kp = 0.0;
+        public static double kp = 1;
         public static double ki = 0.0; // not used
-        public static double kd = 0.0;
+        public static double kd = 0.05;
 
         //hard constants TODO: UPDATE FOR 2018
         public static final double max_velocity = 7.0;
@@ -257,7 +260,7 @@ public class Drivetrain extends Subsystem {
         public static final double max_acceleration = 3.0;
         public static final double max_jerk = 60.0;
         public static final double ka = 0.0; // to get to higher or lower speed quicker
-        public static final double wheel_diameter = 6;
+        public static final double wheel_diameter = 0.5;
         public static final double wheel_base_width = 27.11/12.0;
         public static final double wheel_circumference = 6*Math.PI;
         public static final int ticks_per_rev = 4096; // CTRE Mag Encoder

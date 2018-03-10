@@ -8,36 +8,28 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class BackIntakeForward extends Command {
-	double pow, startTime, time;
-	public BackIntakeForward(double pow) {
+public class LiftOuttake extends Command {
+	public LiftOuttake() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.backBelts);
-		this.pow = pow;
+		requires(Robot.liftIntake);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		startTime = System.currentTimeMillis();
 		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.backBelts.moveBackBelts(pow);
-		 time = System.currentTimeMillis();
+		Robot.liftIntake.spinLiftIntake(1); 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if(time>=startTime+1000) {
-			return true;
-		}
-		else
-			return false;
+		return false;
 	}
 
 	// Called once after isFinished returns true

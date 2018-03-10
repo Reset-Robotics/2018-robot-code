@@ -23,7 +23,7 @@ public class SpinIntakeWheelsBack extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(-1);
+		Robot.intake.setIntakePower(-0.7);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -44,7 +44,9 @@ public class Lift extends Subsystem {
 	public Lift() {
 		this.leftSlave.follow(leftMaster);
 		this.rightSlave.follow(rightMaster);
-		this.rightMaster.setInverted(true);
+		leftSlave.setInverted(false);
+		leftMaster.setInverted(true);
+	 	this.rightMaster.setInverted(false);
 		this.rightSlave.setInverted(true);
 		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -94,7 +96,7 @@ public class Lift extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new JoystickLift());
+		setDefaultCommand(new JoystickLift());
 		
 	}
 

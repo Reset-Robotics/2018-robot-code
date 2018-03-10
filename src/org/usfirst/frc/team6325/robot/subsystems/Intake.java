@@ -9,11 +9,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
-	WPI_VictorSPX leftIntakeWheel = new WPI_VictorSPX(RobotMap.leftIntakeWheel);
-	WPI_VictorSPX rightIntakeWheel = new WPI_VictorSPX(RobotMap.rightIntakeWheel);
+	Spark leftIntakeWheel = new Spark(RobotMap.leftIntakeWheel);
+	Spark rightIntakeWheel = new Spark (RobotMap.rightIntakeWheel);
 	private DoubleSolenoid intakePiston = new DoubleSolenoid(RobotMap.INTAKE[0], RobotMap.INTAKE[1]);
 	
 	public Intake() {

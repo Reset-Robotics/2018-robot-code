@@ -1,19 +1,28 @@
 
 package org.usfirst.frc.team6325.robot;
 
+import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
+import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
+import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
+import org.usfirst.frc.team6325.robot.commands.Drive.WaypointFollower;
+import org.usfirst.frc.team6325.robot.subsystems.BackBelts;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6325.robot.subsystems.Intake;
 import org.usfirst.frc.team6325.robot.subsystems.Lift;
@@ -32,13 +41,15 @@ public class Robot extends IterativeRobot {
 	public static final Lift lift = new Lift();
 	public static final Intake intake = new Intake();
 	public static final LiftIntake liftIntake = new LiftIntake();
+	public static final BackBelts backBelts = new BackBelts();
 	public static OI oi;
-
+	public double start;
+	//PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<AutoPosition> positionChooser = new SendableChooser<>();
 	SendableChooser<AutoPreference> preferenceChooser = new SendableChooser<>();
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -47,11 +58,20 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		chooser.addDefault("Default Auto", new ArcadeJoystickDrive());
-		chooser.addObject("SwitchTest", new MidSwitch('L'));
+		chooser.addDefault("Default Auto", new ArcadeJoystickDrive()); 
+		//chooser.addObject("SwitchTest", new MidSwitch('L'));
+		chooser.addObject("Baseline", new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/Baseline/Baseline_left_detailed.csv", 
+				                   "/home/lvuser/MotionProfiles/Baseline/Baseline_right_detailed.csv"));
+		//chooser.addObject("Waypoint Test", new WaypointFollower(Center.toLeftSwitch));
+		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE);
+		positionChooser.addObject(AutoPosition.LEFT.getName(), AutoPosition.LEFT);
+		positionChooser.addObject(AutoPosition.RIGHT.getName(), AutoPosition.RIGHT);
+		preferenceChooser.addDefault(AutoPreference.SWITCH.getName(), AutoPreference.SWITCH);
+		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
 		SmartDashboard.putData("Auto Preference", preferenceChooser);
+		
 	}
 
 	/**
@@ -82,15 +102,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
 		 String gameData;
 	     gameData = DriverStation.getInstance().getGameSpecificMessage();
 	     char switchSide = ' ';
-	     try {
+	    try {
 	       switchSide = gameData.charAt(0);
+	       System.err.println("Switch side = "+ switchSide);
 	        } catch (IndexOutOfBoundsException ex) {
 	         System.out.println("No Game Data");
-	        }
+	        } 
 	     AutoPosition position = positionChooser.getSelected();
+	     System.err.println("position = " + position);
 	     AutoPreference preference = preferenceChooser.getSelected();
 		 autonomousCommand = chooser.getSelected();
 		 switch (position.getName() + '-' + preference.getName()) {
@@ -109,8 +132,9 @@ public class Robot extends IterativeRobot {
          case "Right-Switch":
            //  autonomousCommand = new RightSwitch();
              break;
-         default: break;
+         default: break; 
      }
+		 
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -120,6 +144,10 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
+		start = System.currentTimeMillis();
+		Robot.drivetrain.resetEncoders();
+		Robot.intake.clampIn();
+		//Robot.drivetrain.shiftIn();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -130,6 +158,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
+		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
+		
+		/*
+		double time = System.currentTimeMillis();
+		if(time>=start+5000 && time <start+9000) {
+			Robot.drivetrain.drive(0.5, 0.5);
+		}
+		if (time>= start +9000) {
+			Robot.drivetrain.drive(0, 0);
+		}
+		*/
 	}
 
 	@Override
@@ -137,6 +177,8 @@ public class Robot extends IterativeRobot {
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
+		Robot.drivetrain.navx.zeroYaw();
+		Robot.drivetrain.resetEncoders();
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
@@ -148,6 +190,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
+		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
+		SmartDashboard.putNumber("Enc value left lift", Robot.lift.getQuadPos(0));
+		SmartDashboard.putNumber("Enc value right right", Robot.lift.getQuadPos(1));
+		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
+		
+		
+		
 	}
 
 	/**
