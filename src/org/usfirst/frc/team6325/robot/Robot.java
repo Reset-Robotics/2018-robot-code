@@ -69,6 +69,7 @@ public class Robot extends IterativeRobot {
 		positionChooser.addObject(AutoPosition.RIGHT.getName(), AutoPosition.RIGHT);
 		preferenceChooser.addDefault(AutoPreference.SWITCH.getName(), AutoPreference.SWITCH);
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
+		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
 		SmartDashboard.putData("Auto Preference", preferenceChooser);

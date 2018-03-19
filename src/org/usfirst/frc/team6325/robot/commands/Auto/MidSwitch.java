@@ -13,8 +13,8 @@ public class MidSwitch extends CommandGroup {
 
         if(side == 'R') {
         	System.err.println("right side initiated");
-            addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/NewMidRightSwitch/NewMidRightSwitch_left_detailed.csv",
-                    "/home/lvuser/MotionProfiles/NewMidRightSwitch/NewMidRightSwitch_right_detailed.csv"));
+            addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MidRightSwitch/MidRightSwitch_left_detailed.csv",
+                    "/home/lvuser/MotionProfiles/MidRightSwitch/MidRightSwitch_right_detailed.csv"));
             addSequential(new BackIntakeForward(-0.5));
         }
         else if(side == 'L'){

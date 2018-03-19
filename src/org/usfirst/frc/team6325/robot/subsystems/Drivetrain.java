@@ -70,24 +70,24 @@ public class Drivetrain extends Subsystem implements PIDOutput{
 		this.rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		// Inverse motors
 		
-		this.rightDriveMaster.setInverted(false);
+		this.rightDriveMaster.setInverted(true);
 		this.backRight.setInverted(true);
 		this.frontRight.setInverted(true);
 		this.leftDriveMaster.setInverted(false);
 		this.backLeft.setInverted(false);
 		this.frontLeft.setInverted(true);
-		rightDriveMaster.setSensorPhase(true);
+		this.rightDriveMaster.setSensorPhase(false);
 		//leftDriveMaster.setSensorPhase(true);
 
 		// Set Talon Mode
 		this.leftDriveMaster.setNeutralMode(NeutralMode.Brake);
         this.rightDriveMaster.setNeutralMode(NeutralMode.Brake);
 		// Current Limiting
-		this.leftDriveMaster.configContinuousCurrentLimit(30,0); // desired current after limit
+		this.leftDriveMaster.configContinuousCurrentLimit(40,0); // desired current after limit
 		this.leftDriveMaster.configPeakCurrentLimit(35, 0); // max current
 		this.leftDriveMaster.configPeakCurrentDuration(100, 0); // how long after max current to be limited (ms)
 		this.leftDriveMaster.enableCurrentLimit(true);
-		this.rightDriveMaster.configContinuousCurrentLimit(30,0); // desired current after limit
+		this.rightDriveMaster.configContinuousCurrentLimit(40,0); // desired current after limit
 		this.rightDriveMaster.configPeakCurrentLimit(35, 0); // max current
 		this.rightDriveMaster.configPeakCurrentDuration(100, 0); // how long after max current to be limited (ms)
 		this.rightDriveMaster.enableCurrentLimit(true);
@@ -155,7 +155,7 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         //return (leftDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
     public float getAngle() {
-    	return -navx.getYaw();
+    	return navx.getYaw();
     }
     public double getEncoderRawLeft() {
         return leftDriveMaster.getSelectedSensorPosition(0);
@@ -270,6 +270,7 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         turnController.setOutputRange(-1.0, 1.0);
         turnController.setAbsoluteTolerance(turnThreshold);
         turnController.setContinuous(true);
+        turnController.setSetpoint(angle);
         turnController.enable();
 	}
 	
@@ -296,7 +297,7 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         public static final double wheel_diameter = 0.5;
         public static final double wheel_base_width = 27.11/12.0;
         public static final double wheel_circumference = 6*Math.PI;
-        public static final int ticks_per_rev = 4096; // CTRE Mag Encoder
+        public static final int ticks_per_rev = 4096*7; // CTRE Mag Encoder
         public static final double distancePerPulse = (wheel_diameter*Math.PI)/ticks_per_rev;
         public static final double dt = 0.05;
 	}

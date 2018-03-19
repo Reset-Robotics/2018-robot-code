@@ -11,7 +11,7 @@ public class AutoSwitchTurn extends Command {
 	boolean done = false;
 	
 	public AutoSwitchTurn() {
-		
+		requires(Robot.drivetrain);
 	}
 	
 	protected void initialize() {

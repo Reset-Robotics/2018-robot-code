@@ -9,7 +9,7 @@ public class SimpleAutoSwitch extends CommandGroup {
 
 	public SimpleAutoSwitch() {
 		addSequential(new MoveDistance(0.5, 0.5));
-		addSequential(new AutoSwitchTurn());
+		addSequential(new TurnToAngle(45));
 		addSequential(new MoveDistance(1, 0.5));
 		addSequential(new TurnToAngle(0));
 		addSequential(new MoveDistance(2, 0.5));

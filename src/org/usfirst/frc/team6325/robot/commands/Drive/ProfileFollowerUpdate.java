@@ -49,13 +49,8 @@ public class ProfileFollowerUpdate extends Command {
         right.configureEncoder(rightMotor.getSelectedSensorPosition(0), 4096*7, 0.5);
 
         double max_velocity = 1.0 / 4.0;
-        left.configurePIDVA(0.9, 0.0, 0.7, max_velocity, 0);
-        right.configurePIDVA(0.9, 0.0, 0.7, max_velocity, 0);
-        try {
-           Robot.drivetrain.navx.zeroYaw();
-        } catch (NullPointerException npe) {
-            npe.printStackTrace();
-        }
+        left.configurePIDVA(2.0, 0.0, 0.7, max_velocity, 0);
+        right.configurePIDVA(2.0, 0.0, 0.7, max_velocity, 0);
     }
 
     /**
@@ -95,20 +90,12 @@ public class ProfileFollowerUpdate extends Command {
         //DriveTrain._rightMain.configOpenloopRamp(0, 500);
         double l = left.calculate(leftMotor.getSelectedSensorPosition(0));
         double r = right.calculate(rightMotor.getSelectedSensorPosition(0));
-        double gyro_heading;
-        try {
-            gyro_heading = Robot.drivetrain.getAngle();
-        } catch(NullPointerException npe) {
-            gyro_heading = 0;
-        }
+        double gyro_heading = Robot.drivetrain.getAngle();
         double desired_heading = Pathfinder.r2d(left.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-        double turn = 0.8 * (-1.0/80.0) * angleDifference;
+        double turn = 1.5 * (-1.0/80.0) * angleDifference;
         System.out.println("Left: " + (l+turn));// + turn));
         System.out.println("Right: " + (r-turn));// - turn));
-       // Robot._driveTrain.tankDrive(l, r, false, 0);
-        //leftMotor.set(ControlMode.PercentOutput, l + turn);// + turn);
-        //rightMotor.set(ControlMode.PercentOutput, (r - turn));// - turn));
 
         Robot.drivetrain.drive(l+turn, r-turn);
 

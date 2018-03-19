@@ -48,8 +48,8 @@ public class Lift extends Subsystem {
 		leftMaster.setInverted(true);
 	 	this.rightMaster.setInverted(false);
 		this.rightSlave.setInverted(true);
-		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 		// Set Talon mode
 		this.leftMaster.setNeutralMode(NeutralMode.Brake);
 		this.rightMaster.setNeutralMode(NeutralMode.Brake);

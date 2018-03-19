@@ -10,6 +10,8 @@ public class TurnToAngle extends Command {
 	boolean done = false;
 	
 	public TurnToAngle(double angle) {
+		requires(Robot.drivetrain);
+		ang = angle;
 		
 	}
 	
