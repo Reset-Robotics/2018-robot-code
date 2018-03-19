@@ -18,6 +18,7 @@ import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
+import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
@@ -133,8 +134,12 @@ public class Robot extends IterativeRobot {
            //  autonomousCommand = new RightSwitch();
              break;
          default: break; 
+         
+         
      }
-		 
+		 if(preference.getName() == "Simple") {
+        	 autonomousCommand = new SimpleAutoSwitch();
+         }	 
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

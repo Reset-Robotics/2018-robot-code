@@ -15,6 +15,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -31,7 +33,7 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  *
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends Subsystem implements PIDOutput{
 	
 	public WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
 	public WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
@@ -44,6 +46,17 @@ public class Drivetrain extends Subsystem {
 	boolean isHighGear;
 	public Timer timer = new Timer();
 	boolean isProfileFinished = false;
+	
+	//the PID values used for turning to a specific angle
+	private final double turnP = 0.006;
+	private final double turnI = 0.0;
+	private final double turnD = 0.0;
+	private final double turnF = 0.0;
+	//how close the robot will try to get to the target angle before stopping
+	private final double turnThreshold = 5.0;
+	private double turnRate = 0.0;
+	
+	private PIDController turnController = new PIDController(turnP, turnI, turnD, turnF, navx, this);
 	 
 	
 	public Drivetrain() {
@@ -247,6 +260,26 @@ public class Drivetrain extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new TankJoystickDrive());
 	}
+	
+	public void autoTurn() {
+		drive(turnRate, -turnRate);
+	}
+	
+	public void autoTurnInit(double angle) {
+		turnController.setInputRange(-180.0f,  180.0f);
+        turnController.setOutputRange(-1.0, 1.0);
+        turnController.setAbsoluteTolerance(turnThreshold);
+        turnController.setContinuous(true);
+        turnController.enable();
+	}
+	
+	public void autoTurnStop() {
+		turnController.disable();
+	}
+	
+	public void pidWrite(double output) {
+        turnRate = output;
+    }
 	
 	public static class MotionProfiling {
 		 //TODO: TUNE CONSTANTS
