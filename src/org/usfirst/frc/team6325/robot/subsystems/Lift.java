@@ -13,10 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem {
-	WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftMaster);
-	WPI_VictorSPX leftSlave = new WPI_VictorSPX(RobotMap.leftBackWheel);
-	WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMaster);
-	WPI_VictorSPX rightSlave = new WPI_VictorSPX(RobotMap.rightBackWheel);
+	public WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftMaster);
+	public WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMaster);
 	private static final int CRUISE_VELOCITY = 17600; // 1024
 	private static final int CRUISE_ACCELERATION = 11000; // 1024
 	private static final int CRUISE_VELOCITY_DOWN = (int) (CRUISE_VELOCITY * 0.7); // 1024
@@ -25,8 +23,8 @@ public class Lift extends Subsystem {
 	public enum Positions {
         Intake(300),
         Driving(25000),
-        ScoreSwitch(50000),
-        ScoreScale(70000),
+        ScoreSwitch(14000),
+        ScoreScale(20000),
         ScoreScaleLow(60000),
         ScoreScaleHigh(72000),
         ClimbingBar(67500),
@@ -42,18 +40,14 @@ public class Lift extends Subsystem {
         }
     }
 	public Lift() {
-		this.leftSlave.follow(leftMaster);
-		this.rightSlave.follow(rightMaster);
-		leftSlave.setInverted(false);
-		leftMaster.setInverted(true);
-	 	this.rightMaster.setInverted(false);
-		this.rightSlave.setInverted(true);
-		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		this.leftMaster.setInverted(false);
+	 	this.rightMaster.setInverted(true);
+		this.leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		this.rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		// Set Talon mode
 		this.leftMaster.setNeutralMode(NeutralMode.Brake);
 		this.rightMaster.setNeutralMode(NeutralMode.Brake);
-		configPIDF(0,0,0,0); // TUNE VALUES
+		configPIDF(0.05,0,0,0.38); // TUNE VALUES
 		configMotionMagic(CRUISE_VELOCITY, CRUISE_ACCELERATION);
 	}
 	public int getQuadPos(int side) {
@@ -67,6 +61,10 @@ public class Lift extends Subsystem {
 		} */
 		rightMaster.set(ControlMode.PercentOutput, pow);
 		leftMaster.set(ControlMode.PercentOutput, pow);
+	}
+	public void resetEncoders() {
+		leftMaster.setSelectedSensorPosition(0, 0, 0);
+		rightMaster.setSelectedSensorPosition(0, 0, 0);
 	}
 	public void moveToPos(int pos) {
 		leftMaster.set(ControlMode.Position, pos);

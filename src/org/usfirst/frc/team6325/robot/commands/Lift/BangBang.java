@@ -26,10 +26,10 @@ public class BangBang extends Command {
 	@Override
 	protected void execute() {
 		if(Robot.lift.getQuadPos(0) < setpoint) {
-			Robot.lift.moveLift(1);
+			Robot.lift.moveLift(0.7);
 		}
 		else 
-			Robot.lift.moveLift(-1);
+			Robot.lift.moveLift(-0.7);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

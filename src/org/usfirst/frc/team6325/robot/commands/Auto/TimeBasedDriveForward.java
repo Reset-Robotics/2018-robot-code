@@ -1,42 +1,42 @@
-
 package org.usfirst.frc.team6325.robot.commands.Auto;
 
 import org.usfirst.frc.team6325.robot.Robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnToAngle extends Command {
+public class TimeBasedDriveForward extends Command {
 
-	double ang = 0.0;
-	boolean done = false;
-	
-	public TurnToAngle(double angle) {
+	double time = 0.0;
+	double start = 0.0, currentTime = 0.0, leftPower = 0.0, rightPower = 0.0;
+
+	public TimeBasedDriveForward(double leftPower, double rightPower, double time) {
 		requires(Robot.drivetrain);
-		ang = angle;
+		this.leftPower = leftPower;
+		this.rightPower = rightPower;
+		this.time = time;
+	
 		
 	}
 	
 	protected void initialize() {
-    	Robot.drivetrain.autoTurnInit(ang);
+		start = System.currentTimeMillis();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.autoTurn();
-    	
-    	if(Math.abs(Robot.drivetrain.getAngle() - ang) <= 5) {
-    		done = true;
-    	}
+    	 currentTime = System.currentTimeMillis();
+    	 Robot.drivetrain.drive(leftPower, rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return done;
+        return (currentTime>=start+time);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.autoTurnStop();
     	Robot.drivetrain.killMotors();
     }
 

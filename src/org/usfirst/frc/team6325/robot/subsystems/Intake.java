@@ -23,7 +23,7 @@ public class Intake extends Subsystem {
 
 	public void setIntakePower(double power) {
 		leftIntakeWheel.set(power);
-		rightIntakeWheel.set(-power);
+		rightIntakeWheel.set(power);
 	}
 	public void clampIn() {
 		intakePiston.set(Value.kForward);

@@ -17,11 +17,13 @@ import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
+import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
+import org.usfirst.frc.team6325.robot.commands.Drive.ResetGyro;
 import org.usfirst.frc.team6325.robot.commands.Drive.WaypointFollower;
 import org.usfirst.frc.team6325.robot.subsystems.BackBelts;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
@@ -44,7 +46,7 @@ public class Robot extends IterativeRobot {
 	public static final LiftIntake liftIntake = new LiftIntake();
 	public static final BackBelts backBelts = new BackBelts();
 	public static OI oi;
-	public double start;
+	public double start, time;
 	//PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -58,21 +60,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		// chooser.addObject("My Auto", new MyAutoCommand());
 		chooser.addDefault("Default Auto", new ArcadeJoystickDrive()); 
-		//chooser.addObject("SwitchTest", new MidSwitch('L'));
-		chooser.addObject("Baseline", new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/Baseline/Baseline_left_detailed.csv", 
-				                   "/home/lvuser/MotionProfiles/Baseline/Baseline_right_detailed.csv"));
-		//chooser.addObject("Waypoint Test", new WaypointFollower(Center.toLeftSwitch));
 		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE);
 		positionChooser.addObject(AutoPosition.LEFT.getName(), AutoPosition.LEFT);
 		positionChooser.addObject(AutoPosition.RIGHT.getName(), AutoPosition.RIGHT);
 		preferenceChooser.addDefault(AutoPreference.SWITCH.getName(), AutoPreference.SWITCH);
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
+		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
 		SmartDashboard.putData("Auto Preference", preferenceChooser);
+		SmartDashboard.putData("Reset Gyro", new ResetGyro());
 		
 	}
 
@@ -118,6 +117,7 @@ public class Robot extends IterativeRobot {
 	     System.err.println("position = " + position);
 	     AutoPreference preference = preferenceChooser.getSelected();
 		 autonomousCommand = chooser.getSelected();
+		 
 		 switch (position.getName() + '-' + preference.getName()) {
          case "Left-Scale":
             // autonomousCommand = new LeftScale();
@@ -128,8 +128,8 @@ public class Robot extends IterativeRobot {
          case "Middle-Switch":
              autonomousCommand = new MidSwitch(switchSide);
              break;
-         case "Right-Scale":
-            // autonomousCommand = new RightScale();
+         case "Middle-Simple":
+            autonomousCommand = new SimpleAutoSwitch(switchSide);
              break;
          case "Right-Switch":
            //  autonomousCommand = new RightSwitch();
@@ -137,11 +137,13 @@ public class Robot extends IterativeRobot {
          default: break; 
          
          
-     }
-		 if(preference.getName() == "Simple") {
-        	 autonomousCommand = new SimpleAutoSwitch();
+         
+     } 
+		 if(preference.getName() == "Baseline") {
+        	 autonomousCommand = new Baseline();
          }	 
 
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -149,10 +151,12 @@ public class Robot extends IterativeRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
-		// schedule the autonomous command (example)
-		start = System.currentTimeMillis();
+
+		
+		//start = System.currentTimeMillis();
 		Robot.drivetrain.resetEncoders();
 		Robot.intake.clampIn();
+		Robot.drivetrain.navx.zeroYaw();
 		//Robot.drivetrain.shiftIn();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -166,16 +170,17 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
+		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
 		
-		/*
-		double time = System.currentTimeMillis();
+	   /* time = System.currentTimeMillis();
 		if(time>=start+5000 && time <start+9000) {
 			Robot.drivetrain.drive(0.5, 0.5);
 		}
 		if (time>= start +9000) {
 			Robot.drivetrain.drive(0, 0);
-		}
+		} 
 		*/
+		
 	}
 
 	@Override
@@ -185,12 +190,13 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		Robot.drivetrain.navx.zeroYaw();
 		Robot.drivetrain.resetEncoders();
+		Robot.lift.resetEncoders();
 		// this line or comment it out.
-		if (autonomousCommand != null)
+		if (autonomousCommand != null)   
 			autonomousCommand.cancel();
 	}
 
-	/**
+	/**...
 	 * This function is called periodically during operator control
 	 */
 	@Override
@@ -198,9 +204,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
-		SmartDashboard.putNumber("Enc value left lift", Robot.lift.getQuadPos(0));
-		SmartDashboard.putNumber("Enc value right right", Robot.lift.getQuadPos(1));
+		SmartDashboard.putNumber("Enc value left lift", Robot.lift.leftMaster.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Enc value right Lift", Robot.lift.rightMaster.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
+		SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.navx.getAngle());	
 		
 		
 		

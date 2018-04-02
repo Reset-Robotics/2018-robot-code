@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RunLiftMotionMagic extends Command {
+public class RunLiftPosition extends Command {
 	private Lift.Positions position;
 
-    public RunLiftMotionMagic(Lift.Positions pos) {
+    public RunLiftPosition(Lift.Positions pos) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.lift);
         this.position = pos;
@@ -20,7 +20,7 @@ public class RunLiftMotionMagic extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.lift.moveLift(0);
-    	Robot.lift.moveToPositionMotionMagic(this.position.getPosition());
+    	Robot.lift.moveToPos(this.position.getPosition());
     }
 
     // Called repeatedly when this Command is scheduled to run

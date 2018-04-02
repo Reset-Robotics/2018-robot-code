@@ -8,11 +8,9 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class LiftIntake extends Command {
-	double pow;
-	public LiftIntake(double pow) {
+public class JoystickLiftIntake extends Command {
+	public JoystickLiftIntake() {
 		// Use requires() here to declare subsystem dependencies
-		this.pow = pow;
 		requires(Robot.liftIntake);
 	}
 
@@ -25,7 +23,7 @@ public class LiftIntake extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.liftIntake.spinLiftIntake(pow); 
+		Robot.liftIntake.spinLiftIntake(Robot.oi.operator.getRawAxis(5));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,7 +35,6 @@ public class LiftIntake extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.liftIntake.spinLiftIntake(0);
 		
 	}
 
@@ -45,7 +42,6 @@ public class LiftIntake extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		end();
 		
 	}
 }

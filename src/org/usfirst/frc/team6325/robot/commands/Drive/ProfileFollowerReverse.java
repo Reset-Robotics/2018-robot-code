@@ -98,8 +98,9 @@ public class ProfileFollowerReverse extends Command {
         double angleDifference = (desired_heading - gyro_heading);
         double turn = -1 * 0.8 * (-1.0/80.0) * angleDifference;
         System.out.println("Current heading " + gyro_heading + "Desired heading " + desired_heading + "Angle difference " + angleDifference);
-        System.out.println("Left: " + (l+turn));// + turn));
-        System.out.println("Right: " + (r-turn));// - turn))
+        
+        System.out.println("Left: " + (-l+turn));
+        System.out.println("Right: " + (-r-turn));
 
         Robot.drivetrain.drive(-l+turn, -r-turn);
 

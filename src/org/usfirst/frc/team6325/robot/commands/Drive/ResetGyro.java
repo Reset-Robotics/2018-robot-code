@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6325.robot.commands.Lift;
+package org.usfirst.frc.team6325.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,36 +8,33 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class LiftIntake extends Command {
-	double pow;
-	public LiftIntake(double pow) {
+public class ResetGyro extends Command {
+	public ResetGyro() {
 		// Use requires() here to declare subsystem dependencies
-		this.pow = pow;
-		requires(Robot.liftIntake);
+		requires(Robot.drivetrain);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		
+		Robot.drivetrain.resetGyro();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.liftIntake.spinLiftIntake(pow); 
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.liftIntake.spinLiftIntake(0);
 		
 	}
 
@@ -45,7 +42,6 @@ public class LiftIntake extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		end();
 		
 	}
 }

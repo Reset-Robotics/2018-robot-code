@@ -35,6 +35,7 @@ public class LiftIntakeReverse extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.liftIntake.spinLiftIntake(0);
 		
 	}
 
@@ -42,6 +43,7 @@ public class LiftIntakeReverse extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		end();
 		
 	}
 }

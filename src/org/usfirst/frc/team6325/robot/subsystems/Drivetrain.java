@@ -1,12 +1,11 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import java.io.File;
-
-
 import org.usfirst.frc.team6325.robot.RobotMap;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -128,7 +127,6 @@ public class Drivetrain extends Subsystem implements PIDOutput{
 
     public void resetGyro() {
     	navx.zeroYaw();
-    	navx.reset();
     }
     
     public double getLeftVelocity() {
@@ -164,6 +162,15 @@ public class Drivetrain extends Subsystem implements PIDOutput{
     public double getEncoderRawRight() {
         return rightDriveMaster.getSelectedSensorPosition(0);
     }
+    
+    public boolean turnToAngle(double angle) {
+        double error = angle - navx.getAngle();
+        double turn = 1.5 * (-1.0/80.0) * error;
+        this.leftDriveMaster.set(ControlMode.PercentOutput, turn);
+        this.rightDriveMaster.set(ControlMode.PercentOutput, -turn);
+        SmartDashboard.putNumber("turn to angle error", error);
+        return Math.abs(error) <= 5;
+    }
     public double generateHashCode(Waypoint[] path) {
         double hash = 1.0;
         for(int i = 0; i < path.length; i ++) {
@@ -171,6 +178,7 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         }
         return (int)Math.abs(hash * 100);
     }
+    
   
     public EncoderFollower[] initPath(String leftCSV, String rightCSV) {
     	File leftMotionProfile = new File(leftCSV);

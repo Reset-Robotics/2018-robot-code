@@ -2,6 +2,7 @@ package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
 import org.usfirst.frc.team6325.robot.commands.Lift.JoystickBackIntake;
+import org.usfirst.frc.team6325.robot.commands.Lift.JoystickLiftIntake;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -23,6 +24,7 @@ public class LiftIntake extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new JoystickLiftIntake());
 		
 		
 	}

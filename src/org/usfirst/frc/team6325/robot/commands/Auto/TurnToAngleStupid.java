@@ -5,27 +5,39 @@ import org.usfirst.frc.team6325.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnToAngle extends Command {
+public class TurnToAngleStupid extends Command {
 
 	double ang = 0.0;
+	double diff = 0.0;
 	boolean done = false;
 	
-	public TurnToAngle(double angle) {
+	public TurnToAngleStupid(double angle) {
 		requires(Robot.drivetrain);
 		ang = angle;
 		
 	}
 	
 	protected void initialize() {
-    	Robot.drivetrain.autoTurnInit(ang);
+		diff = ang - Robot.drivetrain.getAngle();
+		
+		if(diff > 0) {
+			Robot.drivetrain.drive(0.3, -0.3);
+		} else {
+			Robot.drivetrain.drive(-0.3, 0.3);
+		}
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.autoTurn();
-    	
-    	if(Math.abs(Robot.drivetrain.getAngle() - ang) <= 5) {
-    		done = true;
+    	if(diff > 0) {
+    		if(Robot.drivetrain.getAngle() > ang) {
+    			done = true;
+    		}
+    	} else {
+    		if(Robot.drivetrain.getAngle() < ang) {
+    			done = true;
+    		}
     	}
     }
 

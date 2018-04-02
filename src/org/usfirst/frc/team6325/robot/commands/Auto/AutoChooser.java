@@ -20,7 +20,8 @@ public class AutoChooser {
 	public enum AutoPreference {
 	    SCALE("Scale"),
 	    SWITCH("Switch"),
-		SIMPLE("Simple");
+		SIMPLE("Simple"),
+		BASELINE("Baseline");
 
 	    private final String name;
 

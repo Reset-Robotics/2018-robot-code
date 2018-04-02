@@ -17,9 +17,7 @@ public class RobotMap {
 	public static int backLeft = 8;
 	// Lift Motors
 	public static int leftMaster = 0; 
-	public static int leftBackWheel = 5;
 	public static int rightMaster = 1; 
-	public static int rightBackWheel = 6;
 	// PWM Motors
 	public static int backBelts = 0;
 	public static int rightIntakeWheel = 1;

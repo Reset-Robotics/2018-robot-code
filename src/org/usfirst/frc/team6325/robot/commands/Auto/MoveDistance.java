@@ -9,21 +9,27 @@ public class MoveDistance extends Command {
 	private double dist;
 	private double spd;
 	private boolean done = false;
+	double start, time, timeout;
 	
-	public MoveDistance(double meters, double speed) {
+	public MoveDistance(double meters, double speed, double timeout) {
 		dist = meters;
 		spd = speed;
+		this.timeout = timeout;
 		requires(Robot.drivetrain);
 	}
 	
 	protected void initialize() {
     	Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.drive(spd, spd);
+    	start = System.currentTimeMillis();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.drivetrain.getEncoderDistanceMetersLeft() >= dist) {
+    	time = System.currentTimeMillis();
+    	if(Robot.drivetrain.getEncoderDistanceMetersLeft() >= dist  || time-start >= timeout) {
+   
     		done = true;
     		Robot.drivetrain.killMotors();
     	}
@@ -37,12 +43,13 @@ public class MoveDistance extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.killMotors();
+    	Robot.drivetrain.resetEncoders();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.drivetrain.killMotors();
+    	end();
     }
 
 }
