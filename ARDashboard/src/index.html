@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC Dashboard</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="clockContainer">
+    <svg id="clockSvg" width="1280" height="100">
+      <rect id="timeBar" x="40" y="10" width="1200" height="80" rx="10" ry="10" fill="green"></rect>
+      <text id="timeText" x="640" y="50" font-size="40" fill="#FFFFFF" text-anchor="middle" alignment-baseline="middle">2:15</text>
+    </svg>
+  </div>
+    <div class="rootContainer">
+      <div class="leftContainer">
+        <div id="camera"></div>
+      </div>
+      <div class="rightContainer">
+        <h2 id="connected">Disconnected<h2>
+        <h2>time: <span id="clock">12:15</span></h1>
+        <h2>batt: <span id="batt">12.0v</span></h1>
+        <h2>gear: <span id="gear">low</span></h2>
+        <h2>intake: <span id="intake">in</span></h2>
+      </div>
+    </div>
+    <div id="login">
+        <input id="connect-address" type="text" value="localhost" disabled>
+        <button id="connect" disabled>Connecting</button>
+    </div>
+    <script src="networktables/networktables.js"></script>
+    <script src="connection.js"></script>
+    <script src="ui.js"></script>
+</body>
+
+</html>
