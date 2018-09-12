@@ -1,23 +1,28 @@
 package org.usfirst.frc.team6325.robot.commands.Auto;
 
-public class AutoChooser {
-	public enum AutoPosition {
+public class AutoChooser 
+{
+	public enum AutoPosition 
+	{
 	    LEFT("Left"),
 	    MIDDLE("Middle"),
 	    RIGHT("Right");
 
 	    private final String name;
 
-	    AutoPosition(String name) {
+	    AutoPosition(String name) 
+	    {
 	    	this.name = name; 
 	    }
 
-	    public String getName() {
+	    public String getName() 
+	    {
 	        return name;
 	    }
 	}
 
-	public enum AutoPreference {
+	public enum AutoPreference 
+	{
 	    SCALE("Scale"),
 	    SWITCH("Switch"),
 		SIMPLE("Simple"),
@@ -25,14 +30,35 @@ public class AutoChooser {
 
 	    private final String name;
 
-	    AutoPreference(String name){
+	    AutoPreference(String name)
+	    {
 	        this.name = name;
 	    }
 
-	    public String getName() {
+	    public String getName() 
+	    {
 	        return name;
 	    }
+	}
+	
+	public enum AutoObjective 
+	{
+	    ONECUBE("OneCube"),
+	    TWOCUBE("TwoCube"),
+		THREECUBE("ThreeCube"),
+		ONEONE("OneOne"),
+		ONETWO("OneTwo");
 
+	    private final String name;
 
+	    AutoObjective(String name)
+	    {
+	        this.name = name;
+	    }
+
+	    public String getName() 
+	    {
+	        return name;
+	    }
 	}
 }

@@ -17,6 +17,8 @@ import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoObjective;
+
 import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
@@ -38,7 +40,8 @@ import org.usfirst.frc.team6325.robot.subsystems.LiftIntake;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot 
+{
 
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Lift lift = new Lift();
@@ -52,13 +55,15 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<AutoPosition> positionChooser = new SendableChooser<>();
 	SendableChooser<AutoPreference> preferenceChooser = new SendableChooser<>();
+	SendableChooser<AutoObjective> objectiveChooser = new SendableChooser<>();
 	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
+	public void robotInit() 
+	{
 		oi = new OI();
 		chooser.addDefault("Default Auto", new ArcadeJoystickDrive()); 
 		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE);
@@ -68,9 +73,16 @@ public class Robot extends IterativeRobot {
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
-		SmartDashboard.putData("Auto mode", chooser);
+		objectiveChoooser.addDefault(AutoObjective.ONECUBE.getName(), AutoObjective.ONECUBE);
+		objectiveChoooser.addObject(AutoObjective.TWOCUBE.getName(), AutoObjective.TWOCUBE);
+		objectiveChoooser.addObject(AutoObjective.THREECUBE.getName(), AutoObjective.THREECUBE);
+		objectiveChoooser.addObject(AutoObjective.ONEONE.getName(), AutoObjective.ONEONE);
+		objectiveChoooser.addObject(AutoObjective.ONETWO.getName(), AutoObjective.ONETWO);
+
+		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
 		SmartDashboard.putData("Auto Preference", preferenceChooser);
+		SmartDashboard.putData("Auto Objective", objectiveChooser);
 		SmartDashboard.putData("Reset Gyro", new ResetGyro());
 		
 	}
@@ -81,12 +93,14 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
+	public void disabledInit() 
+	{
 
 	}
 
 	@Override
-	public void disabledPeriodic() {
+	public void disabledPeriodic() 
+	{
 		Scheduler.getInstance().run();
 	}
 
@@ -102,44 +116,129 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit() 
+	{
 		
 		 String gameData;
 	     gameData = DriverStation.getInstance().getGameSpecificMessage();
 	     char switchSide = ' ';
-	    try {
+	     char scaleSide = ' ';
+	     try 
+	     {
 	       switchSide = gameData.charAt(0);
-	       System.err.println("Switch side = "+ switchSide);
-	        } catch (IndexOutOfBoundsException ex) {
+	       System.err.println("Switch Side = "+ switchSide);
+	       scaleSide = gameData.charAt(1);
+	       System.err.println("Scale Side = "+ scaleSide);
+	     } 
+	     catch (IndexOutOfBoundsException ex) 
+	     {
 	         System.out.println("No Game Data");
-	        } 
+	     } 
 	     AutoPosition position = positionChooser.getSelected();
 	     System.err.println("position = " + position);
 	     AutoPreference preference = preferenceChooser.getSelected();
+	     System.err.println("preference = " + preference);
+	     AutoObjective objective = preferenceChooser.getSelected();
+	     System.err.println("preference = " + preference);
 		 autonomousCommand = chooser.getSelected();
 		 
-		 switch (position.getName() + '-' + preference.getName()) {
-         case "Left-Scale":
-            // autonomousCommand = new LeftScale();
+		 switch (position.getName() + '-' + preference.getName() + '-' + objective.getName()) 
+		 {
+         case "Left-Scale-OneCube":
+        	 // autonomousCommand = new LeftScale.One(scaleSide);
              break;
-         case "Left-Switch":
-            // autonomousCommand = new LeftSwitch();
+         case "Left-Scale-TwoCube":
+        	 // autonomousCommand = new LeftScale.Two(scaleSide);
              break;
-         case "Middle-Switch":
+         case "Left-Scale-ThreeCube":
+             // autonomousCommand = new LeftScale.Three(scaleSide);
+             break;
+         case "Left-Scale-OneOne":
+             // autonomousCommand = new LeftScale.OneOne(scaleSide);
+             break;
+         case "Left-Scale-OneTwo":
+             // autonomousCommand = new LeftScale.OneTwo(scaleSide);
+             break;
+         case "Right-Scale-OneCube":
+             // autonomousCommand = new RightScale.One(scaleSide);
+             break;
+         case "Right-Scale-TwoCube":
+             // autonomousCommand = new RightScale.Two(scaleSide);
+             break;
+         case "Right-Scale-ThreeCube":
+             // autonomousCommand = new RightScale.Three(scaleSide);
+             break;
+         case "Right-Scale-OneOne":
+             // autonomousCommand = new RightScale.OneOne(scaleSide);
+             break;
+         case "Right-Scale-OneTwo":
+             // autonomousCommand = new RightScale.OneTwo(scaleSide);
+             break;
+         case "Middle-Scale-OneCube":
+             // autonomousCommand = new MiddleScale.One(scaleSide);
+             break;
+         case "Middle-Scale-TwoCube":
+             // autonomousCommand = new MiddleScale.Two(scaleSide);
+             break;
+         case "Middle-Scale-ThreeCube":
+             // autonomousCommand = new MiddleScale.Three(scaleSide);
+             break;
+         case "Middle-Scale-OneOne":
+             // autonomousCommand = new MiddleScale.OneOne(scaleSide);
+             break;
+         case "Middle-Scale-OneTwo":
+             // autonomousCommand = new MiddleScale.OneTwo(scaleSide);
+             break;
+         case "Left-Switch-OneCube":
+             // autonomousCommand = new LeftSwitch.One(scaleSide);
+             break;
+         case "Left-Switch-TwoCube":
+             // autonomousCommand = new LeftSwitch.Two(scaleSide);
+             break;
+         case "Left-Switch-ThreeCube":
+             // autonomousCommand = new LeftSwitch.Three(scaleSide);
+             break;
+         case "Left-Switch-OneOne":
+             // autonomousCommand = new LeftSwitch.OneOne(scaleSide);
+             break;
+         case "Left-Switch-OneTwo":
+             // autonomousCommand = new LeftSwitch.OneTwo(scaleSide);
+             break;
+         case "Middle-Switch-OneCube":
              autonomousCommand = new MidSwitch(switchSide);
              break;
-         case "Middle-Simple":
-            autonomousCommand = new SimpleAutoSwitch(switchSide);
+         case "Middle-Switch-TwoCube":
+             // autonomousCommand = new MidSwitch.Two(switchSide)();
              break;
-         case "Right-Switch":
-           //  autonomousCommand = new RightSwitch();
+         case "Middle-Switch-ThreeCube":
+             // autonomousCommand = new MidSwitch.Three(switchSide)();
+             break;
+         case "Middle-Switch-OneOne":
+             // autonomousCommand = new MidSwitch.OneOne(switchSide)();
+             break;
+         case "Middle-Switch-OneTwo":
+             // autonomousCommand = new MidSwitch.OneTwo(switchSide)();
+             break;
+         case "Right-Switch-OneCube":
+             //  autonomousCommand = new RightSwitch.One(switchSide);
+             break;
+         case "Right-Switch-TwoCube":
+             //  autonomousCommand = new RightSwitch.Two(switchSide);
+             break;
+         case "Right-Switch-ThreeCube":
+             //  autonomousCommand = new RightSwitch.Three(switchSide);
+             break;
+         case "Right-Switch-OneOne":
+             //  autonomousCommand = new RightSwitch.OneOne(switchSide);
+             break;
+         case "Right-Switch-OneTwo":
+             //  autonomousCommand = new RightSwitch.OneTwo(switchSide);
              break;
          default: break; 
-         
-         
-         
-     } 
-		 if(preference.getName() == "Baseline") {
+         }
+		 
+		 if(preference.getName() == "Baseline") 
+		 {
         	 autonomousCommand = new Baseline();
          }	 
 
@@ -166,7 +265,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	@Override
-	public void autonomousPeriodic() {
+	public void autonomousPeriodic() 
+	{
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
@@ -184,7 +284,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void teleopInit() {
+	public void teleopInit() 
+	{
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -200,7 +301,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	@Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() 
+	{
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
@@ -217,7 +319,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during test mode
 	 */
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() 
+	{
 		LiveWindow.run();
 	}
 }
