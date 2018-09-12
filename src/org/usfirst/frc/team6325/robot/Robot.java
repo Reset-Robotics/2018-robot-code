@@ -19,8 +19,10 @@ import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoObjective;
 
-import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
+//import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MidSwitchOneCube;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
@@ -205,7 +207,7 @@ public class Robot extends IterativeRobot
              // autonomousCommand = new LeftSwitch.OneTwo(scaleSide);
              break;
          case "Middle-Switch-OneCube":
-             autonomousCommand = new MidSwitch(switchSide);
+             autonomousCommand = new AutoPathSelector.MiddleSwitch.OneCube(switchSide);//new MidSwitch(switchSide);
              break;
          case "Middle-Switch-TwoCube":
              // autonomousCommand = new MidSwitch.Two(switchSide)();
