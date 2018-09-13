@@ -1,5 +1,5 @@
-
 package org.usfirst.frc.team6325.robot;
+
 
 import edu.wpi.cscore.UsbCamera;
 
@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.lang.reflect.Method;
+
 import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
@@ -22,7 +24,7 @@ import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoCubes;
 //import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MiddleSwitch.OneCube;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MiddleSwitch.One;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
@@ -34,6 +36,7 @@ import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6325.robot.subsystems.Intake;
 import org.usfirst.frc.team6325.robot.subsystems.Lift;
 import org.usfirst.frc.team6325.robot.subsystems.LiftIntake;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -86,7 +89,6 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Auto Preference", preferenceChooser);
 		SmartDashboard.putData("Auto Cubes", cubesChooser);
 		SmartDashboard.putData("Reset Gyro", new ResetGyro());
-		
 	}
 
 	/**
@@ -120,7 +122,6 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit() 
 	{
-		
 		 String gameData;
 	     gameData = DriverStation.getInstance().getGameSpecificMessage();
 	     char switchSide = ' ';
@@ -142,116 +143,16 @@ public class Robot extends IterativeRobot
 	     System.err.println("preference = " + preference);
 	     AutoCubes cubes = cubesChooser.getSelected();
 	     System.err.println("cubes = " + cubes);
-		 autonomousCommand = (position.getName() + position.getName() + '.' + cubes.getName())(switchSide);
-		 		 
-		 /*switch (position.getName() + '-' + preference.getName() + '-' + cubes.getName()) 
-		 {
-         case "Left-Scale-OneCube":
-        	 // autonomousCommand = new LeftScale.One(scaleSide);
-             break;
-         case "Left-Scale-TwoCube":
-        	 // autonomousCommand = new LeftScale.Two(scaleSide);
-             break;
-         case "Left-Scale-ThreeCube":
-             // autonomousCommand = new LeftScale.Three(scaleSide);
-             break;
-         case "Left-Scale-OneOne":
-             // autonomousCommand = new LeftScale.OneOne(scaleSide);
-             break;
-         case "Left-Scale-OneTwo":
-             // autonomousCommand = new LeftScale.OneTwo(scaleSide);
-             break;
-         case "Right-Scale-OneCube":
-             // autonomousCommand = new RightScale.One(scaleSide);
-             break;
-         case "Right-Scale-TwoCube":
-             // autonomousCommand = new RightScale.Two(scaleSide);
-             break;
-         case "Right-Scale-ThreeCube":
-             // autonomousCommand = new RightScale.Three(scaleSide);
-             break;
-         case "Right-Scale-OneOne":
-             // autonomousCommand = new RightScale.OneOne(scaleSide);
-             break;
-         case "Right-Scale-OneTwo":
-             // autonomousCommand = new RightScale.OneTwo(scaleSide);
-             break;
-         case "Middle-Scale-OneCube":
-             // autonomousCommand = new MiddleScale.One(scaleSide);
-             break;
-         case "Middle-Scale-TwoCube":
-             // autonomousCommand = new MiddleScale.Two(scaleSide);
-             break;
-         case "Middle-Scale-ThreeCube":
-             // autonomousCommand = new MiddleScale.Three(scaleSide);
-             break;
-         case "Middle-Scale-OneOne":
-             // autonomousCommand = new MiddleScale.OneOne(scaleSide);
-             break;
-         case "Middle-Scale-OneTwo":
-             // autonomousCommand = new MiddleScale.OneTwo(scaleSide);
-             break;
-         case "Left-Switch-OneCube":
-             // autonomousCommand = new LeftSwitch.One(scaleSide);
-             break;
-         case "Left-Switch-TwoCube":
-             // autonomousCommand = new LeftSwitch.Two(scaleSide);
-             break;
-         case "Left-Switch-ThreeCube":
-             // autonomousCommand = new LeftSwitch.Three(scaleSide);
-             break;
-         case "Left-Switch-OneOne":
-             // autonomousCommand = new LeftSwitch.OneOne(scaleSide);
-             break;
-         case "Left-Switch-OneTwo":
-             // autonomousCommand = new LeftSwitch.OneTwo(scaleSide);
-             break;
-         case "Middle-Switch-OneCube":
-             autonomousCommand = new AutoPathSelector.MiddleSwitch.OneCube(switchSide);//new MidSwitch(switchSide);
-             break;
-         case "Middle-Switch-TwoCube":
-             // autonomousCommand = new MidSwitch.Two(switchSide)();
-             break;
-         case "Middle-Switch-ThreeCube":
-             // autonomousCommand = new MidSwitch.Three(switchSide)();
-             break;
-         case "Middle-Switch-OneOne":
-             // autonomousCommand = new MidSwitch.OneOne(switchSide)();
-             break;
-         case "Middle-Switch-OneTwo":
-             // autonomousCommand = new MidSwitch.OneTwo(switchSide)();
-             break;
-         case "Right-Switch-OneCube":
-             //  autonomousCommand = new RightSwitch.One(switchSide);
-             break;
-         case "Right-Switch-TwoCube":
-             //  autonomousCommand = new RightSwitch.Two(switchSide);
-             break;
-         case "Right-Switch-ThreeCube":
-             //  autonomousCommand = new RightSwitch.Three(switchSide);
-             break;
-         case "Right-Switch-OneOne":
-             //  autonomousCommand = new RightSwitch.OneOne(switchSide);
-             break;
-         case "Right-Switch-OneTwo":
-             //  autonomousCommand = new RightSwitch.OneTwo(switchSide);
-             break;
-         default: break; 
-         }*/
+	     // Lines 149-152 basically do the same thing our 100 line switch/case statement did....
+	     String classNameString = (position.getName() + position.getName() + '.' + cubes.getName());
+	     System.err.println(classNameString);
+	     Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
+	     method.invoke(switchSide);
 		 
 		 if(preference.getName() == "Baseline") 
 		 {
         	 autonomousCommand = new Baseline();
          }	 
-
-		
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
 
 		
 		//start = System.currentTimeMillis();
@@ -273,16 +174,6 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
 		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
-		
-	   /* time = System.currentTimeMillis();
-		if(time>=start+5000 && time <start+9000) {
-			Robot.drivetrain.drive(0.5, 0.5);
-		}
-		if (time>= start +9000) {
-			Robot.drivetrain.drive(0, 0);
-		} 
-		*/
-		
 	}
 
 	@Override
@@ -312,9 +203,6 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Enc value right Lift", Robot.lift.rightMaster.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
 		SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.navx.getAngle());	
-		
-		
-		
 	}
 
 	/**
