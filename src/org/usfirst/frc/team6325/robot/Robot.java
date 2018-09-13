@@ -17,12 +17,12 @@ import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoObjective;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoCubes;
 
 //import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MidSwitchOneCube;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MiddleSwitch.OneCube;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<AutoPosition> positionChooser = new SendableChooser<>();
 	SendableChooser<AutoPreference> preferenceChooser = new SendableChooser<>();
-	SendableChooser<AutoObjective> objectiveChooser = new SendableChooser<>();
+	SendableChooser<AutoCubes> cubesChooser = new SendableChooser<>();
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -75,16 +75,16 @@ public class Robot extends IterativeRobot
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
-		objectiveChoooser.addDefault(AutoObjective.ONECUBE.getName(), AutoObjective.ONECUBE);
-		objectiveChoooser.addObject(AutoObjective.TWOCUBE.getName(), AutoObjective.TWOCUBE);
-		objectiveChoooser.addObject(AutoObjective.THREECUBE.getName(), AutoObjective.THREECUBE);
-		objectiveChoooser.addObject(AutoObjective.ONEONE.getName(), AutoObjective.ONEONE);
-		objectiveChoooser.addObject(AutoObjective.ONETWO.getName(), AutoObjective.ONETWO);
+		cubesChoooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
+		cubesChoooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
+		cubesChoooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
+		cubesChoooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
+		cubesChoooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
 
 		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
 		SmartDashboard.putData("Auto Preference", preferenceChooser);
-		SmartDashboard.putData("Auto Objective", objectiveChooser);
+		SmartDashboard.putData("Auto Cubes", cubesChooser);
 		SmartDashboard.putData("Reset Gyro", new ResetGyro());
 		
 	}
@@ -140,11 +140,11 @@ public class Robot extends IterativeRobot
 	     System.err.println("position = " + position);
 	     AutoPreference preference = preferenceChooser.getSelected();
 	     System.err.println("preference = " + preference);
-	     AutoObjective objective = preferenceChooser.getSelected();
-	     System.err.println("preference = " + preference);
-		 autonomousCommand = chooser.getSelected();
-		 
-		 switch (position.getName() + '-' + preference.getName() + '-' + objective.getName()) 
+	     AutoCubes cubes = cubesChooser.getSelected();
+	     System.err.println("cubes = " + cubes);
+		 autonomousCommand = (position.getName() + position.getName() + '.' + cubes.getName())(switchSide);
+		 		 
+		 /*switch (position.getName() + '-' + preference.getName() + '-' + cubes.getName()) 
 		 {
          case "Left-Scale-OneCube":
         	 // autonomousCommand = new LeftScale.One(scaleSide);
@@ -237,7 +237,7 @@ public class Robot extends IterativeRobot
              //  autonomousCommand = new RightSwitch.OneTwo(switchSide);
              break;
          default: break; 
-         }
+         }*/
 		 
 		 if(preference.getName() == "Baseline") 
 		 {

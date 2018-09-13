@@ -12,9 +12,9 @@ public class AutoPathSelector extends CommandGroup
 {
 	public class MiddleSwitch
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side) 
+			public One(char side) 
 			{
 				System.err.println("MiddleSwitchOneCube");
 
@@ -45,9 +45,9 @@ public class AutoPathSelector extends CommandGroup
 	
 	public class LeftSwitch
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side)
+			public One(char side)
 			{
 				System.err.println("LeftSwitchOneCube");
 
@@ -76,9 +76,9 @@ public class AutoPathSelector extends CommandGroup
 	
 	public class RightSwitch
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side)
+			public One(char side)
 			{
 				System.err.println("RightSwitchOneCube");
 
@@ -107,9 +107,9 @@ public class AutoPathSelector extends CommandGroup
 	
 	public class MiddleScale
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side)
+			public One(char side)
 			{
 				System.err.println("MiddleScaleOneCube");
 
@@ -138,9 +138,9 @@ public class AutoPathSelector extends CommandGroup
 	
 	public class LeftScale
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side)
+			public One(char side)
 			{
 				System.err.println("LeftScaleOneCube");
 
@@ -169,9 +169,9 @@ public class AutoPathSelector extends CommandGroup
 	
 	public class RightScale
 	{
-		public class OneCube
+		public class One
 		{
-			public OneCube(char side)
+			public One(char side)
 			{
 				System.err.println("RightScaleOneCube");
 

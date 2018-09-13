@@ -41,17 +41,17 @@ public class AutoChooser
 	    }
 	}
 	
-	public enum AutoObjective 
+	public enum AutoCubes 
 	{
-	    ONECUBE("OneCube"),
-	    TWOCUBE("TwoCube"),
-		THREECUBE("ThreeCube"),
+	    ONE("One"),
+	    TWO("Two"),
+		THREE("Three"),
 		ONEONE("OneOne"),
 		ONETWO("OneTwo");
 
 	    private final String name;
 
-	    AutoObjective(String name)
+	    AutoCubes(String name)
 	    {
 	        this.name = name;
 	    }
