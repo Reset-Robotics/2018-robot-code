@@ -147,11 +147,17 @@ public class Robot extends IterativeRobot
 	     String classNameString = (position.getName() + position.getName() + '.' + cubes.getName());
 	     System.err.println(classNameString);
 	     Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
-	     method.invoke(switchSide);
-		 
-		 if(preference.getName() == "Baseline") 
+		 if (preference.getName() == "Switch")
 		 {
-        	 autonomousCommand = new Baseline();
+		     autonomousCommand = method.invoke(switchSide);
+		 }
+		 else if(preference.getName() == "Scale")
+		 {
+		     autonomousCommand = method.invoke(scaleSide);
+		 }
+	     else if(preference.getName() == "Baseline") 
+		 {
+        	 autonomousCommand = new AutoPathSelector.Baseline();
          }	 
 
 		
