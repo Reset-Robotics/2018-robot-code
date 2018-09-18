@@ -24,6 +24,7 @@ import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoCubes;
 //import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.Baseline;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MiddleSwitch.One;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
@@ -78,11 +79,11 @@ public class Robot extends IterativeRobot
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
-		cubesChoooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
-		cubesChoooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
-		cubesChoooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
-		cubesChoooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
-		cubesChoooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
+		cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
+		cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
+		cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
+		cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
+		cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
 
 		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
@@ -144,20 +145,41 @@ public class Robot extends IterativeRobot
 	     AutoCubes cubes = cubesChooser.getSelected();
 	     System.err.println("cubes = " + cubes);
 	     // Lines 149-152 basically do the same thing our 100 line switch/case statement did....
-	     String classNameString = (position.getName() + position.getName() + '.' + cubes.getName());
+	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName() + "(" + switchSide + ")");
 	     System.err.println(classNameString);
-	     Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
+	     Class autoPathRunner;
+	     //Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
 		 if (preference.getName() == "Switch")
 		 {
-		     autonomousCommand = method.invoke(switchSide);
+			 //AutoPathSelector autoSwitchCommand = AutoPathSelector.class.getDeclaredMethod(classNameString);
+			 //autonomousCommand = new AutoPathSelector.MiddleSwitch.One(switchSide);
+			 //autonomousCommand = method.invoke(switchSide);
+			 try
+			 {
+			     autoPathRunner = Class.forName(classNameString);
+			     //AutoPathSelector.MiddleSwitch.One(switchSide);
+			 }
+		     catch (ClassNotFoundException ex) 
+			 {
+		         System.out.println("No AutoPathSelector subclass of specified class name");
+
+			 }
 		 }
 		 else if(preference.getName() == "Scale")
 		 {
-		     autonomousCommand = method.invoke(scaleSide);
+			 try
+			 {
+			     autoPathRunner = Class.forName(classNameString);
+			 }
+		     catch (ClassNotFoundException ex) 
+			 {
+		         System.out.println("No AutoPathSelector subclass of specified class name");
+
+			 }
 		 }
 	     else if(preference.getName() == "Baseline") 
 		 {
-        	 autonomousCommand = new AutoPathSelector.Baseline();
+	    	 autonomousCommand = new AutoPathSelector.Baseline();
          }	 
 
 		
@@ -168,6 +190,8 @@ public class Robot extends IterativeRobot
 		//Robot.drivetrain.shiftIn();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		//if (autoPathRunner != null)
+			//autoPathRunner(switchSide).start();
 	}
 
 	/**

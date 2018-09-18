@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoPathSelector extends CommandGroup 
 {
-	public class MiddleSwitch
+	public static class MiddleSwitch extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side) 
 			{
@@ -43,9 +43,9 @@ public class AutoPathSelector extends CommandGroup
 		// public class ThreeCube
 	}
 	
-	public class LeftSwitch
+	public static class LeftSwitch extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side)
 			{
@@ -74,9 +74,9 @@ public class AutoPathSelector extends CommandGroup
 		}	
 	}
 	
-	public class RightSwitch
+	public static class RightSwitch extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side)
 			{
@@ -105,9 +105,9 @@ public class AutoPathSelector extends CommandGroup
 		}	
 	}
 	
-	public class MiddleScale
+	public static class MiddleScale extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side)
 			{
@@ -136,9 +136,9 @@ public class AutoPathSelector extends CommandGroup
 		}	
 	}
 	
-	public class LeftScale
+	public static class LeftScale extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side)
 			{
@@ -167,9 +167,9 @@ public class AutoPathSelector extends CommandGroup
 		}	
 	}
 	
-	public class RightScale
+	public static class RightScale extends CommandGroup
 	{
-		public class One
+		public static class One extends CommandGroup
 		{
 			public One(char side)
 			{
@@ -198,7 +198,7 @@ public class AutoPathSelector extends CommandGroup
 		}	
 	}
 	
-	public class Baseline
+	public static class Baseline extends CommandGroup
 	{
 		public Baseline() 
 		{
