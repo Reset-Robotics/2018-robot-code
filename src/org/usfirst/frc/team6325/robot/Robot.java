@@ -17,16 +17,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import org.usfirst.frc.team6325.robot.Paths.Center;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPosition;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoPreference;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.AutoCubes;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*;
 
-//import org.usfirst.frc.team6325.robot.commands.Auto.Baseline;
-import org.usfirst.frc.team6325.robot.commands.Auto.MidSwitch;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.Baseline;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.MiddleSwitch.One;
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.*;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;

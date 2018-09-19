@@ -1,16 +1,8 @@
 package org.usfirst.frc.team6325.robot;
 
-import org.usfirst.frc.team6325.robot.commands.Drive.ShiftIn;
-import org.usfirst.frc.team6325.robot.commands.Drive.ShiftOut;
-import org.usfirst.frc.team6325.robot.commands.Drive.ShiftTransmission;
-import org.usfirst.frc.team6325.robot.commands.Intake.SpinIntakeWheelsBack;
-import org.usfirst.frc.team6325.robot.commands.Intake.SpinIntakeWheelsForward;
-import org.usfirst.frc.team6325.robot.commands.Intake.StopIntakeWheels;
-import org.usfirst.frc.team6325.robot.commands.Intake.ToggleClamp;
-import org.usfirst.frc.team6325.robot.commands.Lift.BackIntakeForward;
-import org.usfirst.frc.team6325.robot.commands.Lift.LiftIntake;
-import org.usfirst.frc.team6325.robot.commands.Lift.LiftOuttake;
-import org.usfirst.frc.team6325.robot.commands.Lift.RunLiftMotionMagic;
+import org.usfirst.frc.team6325.robot.commands.Drive.*;
+import org.usfirst.frc.team6325.robot.commands.Intake.*;
+import org.usfirst.frc.team6325.robot.commands.Lift.*;
 import org.usfirst.frc.team6325.robot.subsystems.Lift.Positions;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
