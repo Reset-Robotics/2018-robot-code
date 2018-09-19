@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6325.robot.commands.Auto;
 
-import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
 import org.usfirst.frc.team6325.robot.commands.Intake.*;
 import org.usfirst.frc.team6325.robot.commands.Lift.*;
