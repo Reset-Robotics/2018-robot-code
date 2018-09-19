@@ -4,13 +4,9 @@ import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
 import org.usfirst.frc.team6325.robot.commands.Intake.*;
 import org.usfirst.frc.team6325.robot.commands.Lift.*;
-import org.usfirst.frc.team6325.robot.commands.Lift.BackIntakeForward;
-import org.usfirst.frc.team6325.robot.commands.Lift.LiftIntake;
-import org.usfirst.frc.team6325.robot.commands.Lift.LiftOuttake;
 import org.usfirst.frc.team6325.robot.subsystems.Lift;
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoPathSelector extends CommandGroup 
