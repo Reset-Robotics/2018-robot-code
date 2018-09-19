@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import org.usfirst.frc.team6325.robot.Paths.Center;
@@ -123,21 +124,6 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit() 
 	{
-		 String gameData;
-	     gameData = DriverStation.getInstance().getGameSpecificMessage();
-	     char switchSide = ' ';
-	     char scaleSide = ' ';
-	     try 
-	     {
-	       switchSide = gameData.charAt(0);
-	       System.err.println("Switch Side = "+ switchSide);
-	       scaleSide = gameData.charAt(1);
-	       System.err.println("Scale Side = "+ scaleSide);
-	     } 
-	     catch (IndexOutOfBoundsException ex) 
-	     {
-	         System.out.println("No Game Data");
-	     } 
 	     AutoPosition position = positionChooser.getSelected();
 	     System.err.println("position = " + position);
 	     AutoPreference preference = preferenceChooser.getSelected();
@@ -148,38 +134,43 @@ public class Robot extends IterativeRobot
 	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName() + "(" + switchSide + ")");
 	     System.err.println(classNameString);
 	     Class autoPathRunner;
+	     Class[] autoTypes = {Double.TYPE, this.getClass()};
+	     Constructor autoPathConstructor;
+	     Object autoPathInstance;
 	     //Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
-		 if (preference.getName() == "Switch")
+		 try
 		 {
-			 //AutoPathSelector autoSwitchCommand = AutoPathSelector.class.getDeclaredMethod(classNameString);
-			 //autonomousCommand = new AutoPathSelector.MiddleSwitch.One(switchSide);
-			 //autonomousCommand = method.invoke(switchSide);
-			 try
+			 if (preference.getName() == "Switch")
 			 {
-			     autoPathRunner = Class.forName(classNameString);
-			     //AutoPathSelector.MiddleSwitch.One(switchSide);
+				 autoPathRunner = Class.forName(classNameString);
+			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
+			     autoPathInstance = autoPathConstructor.newInstance();
+			     System.err.println("The preference is Switch, the class name is " + classNameString);
 			 }
-		     catch (ClassNotFoundException ex) 
+			 else if (preference.getName() == "Scale")
 			 {
-		         System.out.println("No AutoPathSelector subclass of specified class name");
-
+				 autoPathRunner = Class.forName(classNameString);
+			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
+			     autoPathInstance = autoPathConstructor.newInstance();
+			     System.err.println("The preference is Scale, the class name is " + classNameString);
 			 }
 		 }
-		 else if(preference.getName() == "Scale")
+		 catch (ClassNotFoundException ex) 
 		 {
-			 try
-			 {
-			     autoPathRunner = Class.forName(classNameString);
-			 }
-		     catch (ClassNotFoundException ex) 
-			 {
-		         System.out.println("No AutoPathSelector subclass of specified class name");
+			 System.out.println("No AutoPathSelector subclass of specified class name");
 
-			 }
 		 }
-	     else if(preference.getName() == "Baseline") 
+		 catch (NoSuchMethodException ex)
 		 {
-	    	 autonomousCommand = new AutoPathSelector.Baseline();
+			 System.out.println("No Such Method Exception: You're probably trying to call a method that doesnt exist")
+		 }
+		 if (preference.getName() == "Baseline") 
+		 {
+		     System.err.println("The preference is Baseline, the class name is " + classNameString);
+			 autonomousCommand = new AutoPathSelector.Baseline();
+			 //autoPathRunner = Class.forName(classNameString);
+		     //autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
+		     //autoPathInstance = autoPathConstructor.newInstance();
          }	 
 
 		
