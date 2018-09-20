@@ -23,8 +23,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MidRightSwitch/MidRightSwitch_left_detailed.csv",
-	                    "/home/lvuser/MotionProfiles/MidRightSwitch/MidRightSwitch_right_detailed.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchOneCube/RightSide/MS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/MiddleSwitchOneCube/RightSide/MS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -32,8 +32,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MidLeftSwitch/MidLeftSwitch_left_detailed.csv",
-	                    "/home/lvuser/MotionProfiles/MidLeftSwitch/MidLeftSwitch_right_detailed.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchOneCube/LeftSide/MS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/MiddleSwitchOneCube/LeftSide/MS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -151,8 +151,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftSwitchOneCube/RightSide/LS1C_RightSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/LeftSwitchOneCube/RightSide/LS1C_RightSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftSwitchOneCube/RightSide/LS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/LeftSwitchOneCube/RightSide/LS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -160,8 +160,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftSwitchOneCube/LeftSide/LS1C_LeftSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/LeftSwitchOneCube/LeftSide/LS1C_LeftSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftSwitchOneCube/LeftSide/LS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/LeftSwitchOneCube/LeftSide/LS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -184,8 +184,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightSwitchOneCube/RightSide/RS1C_RightSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/RightSwitchOneCube/RightSide/RS1C_RightSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightSwitchOneCube/RightSide/RS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/RightSwitchOneCube/RightSide/RS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -193,8 +193,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightSwitchOneCube/LeftSide/RS1C_LeftSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/RightSwitchOneCube/LeftSide/RS1C_LeftSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightSwitchOneCube/LeftSide/RS1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/RightSwitchOneCube/LeftSide/RS1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -217,8 +217,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleScaleOneCube/RightSide/MS1C_RightSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/MiddleScaleOneCube/RightSide/MS1C_RightSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleScaleOneCube/RightSide/MScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/MiddleScaleOneCube/RightSide/MScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -226,8 +226,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleScaleOneCube/LeftSide/MS1C_LeftSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/MiddleScaleOneCube/LeftSide/MS1C_LeftSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleScaleOneCube/LeftSide/MScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/MiddleScaleOneCube/LeftSide/MScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -250,8 +250,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftScaleOneCube/RightSide/LS1C_RightSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/LeftScaleOneCube/RightSide/LS1C_RightSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftScaleOneCube/RightSide/LScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/LeftScaleOneCube/RightSide/LScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -259,8 +259,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftScaleOneCube/LeftSide/LS1C_LeftSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/LeftScaleOneCube/LeftSide/LS1C_LeftSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/LeftScaleOneCube/LeftSide/LScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/LeftScaleOneCube/LeftSide/LScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -283,8 +283,8 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightScaleOneCube/RightSide/RS1C_RightSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/RightScaleOneCube/RightSide/RS1C_RightSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightScaleOneCube/RightSide/RScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/RightScaleOneCube/RightSide/RScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -292,8 +292,8 @@ public class AutoPathSelector extends CommandGroup
 				else if(side == 'L')
 				{
 					System.err.println("Left Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightScaleOneCube/LeftSide/RS1C_LeftSide_left.csv",
-	                    "/home/lvuser/MotionProfiles/RightScaleOneCube/LeftSide/RS1C_LeftSide_right.csv"));
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/RightScaleOneCube/LeftSide/RScale1C_left.csv",
+	                    "/home/lvuser/MotionProfiles/RightScaleOneCube/LeftSide/RScale1C_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
@@ -309,5 +309,10 @@ public class AutoPathSelector extends CommandGroup
 		{
 			addSequential(new MoveDistance(5, 0.5, 100000));
 		}
+	}
+	
+	public static class SpinTest extends CommandGroup
+	{
+		
 	}
 }
