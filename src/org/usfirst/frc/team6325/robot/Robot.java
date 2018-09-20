@@ -14,11 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*;
-
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.*;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
@@ -124,7 +125,7 @@ public class Robot extends IterativeRobot
 	     AutoCubes cubes = cubesChooser.getSelected();
 	     System.err.println("cubes = " + cubes);
 	     // Lines 149-152 basically do the same thing our 100 line switch/case statement did....
-	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName() + "(" + switchSide + ")");
+	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName());
 	     System.err.println(classNameString);
 	     Class autoPathRunner;
 	     Class[] autoTypes = {Double.TYPE, this.getClass()};
@@ -155,8 +156,22 @@ public class Robot extends IterativeRobot
 		 }
 		 catch (NoSuchMethodException ex)
 		 {
-			 System.out.println("No Such Method Exception: You're probably trying to call a method that doesnt exist")
+			 System.out.println("No Such Method Exception: You're probably trying to call a method that doesnt exist");
 		 }
+		 catch (InvocationTargetException ex)
+		 {
+			 System.out.println("InvocationTargetException");
+		 }
+		 catch (IllegalAccessException ex) 
+		 {
+			 System.out.println("IllegalAccessException");
+		 }
+		 catch (InstantiationException ex)
+		 {
+			 System.out.println("InstantiationException");
+		 }
+		 
+		 
 		 if (preference.getName() == "Baseline") 
 		 {
 		     System.err.println("The preference is Baseline, the class name is " + classNameString);
