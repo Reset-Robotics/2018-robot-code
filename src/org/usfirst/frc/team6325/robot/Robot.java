@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6325.robot;
 
 
-import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.cscore.UsbCamera;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -129,7 +129,7 @@ public class Robot extends IterativeRobot
 	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName());
 	     System.err.println(classNameString);
 	     Class autoPathRunner;
-	     Class[] autoTypes = {AutoPathSelector.MiddleSwitch.class, AutoPathSelector.LeftSwitch.class, AutoPathSelector.RightSwitch.class, AutoPathSelector.MiddleScale.class, AutoPathSelector.LeftScale.class, AutoPathSelector.RightScale.class, this.getClass()};
+	     Class[] autoTypes = {Character.TYPE, this.getClass()};
 	     Constructor autoPathConstructor;
 	     Object autoPathInstance;
 	     GamedataFetcher gamedata = new GamedataFetcher(); 
@@ -146,8 +146,11 @@ public class Robot extends IterativeRobot
 				 System.err.println("gamedataString = " + gamedataString);
 				 System.err.println("classNameString = " + classNameString);
 				 System.err.println("classNameStringGamedata = " + classNameStringGamedata);
-				 autoPathRunner = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
-				 //autoPathRunner = Class.forName(classNameString);
+				 //AutoPathSelector.MiddleSwitch apsm = new AutoPathSelector.MiddleSwitch();
+				 //autoPathRunner = apsm.One(gamedata.switchSide);
+				 //Class.forName(classNameString) aps = new class.Class.forName(classNameString);
+				 autoPathRunner = Class.forName(classNameString);
+				 //AutoPathSelector aps = new Class.forName(classNameString)//.One(gamedata.switchSide);
 				 System.err.println(autoPathRunner.getName());
 			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
 				 System.err.println(autoPathConstructor.getName());
