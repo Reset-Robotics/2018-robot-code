@@ -21,6 +21,7 @@ import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.*;
+import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher;
 import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
@@ -128,24 +129,37 @@ public class Robot extends IterativeRobot
 	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName());
 	     System.err.println(classNameString);
 	     Class autoPathRunner;
-	     Class[] autoTypes = {Double.TYPE, this.getClass()};
+	     Class[] autoTypes = {AutoPathSelector.MiddleSwitch.class, AutoPathSelector.LeftSwitch.class, AutoPathSelector.RightSwitch.class, AutoPathSelector.MiddleScale.class, AutoPathSelector.LeftScale.class, AutoPathSelector.RightScale.class, this.getClass()};
 	     Constructor autoPathConstructor;
 	     Object autoPathInstance;
+	     GamedataFetcher gamedata = new GamedataFetcher(); 
+	     String classNameStringGamedata;
+	     String gamedataString;
 	     //Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
 		 try
 		 {
 			 if (preference.getName() == "Switch")
 			 {
-				 autoPathRunner = Class.forName(classNameString);
+				 System.err.println("Trying preference Switch");
+				 gamedataString = Character.toString(gamedata.switchSide);
+				 classNameStringGamedata = (classNameString + "(" + gamedataString + ")");
+				 System.err.println("gamedataString = " + gamedataString);
+				 System.err.println("classNameString = " + classNameString);
+				 System.err.println("classNameStringGamedata = " + classNameStringGamedata);
+				 autoPathRunner = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+				 //autoPathRunner = Class.forName(classNameString);
+				 System.err.println(autoPathRunner.getName());
 			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
-			     autoPathInstance = autoPathConstructor.newInstance();
+				 System.err.println(autoPathConstructor.getName());
+			     autoPathInstance = autoPathConstructor.newInstance(gamedata.switchSide);
+				 System.err.println(autoPathInstance.getClass().getName());
 			     System.err.println("The preference is Switch, the class name is " + classNameString);
 			 }
 			 else if (preference.getName() == "Scale")
 			 {
 				 autoPathRunner = Class.forName(classNameString);
 			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
-			     autoPathInstance = autoPathConstructor.newInstance();
+			     autoPathInstance = autoPathConstructor.newInstance(gamedata.scaleSide);
 			     System.err.println("The preference is Scale, the class name is " + classNameString);
 			 }
 		 }

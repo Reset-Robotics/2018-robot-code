@@ -4,6 +4,9 @@ import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
 import org.usfirst.frc.team6325.robot.commands.Intake.*;
 import org.usfirst.frc.team6325.robot.commands.Lift.*;
 import org.usfirst.frc.team6325.robot.subsystems.Lift;
+
+import com.sun.org.apache.xml.internal.utils.CharKey;
+
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -12,9 +15,7 @@ public class AutoPathSelector extends CommandGroup
 {
 	public static class MiddleSwitch extends CommandGroup
 	{
-		public static class One extends CommandGroup
-		{
-			public One(char side) 
+			public Class<Class> One(char side) 
 			{
 				System.err.println("MiddleSwitchOneCube");
 				GamedataFetcher gamedata = new GamedataFetcher();
@@ -39,9 +40,9 @@ public class AutoPathSelector extends CommandGroup
 					addSequential(new BackIntakeForward(-0.5));
 				}
 				System.err.println("Side Run: " + side);
+				return null;
 			}
-		}
-		public static class Two extends CommandGroup
+		public class Two extends CommandGroup
 		{
 			public Two(char side) 
 			{
@@ -107,7 +108,7 @@ public class AutoPathSelector extends CommandGroup
 				System.err.println("Side Run: " + side);
 			}
 		}	
-		public static class Three extends CommandGroup
+		public class Three extends CommandGroup
 		{
 			public Three(char side) 
 			{
