@@ -15,7 +15,9 @@ public class AutoPathSelector extends CommandGroup
 {
 	public static class MiddleSwitch extends CommandGroup
 	{
-			public Class One(char side) 
+		public class One extends CommandGroup
+		{
+			public One(char side) 
 			{
 				System.err.println("MiddleSwitchOneCube");
 				GamedataFetcher gamedata = new GamedataFetcher();
@@ -40,8 +42,9 @@ public class AutoPathSelector extends CommandGroup
 					addSequential(new BackIntakeForward(-0.5));
 				}
 				System.err.println("Side Run: " + side);
-				return null;
 			}
+		}
+		
 		public class Two extends CommandGroup
 		{
 			public Two(char side) 
