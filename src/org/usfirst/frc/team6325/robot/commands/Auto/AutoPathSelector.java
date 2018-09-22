@@ -9,13 +9,14 @@ import com.sun.org.apache.xml.internal.utils.CharKey;
 
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoPathSelector extends CommandGroup 
 {
 	public static class MiddleSwitch extends CommandGroup
 	{
-		public class One extends CommandGroup
+		public static class One extends CommandGroup
 		{
 			public One(char side) 
 			{

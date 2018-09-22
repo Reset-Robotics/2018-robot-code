@@ -30,8 +30,8 @@ public class OI {
 	public Button stopIntake = new JoystickButton(operator, 7); //
 	public Button liftOuttake = new JoystickButton(operator, 2);
 	public Button liftIntake = new JoystickButton(operator, 3);
-	public Button yButton = new JoystickButton(operator, 4);
-	
+	//public Button yButton = new JoystickButton(operator, 4);
+	public Button backBelt = new JoystickButton(operator, 4);
 	
 	
 	
@@ -51,8 +51,7 @@ public class OI {
 		
 		liftIntake.whileHeld(new LiftIntake(-1));
 		liftIntake.whenReleased(new LiftIntake(0));
-		yButton.whenPressed(new RunLiftMotionMagic(Positions.ScoreScale));
-		
-		//backBelt.whileHeld(new BackIntakeForward(-0.5));
+		//yButton.whenPressed(new RunLiftMotionMagic(Positions.ScoreScale));
+		backBelt.whileHeld(new BackIntakeForward(-0.5));
 	}
 }

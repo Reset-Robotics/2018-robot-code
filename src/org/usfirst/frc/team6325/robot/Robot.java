@@ -146,10 +146,11 @@ public class Robot extends IterativeRobot
 				 System.err.println("gamedataString = " + gamedataString);
 				 System.err.println("classNameString = " + classNameString);
 				 System.err.println("classNameStringGamedata = " + classNameStringGamedata);
-				 AutoPathSelector.MiddleSwitch apsm = new AutoPathSelector.MiddleSwitch();
-				 autoPathRunner = apsm.One(gamedata.switchSide);
+				 //AutoPathSelector.MiddleSwitch.One apsm = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+				 //autoPathRunner = apsm;
+				 //autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
 				 //Class.forName(classNameString) aps = new class.Class.forName(classNameString);
-				 //autoPathRunner = Class.forName(classNameString);
+				 autoPathRunner = Class.forName(classNameString);
 				 //AutoPathSelector aps = new Class.forName(classNameString)//.One(gamedata.switchSide);
 				 System.err.println(autoPathRunner.getName());
 			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
@@ -248,7 +249,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Enc value left lift", Robot.lift.leftMaster.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Enc value right Lift", Robot.lift.rightMaster.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
-		SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.navx.getAngle());	
+		SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.navx.getAngle());
 	}
 
 	/**

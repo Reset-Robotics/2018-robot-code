@@ -33,23 +33,19 @@ public class BackIntakeForward extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if(time>=startTime+1000) {
-			return true;
-		}
-		else
-			return false;
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		
+		Robot.backBelts.moveBackBelts(0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		
+		end();
 	}
 }
