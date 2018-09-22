@@ -146,10 +146,10 @@ public class Robot extends IterativeRobot
 				 System.err.println("gamedataString = " + gamedataString);
 				 System.err.println("classNameString = " + classNameString);
 				 System.err.println("classNameStringGamedata = " + classNameStringGamedata);
-				 //AutoPathSelector.MiddleSwitch apsm = new AutoPathSelector.MiddleSwitch();
-				 //autoPathRunner = apsm.One(gamedata.switchSide);
+				 AutoPathSelector.MiddleSwitch apsm = new AutoPathSelector.MiddleSwitch();
+				 autoPathRunner = apsm.One(gamedata.switchSide);
 				 //Class.forName(classNameString) aps = new class.Class.forName(classNameString);
-				 autoPathRunner = Class.forName(classNameString);
+				 //autoPathRunner = Class.forName(classNameString);
 				 //AutoPathSelector aps = new Class.forName(classNameString)//.One(gamedata.switchSide);
 				 System.err.println(autoPathRunner.getName());
 			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
