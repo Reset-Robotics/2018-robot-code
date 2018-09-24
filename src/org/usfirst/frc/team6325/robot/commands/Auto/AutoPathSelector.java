@@ -46,7 +46,7 @@ public class AutoPathSelector extends CommandGroup
 			}
 		}
 		
-		public class Two extends CommandGroup
+		public static class Two extends CommandGroup
 		{
 			public Two(char side) 
 			{
@@ -112,7 +112,7 @@ public class AutoPathSelector extends CommandGroup
 				System.err.println("Side Run: " + side);
 			}
 		}	
-		public class Three extends CommandGroup
+		public static class Three extends CommandGroup
 		{
 			public Three(char side) 
 			{

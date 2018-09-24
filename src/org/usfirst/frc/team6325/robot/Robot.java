@@ -75,11 +75,14 @@ public class Robot extends IterativeRobot
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
-		cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
-		cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
-		cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
-		cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
-		cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
+		if (preferenceChooser.getName() == "Switch" | preferenceChooser.getName() == "Scale")
+		{
+			cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
+			cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
+			cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
+			cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
+			cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
+		}
 
 		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
@@ -125,78 +128,48 @@ public class Robot extends IterativeRobot
 	     System.err.println("preference = " + preference);
 	     AutoCubes cubes = cubesChooser.getSelected();
 	     System.err.println("cubes = " + cubes);
-	     // Lines 149-152 basically do the same thing our 100 line switch/case statement did....
 	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName());
 	     System.err.println(classNameString);
-	     Class autoPathRunner;
-	     Class[] autoTypes = {Character.TYPE, this.getClass()};
-	     Constructor autoPathConstructor;
-	     Object autoPathInstance;
-	     GamedataFetcher gamedata = new GamedataFetcher(); 
-	     String classNameStringGamedata;
-	     String gamedataString;
-	     //Method method = AutoPathSelector.class.getDeclaredMethod(classNameString);
-		 try
+
+		 if (position.getName() == "Middle")
+		 {
+		     if (preference.getName() == "Switch")
+		     {
+		    	 autonomousCommand = cubes.getMiddleSwitchCommand();
+		     }
+		     if (preference.getName() == "Scale")
+		     {
+		    	 autonomousCommand = cubes.getMiddleScaleCommand();
+		     }
+		 }
+		 if (position.getName() == "Left")
+		 {
+		     if (preference.getName() == "Switch")
+		     {
+		    	 autonomousCommand = cubes.getLeftSwitchCommand();
+		     }
+		     if (preference.getName() == "Scale")
+		     {
+		    	 autonomousCommand = cubes.getLeftScaleCommand();
+		     }
+		 }
+		 if (position.getName() == "Right")
 		 {
 			 if (preference.getName() == "Switch")
 			 {
-				 System.err.println("Trying preference Switch");
-				 gamedataString = Character.toString(gamedata.switchSide);
-				 classNameStringGamedata = (classNameString + "(" + gamedataString + ")");
-				 System.err.println("gamedataString = " + gamedataString);
-				 System.err.println("classNameString = " + classNameString);
-				 System.err.println("classNameStringGamedata = " + classNameStringGamedata);
-				 //AutoPathSelector.MiddleSwitch.One apsm = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
-				 //autoPathRunner = apsm;
-				 //autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
-				 //Class.forName(classNameString) aps = new class.Class.forName(classNameString);
-				 autoPathRunner = Class.forName(classNameString);
-				 //AutoPathSelector aps = new Class.forName(classNameString)//.One(gamedata.switchSide);
-				 System.err.println(autoPathRunner.getName());
-			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
-				 System.err.println(autoPathConstructor.getName());
-			     autoPathInstance = autoPathConstructor.newInstance(gamedata.switchSide);
-				 System.err.println(autoPathInstance.getClass().getName());
-			     System.err.println("The preference is Switch, the class name is " + classNameString);
+		    	 autonomousCommand = cubes.getRightSwitchCommand();
 			 }
-			 else if (preference.getName() == "Scale")
+			 if (preference.getName() == "Scale")
 			 {
-				 autoPathRunner = Class.forName(classNameString);
-			     autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
-			     autoPathInstance = autoPathConstructor.newInstance(gamedata.scaleSide);
-			     System.err.println("The preference is Scale, the class name is " + classNameString);
+		    	 autonomousCommand = cubes.getRightScaleCommand();
 			 }
 		 }
-		 catch (ClassNotFoundException ex) 
-		 {
-			 System.out.println("No AutoPathSelector subclass of specified class name");
 
-		 }
-		 catch (NoSuchMethodException ex)
-		 {
-			 System.out.println("No Such Method Exception: You're probably trying to call a method that doesnt exist");
-		 }
-		 catch (InvocationTargetException ex)
-		 {
-			 System.out.println("InvocationTargetException");
-		 }
-		 catch (IllegalAccessException ex) 
-		 {
-			 System.out.println("IllegalAccessException");
-		 }
-		 catch (InstantiationException ex)
-		 {
-			 System.out.println("InstantiationException");
-		 }
-		 
 		 
 		 if (preference.getName() == "Baseline") 
 		 {
 		     System.err.println("The preference is Baseline, the class name is " + classNameString);
 			 autonomousCommand = new AutoPathSelector.Baseline();
-			 //autoPathRunner = Class.forName(classNameString);
-		     //autoPathConstructor = autoPathRunner.getConstructor(autoTypes);
-		     //autoPathInstance = autoPathConstructor.newInstance();
          }	 
 
 		
@@ -204,11 +177,9 @@ public class Robot extends IterativeRobot
 		Robot.drivetrain.resetEncoders();
 		Robot.intake.clampIn();
 		Robot.drivetrain.navx.zeroYaw();
-		//Robot.drivetrain.shiftIn();
+		Robot.drivetrain.shiftIn();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
-		//if (autoPathRunner != null)
-			//autoPathRunner(switchSide).start();
 	}
 
 	/**
