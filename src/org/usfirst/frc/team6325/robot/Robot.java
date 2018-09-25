@@ -75,14 +75,11 @@ public class Robot extends IterativeRobot
 		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE);
 		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE);
 		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE);
-		if (preferenceChooser.getName() == "Switch" | preferenceChooser.getName() == "Scale")
-		{
-			cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
-			cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
-			cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
-			cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
-			cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
-		}
+		cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE);
+		cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO);
+		cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE);
+		cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE);
+		cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO);
 
 		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Auto Position", positionChooser);
@@ -106,6 +103,11 @@ public class Robot extends IterativeRobot
 	public void disabledPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		SmartDashboard.putData("Auto Mode", chooser);
+		SmartDashboard.putData("Auto Position", positionChooser);
+		SmartDashboard.putData("Auto Preference", preferenceChooser);
+		SmartDashboard.putData("Auto Cubes", cubesChooser);
+		SmartDashboard.putData("Reset Gyro", new ResetGyro());
 	}
 
 	/**
@@ -130,48 +132,170 @@ public class Robot extends IterativeRobot
 	     System.err.println("cubes = " + cubes);
 	     String classNameString = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName());
 	     System.err.println(classNameString);
+		 GamedataFetcher gamedata = new GamedataFetcher();
 
 		 if (position.getName() == "Middle")
 		 {
 		     if (preference.getName() == "Switch")
 		     {
-		    	 autonomousCommand = cubes.getMiddleSwitchCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 //autonomousCommand = cubesChooser.getSelected().getMiddleSwitchCommand();
 		     }
 		     if (preference.getName() == "Scale")
 		     {
-		    	 autonomousCommand = cubes.getMiddleScaleCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.MiddleScale.One(gamedata.scaleSide);
+		    	 }
+		    	 //autonomousCommand = cubes.getMiddleScaleCommand();
 		     }
 		 }
 		 if (position.getName() == "Left")
 		 {
 		     if (preference.getName() == "Switch")
 		     {
-		    	 autonomousCommand = cubes.getLeftSwitchCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 //autonomousCommand = cubes.getLeftSwitchCommand();
 		     }
 		     if (preference.getName() == "Scale")
 		     {
-		    	 autonomousCommand = cubes.getLeftScaleCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.LeftScale.One(gamedata.scaleSide);
+		    	 }
+		    	 //autonomousCommand = cubes.getLeftScaleCommand();
 		     }
 		 }
 		 if (position.getName() == "Right")
 		 {
 			 if (preference.getName() == "Switch")
 			 {
-		    	 autonomousCommand = cubes.getRightSwitchCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightSwitch.One(gamedata.switchSide);
+		    	 }
+		    	 //autonomousCommand = cubes.getRightSwitchCommand();
 			 }
 			 if (preference.getName() == "Scale")
 			 {
-		    	 autonomousCommand = cubes.getRightScaleCommand();
+		    	 if (cubes.getName() == "One")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Two")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "Three")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneOne")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightScale.One(gamedata.scaleSide);
+		    	 }
+		    	 if (cubes.getName() == "OneTwo")
+		    	 {
+		    		 autonomousCommand = new AutoPathSelector.RightScale.One(gamedata.scaleSide);
+		    	 }
+		    	 //autonomousCommand = cubes.getRightScaleCommand();
 			 }
 		 }
 
 		 
 		 if (preference.getName() == "Baseline") 
 		 {
-		     System.err.println("The preference is Baseline, the class name is " + classNameString);
+		     //System.err.println("The preference is Baseline, the class name is " + classNameString);
 			 autonomousCommand = new AutoPathSelector.Baseline();
          }	 
 
+		 //autonomousCommand = new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide);
 		
 		//start = System.currentTimeMillis();
 		Robot.drivetrain.resetEncoders();

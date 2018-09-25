@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoChooser 
 {
-	public static GamedataFetcher gamedata;
-	public char switchGamedata = gamedata.switchSide;
-	public char scaleGamedata = gamedata.scaleSide;
+	//public static GamedataFetcher gamedata;
+	//public static char switchGamedata = gamedata.switchSide;
+	//public static char scaleGamedata = gamedata.scaleSide;
 	
 	
 	
@@ -53,30 +53,30 @@ public class AutoChooser
 	
 	public enum AutoCubes 
 	{
-	    ONE("One", new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide), new AutoPathSelector.LeftSwitch.One(gamedata.switchSide), new AutoPathSelector.RightSwitch.One(gamedata.switchSide), new AutoPathSelector.MiddleScale.One(gamedata.scaleSide), new AutoPathSelector.LeftScale.One(gamedata.scaleSide), new AutoPathSelector.RightScale.One(gamedata.scaleSide)),
-	    TWO("Two", new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide), new AutoPathSelector.LeftSwitch.One(gamedata.switchSide), new AutoPathSelector.RightSwitch.One(gamedata.switchSide), new AutoPathSelector.MiddleScale.One(gamedata.scaleSide), new AutoPathSelector.LeftScale.One(gamedata.scaleSide), new AutoPathSelector.RightScale.One(gamedata.scaleSide)),
-		THREE("Three", new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide), new AutoPathSelector.LeftSwitch.One(gamedata.switchSide), new AutoPathSelector.RightSwitch.One(gamedata.switchSide), new AutoPathSelector.MiddleScale.One(gamedata.scaleSide), new AutoPathSelector.LeftScale.One(gamedata.scaleSide), new AutoPathSelector.RightScale.One(gamedata.scaleSide)),
-		ONEONE("OneOne", new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide), new AutoPathSelector.LeftSwitch.One(gamedata.switchSide), new AutoPathSelector.RightSwitch.One(gamedata.switchSide), new AutoPathSelector.MiddleScale.One(gamedata.scaleSide), new AutoPathSelector.LeftScale.One(gamedata.scaleSide), new AutoPathSelector.RightScale.One(gamedata.scaleSide)),
-		ONETWO("OneTwo", new AutoPathSelector.MiddleSwitch.One(gamedata.switchSide), new AutoPathSelector.LeftSwitch.One(gamedata.switchSide), new AutoPathSelector.RightSwitch.One(gamedata.switchSide), new AutoPathSelector.MiddleScale.One(gamedata.scaleSide), new AutoPathSelector.LeftScale.One(gamedata.scaleSide), new AutoPathSelector.RightScale.One(gamedata.scaleSide));
+		ONE("One"), //, new AutoPathSelector.MiddleSwitch.One('L'), new AutoPathSelector.LeftSwitch.One('L'), new AutoPathSelector.RightSwitch.One('L'), new AutoPathSelector.MiddleScale.One('L'), new AutoPathSelector.LeftScale.One('L'), new AutoPathSelector.RightScale.One('L')),
+	    TWO("Two"), //, new AutoPathSelector.MiddleSwitch.One('L'), new AutoPathSelector.LeftSwitch.One('L'), new AutoPathSelector.RightSwitch.One('L'), new AutoPathSelector.MiddleScale.One('L'), new AutoPathSelector.LeftScale.One('L'), new AutoPathSelector.RightScale.One('L')),
+		THREE("Three"), //, new AutoPathSelector.MiddleSwitch.One('L'), new AutoPathSelector.LeftSwitch.One('L'), new AutoPathSelector.RightSwitch.One('L'), new AutoPathSelector.MiddleScale.One('L'), new AutoPathSelector.LeftScale.One('L'), new AutoPathSelector.RightScale.One('L')),
+		ONEONE("OneOne"), //, new AutoPathSelector.MiddleSwitch.One('L'), new AutoPathSelector.LeftSwitch.One('L'), new AutoPathSelector.RightSwitch.One('L'), new AutoPathSelector.MiddleScale.One('L'), new AutoPathSelector.LeftScale.One('L'), new AutoPathSelector.RightScale.One('L')),
+		ONETWO("OneTwo"); //, new AutoPathSelector.MiddleSwitch.One('L'), new AutoPathSelector.LeftSwitch.One('L'), new AutoPathSelector.RightSwitch.One('L'), new AutoPathSelector.MiddleScale.One('L'), new AutoPathSelector.LeftScale.One('L'), new AutoPathSelector.RightScale.One('L'));
 		
-	    private Command commandMiddleSwitch;	
-	    private Command commandLeftSwitch;
-	    private Command commandRightSwitch;
-	    private Command commandMiddleScale;
-	    private Command commandLeftScale;
-	    private Command commandRightScale;
+	    //private Command commandMiddleSwitch = new AutoPathSelector.MiddleSwitch.One('L');	
+	    //private Command commandLeftSwitch = new AutoPathSelector.LeftSwitch.One('L');;
+	    //private Command commandRightSwitch = new AutoPathSelector.RightSwitch.One('L');
+	    //private Command commandMiddleScale = new AutoPathSelector.MiddleScale.One('L');
+	    //private Command commandLeftScale = new AutoPathSelector.LeftScale.One('L');
+	    //private Command commandRightScale = new AutoPathSelector.RightScale.One('L');
 	    
 	    private final String name;
 
-	    AutoCubes(String name, Command commandMiddleSwitch, Command commandLeftSwitch, Command commandRightSwitch, Command commandMiddleScale, Command commandLeftScale, Command commandRightScale)
+	    AutoCubes(String name)//, Command CMSwitch, Command CLSwitch, Command CRSwitch, Command CMScale, Command CLScale, Command CRScale)
 	    {
 	        this.name = name;
-	        this.commandMiddleSwitch = commandMiddleSwitch;
-	        this.commandLeftSwitch = commandLeftSwitch;
-	        this.commandRightSwitch = commandRightSwitch;
-	        this.commandMiddleScale = commandMiddleScale;
-	        this.commandLeftScale = commandLeftScale;
-	        this.commandRightScale = commandRightScale;
+	        /*this.commandMiddleSwitch = CMSwitch;
+	        this.commandLeftSwitch = CLSwitch;
+	        this.commandRightSwitch = CRSwitch;
+	        this.commandMiddleScale = CMScale;
+	        this.commandLeftScale = CLScale;
+	        this.commandRightScale = CRScale;*/
 
 	    }
 
@@ -85,16 +85,34 @@ public class AutoChooser
 	        return name;
 	    }
 	    	    
-	    public Command getMiddleSwitchCommand(){return commandMiddleSwitch;}
-	    public Command getLeftSwitchCommand(){return commandLeftSwitch;}
-	    public Command getRightSwitchCommand(){return commandRightSwitch;}
-	    public Command getMiddleScaleCommand(){return commandMiddleScale;}
-	    public Command getLeftScaleCommand(){return commandLeftScale;}
-	    public Command getRightScaleCommand(){return commandRightScale;}
+	    /*public Command getMiddleSwitchCommand()
+	    {
+	    	return commandMiddleSwitch;
+	    }
+	    public Command getLeftSwitchCommand()
+	    {
+	    	return commandLeftSwitch;
+	    }
+	    public Command getRightSwitchCommand()
+	    {
+	    	return commandRightSwitch;
+	    }
+	    public Command getMiddleScaleCommand()
+	    {
+	    	return commandMiddleScale;
+	    }
+	    public Command getLeftScaleCommand()
+	    {
+	    	return commandLeftScale;
+	    }
+	    public Command getRightScaleCommand()
+	    {
+	    	return commandRightScale;
+	    }*/
 
-	    public char getGamedata()
+	    /*public char getGamedata()
 	    {
 	    	return gamedata.switchSide;
-	    }
+	    }*/
 	}
 }
