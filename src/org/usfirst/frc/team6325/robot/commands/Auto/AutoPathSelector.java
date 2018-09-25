@@ -27,7 +27,7 @@ public class AutoPathSelector extends CommandGroup
 				if(side == 'R') 
 				{
 					System.err.println("Right Side Initiated");
-					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchOneCube/ms1cv2right_left.csv",
+					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchOneCube/" + "ms1cv2right" + "_left.csv",
 	                    "/home/lvuser/MotionProfiles/MiddleSwitchOneCube/ms1cv2right_left.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
@@ -37,7 +37,7 @@ public class AutoPathSelector extends CommandGroup
 				{
 					System.err.println("Left Side Initiated");
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchOneCube/ms1cv2left_left.csv",
-	                    "/home/lvuser/MotionProfiles/MiddleSwitchOneCube/ms1cv2left_right.csv"));
+	                    "/home/lvuser/MotionProfiles/MiddleSwitchOneCube/ms1cv2left_rightg     .csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addSequential(new LiftIntake(-1));
 					addSequential(new BackIntakeForward(-0.5));
