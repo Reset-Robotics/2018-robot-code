@@ -61,21 +61,21 @@ public class AutoPathSelector extends CommandGroup
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS1C" + "_left.csv",
 	                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS1C" +"_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
-					addSequential(new LiftIntake(-1));
-					addSequential(new BackIntakeForward(-0.5));
+					addParallel(new LiftIntake(-1));
+					addParallel(new BackIntakeForward(-0.5));
 					lift.moveToPos(300);
-					addSequential(new LiftIntake(0));
-					addSequential(new BackIntakeForward(0));
+					addParallel(new LiftIntake(0));
+					addParallel(new BackIntakeForward(0));
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS2CNewCube" + "_left.csv",
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS2CNewCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
-					addSequential(new ClampOut());
-					addSequential(new SpinIntakeWheelsBack());
-					addSequential(new LiftIntake(1));
+					addParallel(new ClampOut());
+					addParallel(new SpinIntakeWheelsBack());
+					addParallel(new LiftIntake(1));
 					lift.moveToPos(14000);
-					addSequential(new ClampIn());
-					addSequential(new LiftIntake(0));
-					addSequential(new BackIntakeForward(0));
+					addParallel(new ClampIn());
+					addParallel(new LiftIntake(0));
+					addParallel(new BackIntakeForward(0));
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS2CScoreCube" + "_left.csv",
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS2CScoreCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
@@ -88,21 +88,21 @@ public class AutoPathSelector extends CommandGroup
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS1C" + "_left.csv",
 	                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS1C" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
-					addSequential(new LiftIntake(-1));
-					addSequential(new BackIntakeForward(-0.5));
+					addParallel(new LiftIntake(-1));
+					addParallel(new BackIntakeForward(-0.5));
 					lift.moveToPos(300);
-					addSequential(new LiftIntake(0));
-					addSequential(new BackIntakeForward(0));
+					addParallel(new LiftIntake(0));
+					addParallel(new BackIntakeForward(0));
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS2CNewCube" + "_left.csv",
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS2CNewCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
-					addSequential(new ClampOut());
-					addSequential(new SpinIntakeWheelsBack());
-					addSequential(new LiftIntake(1));
+					addParallel(new ClampOut());
+					addParallel(new SpinIntakeWheelsBack());
+					addParallel(new LiftIntake(1));
 					lift.moveToPos(14000);
-					addSequential(new ClampIn());
-					addSequential(new LiftIntake(0));
-					addSequential(new BackIntakeForward(0));
+					addParallel(new ClampIn());
+					addParallel(new LiftIntake(0));
+					addParallel(new BackIntakeForward(0));
 					addSequential(new ProfileFollowerUpdate("/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS2CScoreCube" + "_left.csv",
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS2CScoreCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
