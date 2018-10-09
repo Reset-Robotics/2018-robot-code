@@ -49,8 +49,8 @@ public class ProfileFollowerUpdate extends Command {
         right.configureEncoder(rightMotor.getSelectedSensorPosition(0), 30000, 0.5);
 
         double max_velocity = 1.0 / 4.0;
-        left.configurePIDVA(0.4, 0.0, 0.4, max_velocity, 0);
-        right.configurePIDVA(0.4, 0.0, 0.4, max_velocity, 0);
+        left.configurePIDVA(0.4, 0.0, 0.07, max_velocity, 0);
+        right.configurePIDVA(0.4, 0.0, 0.07, max_velocity, 0);
     }
 
     /**

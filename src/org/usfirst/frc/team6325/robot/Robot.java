@@ -45,8 +45,8 @@ import org.usfirst.frc.team6325.robot.subsystems.LiftIntake;
 public class Robot extends IterativeRobot 
 {
 
-	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Lift lift = new Lift();
+	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Intake intake = new Intake();
 	public static final LiftIntake liftIntake = new LiftIntake();
 	public static final BackBelts backBelts = new BackBelts();

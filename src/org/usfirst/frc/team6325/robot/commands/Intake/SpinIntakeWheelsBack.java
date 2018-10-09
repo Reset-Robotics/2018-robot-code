@@ -9,9 +9,11 @@ import org.usfirst.frc.team6325.robot.Robot;
  *
  */
 public class SpinIntakeWheelsBack extends Command {
-	public SpinIntakeWheelsBack() {
+	public double power;
+	public SpinIntakeWheelsBack(double pow) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intake);
+		power = pow;
 	}
 
 	// Called just before this Command runs the first time
@@ -23,7 +25,7 @@ public class SpinIntakeWheelsBack extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(-0.7);
+		Robot.intake.setIntakePower(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
