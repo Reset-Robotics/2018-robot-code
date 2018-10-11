@@ -77,7 +77,7 @@ public class AutoPathSelector extends CommandGroup
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/RightSide/" + "MS2CNewCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addParallel(new ClampOut());
-					addParallel(new SpinIntakeWheelsBack(-0.5));
+					addParallel(new SpinIntakeWheels(-0.5));
 					addParallel(new LiftIntake(1));
 					lift.moveToPos(14000);
 					addParallel(new ClampIn());
@@ -104,7 +104,7 @@ public class AutoPathSelector extends CommandGroup
 		                    "/home/lvuser/MotionProfiles/MiddleSwitchTwoCube/LeftSide/" + "MS2CNewCube" + "_right.csv"));
 					addSequential(new TurnToAngleStupid(0));
 					addParallel(new ClampOut());
-					addParallel(new SpinIntakeWheelsBack(-0.5));
+					addParallel(new SpinIntakeWheels(-0.5));
 					addParallel(new LiftIntake(1));
 					lift.moveToPos(14000);
 					addParallel(new ClampIn());
