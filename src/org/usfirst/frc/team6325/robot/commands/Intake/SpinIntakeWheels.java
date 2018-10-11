@@ -8,9 +8,9 @@ import org.usfirst.frc.team6325.robot.Robot;
 /**
  *
  */
-public class SpinIntakeWheelsForward extends Command {
+public class SpinIntakeWheels extends Command {
 	public double power;
-	public SpinIntakeWheelsForward(double pow) {
+	public SpinIntakeWheels(double pow) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intake);
 		power = pow;

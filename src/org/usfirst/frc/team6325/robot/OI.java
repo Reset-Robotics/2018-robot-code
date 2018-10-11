@@ -39,7 +39,7 @@ public class OI {
 		backBeltsIn.whenPressed(new BackIntakeForward(0));
 		toggleIntakePistons.whenPressed(new ToggleClamp());
 		
-		intakeWheelsReverse.whileHeld(new SpinIntakeWheelsBack(-1));
+		intakeWheelsReverse.whileHeld(new SpinIntakeWheels(-1));
 		intakeWheelsReverse.whileHeld(new LiftIntake(1));
 		intakeWheelsReverse.whenReleased(new LiftIntake(0));
 		
@@ -47,7 +47,7 @@ public class OI {
 		stopIntakes.whenPressed(new StopIntakeWheels());
 		stopIntakes.whenPressed(new LiftIntake(0));
 		
-		intakeWheelsForward.whileHeld(new SpinIntakeWheelsForward(1));
+		intakeWheelsForward.whileHeld(new SpinIntakeWheels(1));
 		intakeWheelsForward.whileHeld(new LiftOuttake());
 		
 		liftWheelsOut.whileHeld(new LiftOuttake());
