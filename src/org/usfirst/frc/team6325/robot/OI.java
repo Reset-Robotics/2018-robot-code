@@ -23,14 +23,14 @@ public class OI {
 	public Joystick joystickRight = new Joystick(ids.joystickRightIDs.get("USB-ID"));
 	public XboxController xboxController = new XboxController(ids.xboxIDs.get("USB-ID"));
 	public Button shiftDrivetrain = new JoystickButton(joystickLeft, ids.joystickLeftIDs.get("Trigger"));
-	public Button backBeltsIn = new JoystickButton(xboxController, ids.xboxIDs.get("X-Button"));
-	public Button backBeltsOut = new JoystickButton(xboxController, ids.xboxIDs.get("B-Button"));
+	public Button backBeltsIn = new JoystickButton(xboxController, 2);
+	public Button backBeltsOut = new JoystickButton(xboxController, 3);
 	public Button toggleIntakePistons = new JoystickButton(joystickRight, ids.joystickRightIDs.get("Trigger"));
 	public Button intakeWheelsForward = new JoystickButton(joystickLeft, ids.joystickLeftIDs.get("Top-Button-Top-Right"));
 	public Button intakeWheelsReverse = new JoystickButton(joystickRight, ids.joystickRightIDs.get("Top-Button-Top-Left"));
 	public Button stopIntakes = new JoystickButton(joystickRight, ids.joystickRightIDs.get("Side-Thumb"));
-	public Button liftWheelsOut = new JoystickButton(xboxController, ids.xboxIDs.get("Y-Button"));
-	public Button liftWheelsIn = new JoystickButton(xboxController, ids.xboxIDs.get("A-Button"));
+	public Button liftWheelsOut = new JoystickButton(xboxController, ids.xboxIDs.get("A-Button"));
+	public Button liftWheelsIn = new JoystickButton(xboxController, ids.xboxIDs.get("Y-Button"));
 	
 	
 	

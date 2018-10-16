@@ -322,7 +322,7 @@ public class AutoPathSelector extends CommandGroup
 	{
 		public Baseline() 
 		{
-			addSequential(new MoveDistance(5, 0.5, 100000));
+			addSequential(new MoveDistance(5, 0.5, 135000));
 		}
 	}
 }

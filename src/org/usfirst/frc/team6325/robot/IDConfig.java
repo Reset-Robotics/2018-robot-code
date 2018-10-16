@@ -33,6 +33,7 @@ public class IDConfig
 		joystickLeftIDs.put("Top-Button-Bottom-Left", 4);
 		joystickLeftIDs.put("Top-Button-Top-Left", 5);
 		joystickLeftIDs.put("Top-Button-Top-Right", 6);
+		joystickLeftIDs.put("SliderAxis", 3);
 
 		// Right Joystick Config
 		joystickRightIDs.put("USB-ID", 1);
