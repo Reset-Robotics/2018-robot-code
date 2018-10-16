@@ -23,7 +23,7 @@ public class JoystickLiftIntake extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.liftIntake.spinLiftIntake(Robot.oi.operator.getRawAxis(5));
+		Robot.liftIntake.spinLiftIntake(Robot.oi.xboxController.getRawAxis(5));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6325.robot.commands.Auto;
 
-import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain.MotionProfiling;
 
 import edu.wpi.first.wpilibj.PIDController;

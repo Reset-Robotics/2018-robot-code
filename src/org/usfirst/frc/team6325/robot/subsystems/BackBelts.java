@@ -10,13 +10,12 @@ public class BackBelts extends Subsystem {
 	Spark backBelts = new Spark(RobotMap.backBelts);
 
 	public void moveBackBelts (double pow) {
-		backBelts.set(pow);																																																																																																																																																																																													
+		backBelts.set(pow);
 	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new JoystickBackIntake());
+		//setDefaultCommand(new JoystickBackIntake());
 		
 	}
-
 }

@@ -23,8 +23,8 @@ public class ArcadeJoystickDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double left = Robot.oi.joyDriver.getY() + Robot.oi.joyDriver.getX();
-		double right = Robot.oi.joyDriver.getY() - Robot.oi.joyDriver.getX();
+		double left = Robot.oi.joystickLeft.getY() + Robot.oi.joystickLeft.getX();
+		double right = Robot.oi.joystickRight.getY() - Robot.oi.joystickRight.getX();
 		Robot.drivetrain.drive (left, right);
 	}
 

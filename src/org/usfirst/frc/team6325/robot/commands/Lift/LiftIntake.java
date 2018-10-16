@@ -38,7 +38,6 @@ public class LiftIntake extends Command {
 	@Override
 	protected void end() {
 		Robot.liftIntake.spinLiftIntake(0);
-		
 	}
 
 	// Called when another command which requires one or more of the same
@@ -46,6 +45,5 @@ public class LiftIntake extends Command {
 	@Override
 	protected void interrupted() {
 		end();
-		
 	}
 }
