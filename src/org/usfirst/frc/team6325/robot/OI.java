@@ -24,7 +24,7 @@ public class OI
 {
 	IDConfig ids = new IDConfig();
 	ButtonSelection btns = new ButtonSelection();
-	public String selectedDrivetrain = "TankJoystickDrive"; // TODO: Create a command to swap selected drivetrain
+	public String selectedDrivetrain = "TankJoystickDrive";
 	public Command selectedDrivetrainCommand;
 	
 	public Joystick joystickLeft = new Joystick(ids.joystickLeftIDs.get("USB-ID"));
