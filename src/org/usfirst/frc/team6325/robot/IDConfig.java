@@ -58,5 +58,7 @@ public class IDConfig
 		xboxIDs.put("Back-Button", 7);
 		xboxIDs.put("Left-Joystick-Button", 8);
 		xboxIDs.put("Right-Joystick-Button", 9);   
+		xboxIDs.put("Left-Joystick-Y-Axis", 1);
+		xboxIDs.put("Right-Joystick-Y-Axis", 5);
 	}
 }

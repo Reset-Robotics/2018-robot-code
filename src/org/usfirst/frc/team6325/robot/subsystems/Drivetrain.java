@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import java.io.File;
+
+import org.usfirst.frc.team6325.robot.Robot;
 import org.usfirst.frc.team6325.robot.RobotMap;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
@@ -18,6 +20,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.HLUsageReporting.Null;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -32,7 +35,8 @@ import jaci.pathfinder.modifiers.TankModifier;
 /**
  *
  */
-public class Drivetrain extends Subsystem implements PIDOutput{
+public class Drivetrain extends Subsystem implements PIDOutput
+{
 	
 	public WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
 	public WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
@@ -58,7 +62,8 @@ public class Drivetrain extends Subsystem implements PIDOutput{
 	private PIDController turnController = new PIDController(turnP, turnI, turnD, turnF, navx, this);
 	 
 	
-	public Drivetrain() {
+    public Drivetrain() 
+    {
 		// Set Followers
 		this.backLeft.follow(leftDriveMaster);
 		this.frontLeft.follow(leftDriveMaster);
@@ -93,77 +98,99 @@ public class Drivetrain extends Subsystem implements PIDOutput{
 		navx.reset();
 		navx.zeroYaw();
 		resetEncoders();
-	
 	}
 	
-	public void drive(double leftVal, double rightVal) {
+    public void drive(double leftVal, double rightVal) 
+    {
     	leftDriveMaster.set(leftVal);
     	rightDriveMaster.set(rightVal);
     }
-    public void killMotors() {
+
+    public void killMotors() 
+    {
     	rightDriveMaster.set(0);
     	leftDriveMaster.set(0);
     }
-    public void shiftIn() {
+
+    public void shiftIn() 
+    {
     	shifter.set(Value.kForward);
     }
-    public void shiftOut() {
+
+    public void shiftOut() 
+    {
     	shifter.set(Value.kReverse);
     }
-	public void shift() {
-		if(shifter.get()==Value.kForward) {
+
+    public void shift() 
+    {
+        if(shifter.get()==Value.kForward) 
+        {
 			shifter.set(Value.kReverse);
 			isHighGear = false;
 		}
-		else {
+        else 
+        {
 			shifter.set(Value.kForward);
 			isHighGear = true;
 		}
 			
-	}
-	public boolean isHighGear() {
+    }
+    
+    public boolean isHighGear() 
+    {
 		return isHighGear;
 	}
 
-    public void resetGyro() {
+    public void resetGyro() 
+    {
     	navx.zeroYaw();
     }
     
-    public double getLeftVelocity() {
+    public double getLeftVelocity() 
+    {
         return (leftDriveMaster.getSelectedSensorVelocity(0) * Math.PI * MotionProfiling.wheel_diameter) / (MotionProfiling.ticks_per_rev)  * 10;
         //(ticks/4096)*(6pi) inches
     }
 
-    public double getRightVelocity() {
+    public double getRightVelocity() 
+    {
         return (rightDriveMaster.getSelectedSensorVelocity(0) * Math.PI * MotionProfiling.wheel_diameter) / (MotionProfiling.ticks_per_rev) * 10;
     }
     
-    public void resetEncoders() {
+    public void resetEncoders() 
+    {
         this.leftDriveMaster.setSelectedSensorPosition(0, 0, 0);
         this.rightDriveMaster.setSelectedSensorPosition(0, 0, 0);
     }
 
-    public double getEncoderDistanceMetersRight() {
+    public double getEncoderDistanceMetersRight() 
+    {
         return (rightDriveMaster.getSelectedSensorPosition(0) * Math.PI * MotionProfiling.wheel_diameter) / MotionProfiling.ticks_per_rev;
         // return (rightDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
 
-    public double getEncoderDistanceMetersLeft() {
+    public double getEncoderDistanceMetersLeft() 
+    {
         return (leftDriveMaster.getSelectedSensorPosition(0) * Math.PI * MotionProfiling.wheel_diameter) / MotionProfiling.ticks_per_rev;
         //return (leftDriveMaster.getSelectedSensorPosition(0) / MotionProfiling.ticks_per_rev) * MotionProfiling.wheel_circumference;
     }
-    public float getAngle() {
+    public float getAngle() 
+    {
     	return navx.getYaw();
     }
-    public double getEncoderRawLeft() {
+    public double getEncoderRawLeft() 
+    {
         return leftDriveMaster.getSelectedSensorPosition(0);
     }
 
-    public double getEncoderRawRight() {
+    public double getEncoderRawRight() 
+    {
         return rightDriveMaster.getSelectedSensorPosition(0);
     }
     
-    public boolean turnToAngle(double angle) {
+    public boolean turnToAngle(double angle) 
+    {
         double error = angle - navx.getAngle();
         double turn = 1.5 * (-1.0/80.0) * error;
         this.leftDriveMaster.set(ControlMode.PercentOutput, turn);
@@ -171,16 +198,17 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         SmartDashboard.putNumber("turn to angle error", error);
         return Math.abs(error) <= 5;
     }
-    public double generateHashCode(Waypoint[] path) {
+    public double generateHashCode(Waypoint[] path) 
+    {
         double hash = 1.0;
-        for(int i = 0; i < path.length; i ++) {
+        for(int i = 0; i < path.length; i ++)
             hash =  ((path[i].x * 6) + (path[i].y * 3) + (path[i].angle * 25));
-        }
         return (int)Math.abs(hash * 100);
     }
     
   
-    public EncoderFollower[] initPath(String leftCSV, String rightCSV) {
+    public EncoderFollower[] initPath(String leftCSV, String rightCSV) 
+    {
     	File leftMotionProfile = new File(leftCSV);
         File rightMotionProfile = new File(rightCSV);
         System.err.println("File about to read");
@@ -194,13 +222,15 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         navx.zeroYaw();
-        return new EncoderFollower[] {
+        return new EncoderFollower[] 
+        {
                 left, // 0
                 right, // 1
         };
     	
     }
-    public EncoderFollower[] initPath(Waypoint[] path) {
+    public EncoderFollower[] initPath(Waypoint[] path) 
+    {
 
         EncoderFollower left = new EncoderFollower();
         EncoderFollower right = new EncoderFollower();
@@ -210,11 +240,14 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         SmartDashboard.putString("Path Hash", pathHash);
         Trajectory toFollow;
         File trajectory = new File("/home/lvuser/paths/" + pathHash + ".csv");
-        if (!trajectory.exists()) {
+        if (!trajectory.exists()) 
+        {
             toFollow = Pathfinder.generate(path, cfg);
             Pathfinder.writeToCSV(trajectory, toFollow);
             System.out.println(pathHash + ".csv not found, wrote to file");
-        } else {
+        } 
+        else 
+        {
             System.out.println(pathHash + ".csv read from file");
             toFollow = Pathfinder.readFromCSV(trajectory);
         }
@@ -226,19 +259,24 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         right.configureEncoder(rightDriveMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
-        return new EncoderFollower[]{
+        return new EncoderFollower[]
+        {
                 left, // 0
                 right, // 1
         };
     }
-    public void executePath(EncoderFollower[] followers,boolean reverse) {
+    public void executePath(EncoderFollower[] followers,boolean reverse) 
+    {
     	EncoderFollower left = followers[0];
         EncoderFollower right = followers[1];
         double l,r;
-        if (!reverse) {
+        if (!reverse) 
+        {
             l = left.calculate(leftDriveMaster.getSelectedSensorPosition(0));
             r = right.calculate(rightDriveMaster.getSelectedSensorPosition(0));
-        } else {
+        } 
+        else 
+        {
             l = left.calculate(-leftDriveMaster.getSelectedSensorPosition(0));
             r = right.calculate(-rightDriveMaster.getSelectedSensorPosition(0));
         }
@@ -246,34 +284,41 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         double angle_setpoint = Pathfinder.r2d(left.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(angle_setpoint - gyro_heading);
         double turn = 0.8 * (-1.0/80.0) * angleDifference;
-        if(!reverse) {
+        if(!reverse)
             drive(l + turn, r - turn);
-        }
-        else {
+        else
             drive(-l + turn, -r - turn);
-        }
-        if(left.isFinished() && right.isFinished()) {
+
+        if(left.isFinished() && right.isFinished())
         	isProfileFinished = true;
-        }
     }
-    public boolean getIsProfileFinished() {
+
+    public boolean getIsProfileFinished() 
+    {
         return isProfileFinished;
     }
-    public void resetForPath() {
+    public void resetForPath() 
+    {
         isProfileFinished = false;
         resetEncoders();
         resetGyro();
     } 
     
-	public void initDefaultCommand() {
-		setDefaultCommand(new TankJoystickDrive());
+    public void initDefaultCommand() 
+    {
+        if (Robot.oi.selectedDrivetrainCommand != null)
+            setDefaultCommand(Robot.oi.selectedDrivetrainCommand);
+        else
+            setDefaultCommand(new TankJoystickDrive());
 	}
 	
-	public void autoTurn() {
+    public void autoTurn() 
+    {
 		drive(turnRate, -turnRate);
 	}
 	
-	public void autoTurnInit(double angle) {
+    public void autoTurnInit(double angle) 
+    {
 		turnController.setInputRange(-180.0f,  180.0f);
         turnController.setOutputRange(-1.0, 1.0);
         turnController.setAbsoluteTolerance(turnThreshold);
@@ -282,15 +327,18 @@ public class Drivetrain extends Subsystem implements PIDOutput{
         turnController.enable();
 	}
 	
-	public void autoTurnStop() {
+    public void autoTurnStop() 
+    {
 		turnController.disable();
 	}
 	
-	public void pidWrite(double output) {
+    public void pidWrite(double output) 
+    {
         turnRate = output;
     }
 	
-	public static class MotionProfiling {
+    public static class MotionProfiling 
+    {
 		 //TODO: TUNE CONSTANTS
         public static double kp = 1;
         public static double ki = 0.0; // not used

@@ -17,12 +17,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.usfirst.frc.team6325.robot.Paths.Center;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*;
+import org.usfirst.frc.team6325.robot.ButtonSelection.ButtonMapMode;
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector.*;
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher;
-import org.usfirst.frc.team6325.robot.commands.Auto.SimpleAutoSwitch;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollower;
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate;
