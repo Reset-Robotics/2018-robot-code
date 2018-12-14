@@ -7,17 +7,16 @@ import org.usfirst.frc.team6325.robot.RobotMap;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.*;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.HLUsageReporting.Null;
@@ -38,12 +37,12 @@ import jaci.pathfinder.modifiers.TankModifier;
 public class Drivetrain extends Subsystem implements PIDOutput
 {
 	
-	public WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
-	public WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(RobotMap.masterLeft);
-	public WPI_VictorSPX backLeft = new WPI_VictorSPX (RobotMap.backLeft);
-	public WPI_VictorSPX frontRight = new WPI_VictorSPX(RobotMap.frontRight);
-	public WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RobotMap.masterRight);
-	public WPI_VictorSPX backRight = new WPI_VictorSPX(RobotMap.backRight);
+	public PWMTalonSRX frontLeft = new PWMTalonSRX(RobotMap.frontLeft);
+	public PWMTalonSRX leftDriveMaster = new PWMTalonSRX(RobotMap.masterLeft);
+	public PWMVictorSPX backLeft = new PWMVictorSPX (RobotMap.backLeft);
+	public PWMVictorSPX frontRight = new PWMVictorSPX(RobotMap.frontRight);
+	public PWMTalonSRX rightDriveMaster = new PWMTalonSRX(RobotMap.masterRight);
+	public PWMVictorSPX backRight = new PWMVictorSPX(RobotMap.backRight);
 	public AHRS navx = new AHRS(SPI.Port.kMXP);
 	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_PORTS[0], RobotMap.SHIFTER_PORTS[1]);
 	boolean isHighGear;

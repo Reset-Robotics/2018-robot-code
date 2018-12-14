@@ -3,7 +3,9 @@ package org.usfirst.frc.team6325.robot.commands.Drive;
 import java.io.File;
 import org.usfirst.frc.team6325.robot.Robot;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.*;
+
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -12,7 +14,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 public class ProfileFollowerReverse extends Command 
 {
-    private final TalonSRX leftMotor, rightMotor;
+    private final PWMTalonSRX leftMotor, rightMotor;
     private EncoderFollower left, right;
     private final Trajectory leftTra, rightTra;
 
@@ -42,8 +44,11 @@ public class ProfileFollowerReverse extends Command
         left = new EncoderFollower(leftTra);
         right = new EncoderFollower(rightTra);
 
-        left.configureEncoder(leftMotor.getSelectedSensorPosition(0), 4096*7, 0.5);
-        right.configureEncoder(rightMotor.getSelectedSensorPosition(0), 4096*7, 0.5);
+        int leftEncPosRounded = (int) Math.round(leftMotor.getPosition());
+        int rightEncPosRounded = (int) Math.round(rightMotor.getPosition());
+
+        left.configureEncoder(leftEncPosRounded, 4096*7, 0.5);
+        right.configureEncoder(rightEncPosRounded, 4096*7, 0.5);
 
         double max_velocity = 1.0 / 4.0;
         left.configurePIDVA(0.9, 0.0, 0.7, max_velocity, 0);
