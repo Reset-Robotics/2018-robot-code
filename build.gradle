@@ -37,11 +37,15 @@ dependencies {
     compile "org.sert2521.sertain:core:$sertainVersion"
     compile "com.google.code.gson:gson:$gsonVersion"
 
-    compile wpilib()
-    compile navx()
-    compile ctre()
-    compile pathfinder()
-    compile openrio.powerup.matchData()
+    compile files('jars/cscore.jar')
+    compile files('jars/CTRE_Phoenix.jar')
+    compile files('jars/CTRE_Phoenix_WPIAPI.jar')
+    compile files('jars/navx_frc.jar')
+    compile files('jars/ntcore.jar')
+    compile files('jars/opencv.jar')
+    compile files('jars/Pathfinder-Java-1.8.jar')
+    compile files('jars/WPILib.jar')
+    compile files('jars/wpiutil.jar')
 
     ktlint "com.github.shyiko:ktlint:$ktlintVersion"
 }
