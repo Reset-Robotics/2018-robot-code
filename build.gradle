@@ -37,8 +37,8 @@ dependencies {
     compile "org.sert2521.sertain:core:$sertainVersion"
     compile "com.google.code.gson:gson:$gsonVersion"
 
-    compile files('jars/cscore.jar')
     compile files('jars/CTRE_Phoenix.jar')
+    compile files('jars/cscore.jar')
     compile files('jars/CTRE_Phoenix_WPIAPI.jar')
     compile files('jars/navx_frc.jar')
     compile files('jars/ntcore.jar')
