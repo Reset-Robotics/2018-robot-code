@@ -247,8 +247,8 @@ public class Robot extends IterativeRobot
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Enc value left drive", Robot.drivetrain.getEncoderRawLeft());
 		SmartDashboard.putNumber("Enc value right drive", Robot.drivetrain.getEncoderRawRight());
-		SmartDashboard.putNumber("Enc value left lift", Robot.lift.leftMaster.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("Enc value right Lift", Robot.lift.rightMaster.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Enc value left lift", Robot.lift.leftMaster.getPosition());
+		SmartDashboard.putNumber("Enc value right Lift", Robot.lift.rightMaster.getPosition());
 		SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.navx.getYaw());	
 		SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.navx.getAngle());
 	}

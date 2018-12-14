@@ -1,7 +1,5 @@
 package org.usfirst.frc.team6325.robot.commands.Auto;
 
-import org.usfirst.frc.team6325.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoChooser 
 {
@@ -35,7 +33,8 @@ public class AutoChooser
 	public enum AutoCubes 
 	{
 		ONE("One"), 
-	    TWO("Two"), 
+		TWO("Two"), 
+		THREE("Three"),
 		ONEONE("OneOne"), 
 		ONETWO("OneTwo"); 
 

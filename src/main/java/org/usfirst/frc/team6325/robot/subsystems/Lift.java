@@ -1,20 +1,16 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import org.usfirst.frc.team6325.robot.RobotMap;
-
 import org.usfirst.frc.team6325.robot.commands.Lift.JoystickLift;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.*;
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 public class Lift extends Subsystem 
 {
-	public WPI_TalonSRX leftMaster = new WPI_TalonSRX(RobotMap.leftMaster);
-	public WPI_TalonSRX rightMaster = new WPI_TalonSRX(RobotMap.rightMaster);
+	public PWMTalonSRX leftMaster = new PWMTalonSRX(RobotMap.leftMaster);
+	public PWMTalonSRX rightMaster = new PWMTalonSRX(RobotMap.rightMaster);
 	private static final int CRUISE_VELOCITY = 19000; // 1024
 	private static final int CRUISE_ACCELERATION = 11000; // 1024
 	private static final int CRUISE_VELOCITY_DOWN = (int) (CRUISE_VELOCITY * 0.7); // 1024
@@ -56,7 +52,7 @@ public class Lift extends Subsystem
 	}
 	public int getQuadPos(int side) 
 	{
-		int[] arr = {leftMaster.getSelectedSensorPosition(0), rightMaster.getSelectedSensorPosition(0)};
+		int[] arr = {(int) Math.round(leftMaster.getPosition()), (int) Math.round(rightMaster.getPosition())};
 		return arr[side];	
 	} 
 	

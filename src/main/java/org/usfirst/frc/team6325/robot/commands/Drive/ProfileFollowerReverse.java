@@ -94,8 +94,11 @@ public class ProfileFollowerReverse extends Command
         //System.err.println("Execute ProfileFollower.");
        // DriveTrain._leftMain.configOpenloopRamp(0, 500);
         //DriveTrain._rightMain.configOpenloopRamp(0, 500);
-        double l = left.calculate(-leftMotor.getSelectedSensorPosition(0));
-        double r = right.calculate(-rightMotor.getSelectedSensorPosition(0));
+        int leftEncPos = (int) Math.round(-leftMotor.getPosition());
+        int rightEncPos = (int) Math.round(-rightMotor.getPosition());
+
+        double l = left.calculate(leftEncPos);
+        double r = right.calculate(rightEncPos);
         
         double gyro_heading = Robot.drivetrain.navx.getAngle();
     

@@ -3,7 +3,9 @@ package org.usfirst.frc.team6325.robot.commands.Drive;
 import java.io.File;
 import org.usfirst.frc.team6325.robot.Robot;
 import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.*;
+
+import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -12,7 +14,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 public class ProfileFollowerUpdate extends Command 
 {
-    private final TalonSRX leftMotor, rightMotor;
+    private final PWMTalonSRX leftMotor, rightMotor;
     private EncoderFollower left, right;
     private final Trajectory leftTra, rightTra;
 
@@ -42,8 +44,8 @@ public class ProfileFollowerUpdate extends Command
         left = new EncoderFollower(leftTra);
         right = new EncoderFollower(rightTra);
 
-        left.configureEncoder(leftMotor.getSelectedSensorPosition(0), 30000, 0.5);
-        right.configureEncoder(rightMotor.getSelectedSensorPosition(0), 30000, 0.5);
+        left.configureEncoder((int) Math.round(leftMotor.getPosition()), 30000, 0.5);
+        right.configureEncoder((int) Math.round(rightMotor.getPosition()), 30000, 0.5);
 
         double max_velocity = 1.0 / 4.0;
         left.configurePIDVA(0.4, 0.0, 0.07, max_velocity, 0);
@@ -88,8 +90,8 @@ public class ProfileFollowerUpdate extends Command
         //System.err.println("Execute ProfileFollower.");
        // DriveTrain._leftMain.configOpenloopRamp(0, 500);
         //DriveTrain._rightMain.configOpenloopRamp(0, 500);
-        double l = left.calculate(leftMotor.getSelectedSensorPosition(0));
-        double r = right.calculate(rightMotor.getSelectedSensorPosition(0));
+        double l = left.calculate((int) Math.round(leftMotor.getPosition()));
+        double r = right.calculate((int) Math.round(rightMotor.getPosition()));
         double gyro_heading = Robot.drivetrain.navx.getAngle();
         double desired_heading = Pathfinder.r2d(left.getHeading());
         double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
