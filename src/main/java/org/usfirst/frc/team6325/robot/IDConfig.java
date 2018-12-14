@@ -1,15 +1,5 @@
 package org.usfirst.frc.team6325.robot;
 
-import org.usfirst.frc.team6325.robot.commands.Drive.*;
-import org.usfirst.frc.team6325.robot.commands.Intake.*;
-import org.usfirst.frc.team6325.robot.commands.Lift.*;
-import org.usfirst.frc.team6325.robot.subsystems.Lift.Positions;
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.*;
-
 import java.util.*;
 
 

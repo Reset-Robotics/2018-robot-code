@@ -2,10 +2,7 @@ package org.usfirst.frc.team6325.robot.commands.Drive;
 
 import java.io.File;
 import org.usfirst.frc.team6325.robot.Robot;
-import org.usfirst.frc.team6325.robot.subsystems.Drivetrain;
 import com.ctre.phoenix.motorcontrol.can.*;
-
-import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -14,7 +11,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 public class ProfileFollowerReverse extends Command 
 {
-    private final PWMTalonSRX leftMotor, rightMotor;
+    private final WPI_TalonSRX leftMotor, rightMotor;
     private EncoderFollower left, right;
     private final Trajectory leftTra, rightTra;
 
@@ -44,8 +41,8 @@ public class ProfileFollowerReverse extends Command
         left = new EncoderFollower(leftTra);
         right = new EncoderFollower(rightTra);
 
-        int leftEncPosRounded = (int) Math.round(leftMotor.getPosition());
-        int rightEncPosRounded = (int) Math.round(rightMotor.getPosition());
+        int leftEncPosRounded = (int) Math.round(leftMotor.getSelectedSensorPosition());
+        int rightEncPosRounded = (int) Math.round(rightMotor.getSelectedSensorPosition());
 
         left.configureEncoder(leftEncPosRounded, 4096*7, 0.5);
         right.configureEncoder(rightEncPosRounded, 4096*7, 0.5);
@@ -94,8 +91,8 @@ public class ProfileFollowerReverse extends Command
         //System.err.println("Execute ProfileFollower.");
        // DriveTrain._leftMain.configOpenloopRamp(0, 500);
         //DriveTrain._rightMain.configOpenloopRamp(0, 500);
-        int leftEncPos = (int) Math.round(-leftMotor.getPosition());
-        int rightEncPos = (int) Math.round(-rightMotor.getPosition());
+        int leftEncPos = (int) Math.round(-leftMotor.getSelectedSensorPosition());
+        int rightEncPos = (int) Math.round(-rightMotor.getSelectedSensorPosition());
 
         double l = left.calculate(leftEncPos);
         double r = right.calculate(rightEncPos);

@@ -30,7 +30,8 @@ deploy {
 // and NavX.
 dependencies {
     compile files('jars/cscore.jar')
-    compile files('jars/CTRE_Phoenix-sources.jar')
+    compile files('jars/CTRE_Phoenix.jar')
+    compile files('jars/CTRE_Phoenix_WPIAPI.jar')
     compile files('jars/navx_frc.jar')
     compile files('jars/ntcore.jar')
     compile files('jars/opencv.jar')
