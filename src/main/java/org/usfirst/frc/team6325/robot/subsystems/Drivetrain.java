@@ -1,16 +1,13 @@
 package org.usfirst.frc.team6325.robot.subsystems;
 
 import java.io.File;
-
 import org.usfirst.frc.team6325.robot.Robot;
 import org.usfirst.frc.team6325.robot.RobotMap;
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive;
 import org.usfirst.frc.team6325.robot.commands.Drive.TankJoystickDrive;
-
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -26,9 +23,6 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 
-/**
- *
- */
 public class Drivetrain extends Subsystem implements PIDOutput
 {
 	
