@@ -17,14 +17,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 object Drivetrain : Subsystem()
 {
-    val driveLeftMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Master"))}
-    val driveLeftBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Back"))}
-    val driveLeftFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Front"))}
-    val driveRightMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Master"))}
-    val driveRightBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Back"))}
-    val driveRightFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Front"))}
-    val navx by lazy { AHRS(SPI.Port.kMXP)
-    val shifter by lazy { DoubleSolenoid(IDs.shifterSolenoidPorts.get("Left-Port"), IDs.shifterSolenoidPorts.get("Right-Port"))}
+    val driveLeftMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Master")) }
+    val driveLeftBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Back")) }
+    val driveLeftFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Front")) }
+    val driveRightMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Master")) }
+    val driveRightBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Back")) }
+    val driveRightFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Front")) }
+    val navx by lazy { AHRS(SPI.Port.kMXP) }
+    val shifter by lazy { DoubleSolenoid(IDs.shifterSolenoidPorts.get("Left-Port"), IDs.shifterSolenoidPorts.get("Right-Port")) }
     var isHighGear: Boolean
     val timer by lazy { Timer() }
     var isProfileFinished: Boolean = false
@@ -238,7 +238,7 @@ object Drivetrain : Subsystem()
         resetGyro()
     }
 
-    fun initDefaultCommand()
+    override fun initDefaultCommand()
     {
         if (Robot.oi.selectedDrivetrainCommand != null)
             setDefaultCommand(Robot.oi.selectedDrivetrainCommand)
