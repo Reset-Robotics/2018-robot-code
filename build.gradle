@@ -1,11 +1,9 @@
 import edu.wpi.first.gradlerio.GradleRIOPlugin
 import edu.wpi.first.gradlerio.frc.FRCJavaArtifact
 import edu.wpi.first.gradlerio.frc.RoboRIO
-import java.text.SimpleDateFormat
 
 plugins {
     id "java"
-    id "idea"
     id "org.jetbrains.kotlin.jvm" version "1.2.50"
     id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
 }
@@ -13,13 +11,7 @@ plugins {
 ext.kotlinVersion = "1.2.50"
 ext.sertainVersion = "1.2.1"
 ext.ktlintVersion = "0.19.0"
-ext.gsonVersion = "2.8.5"
 
-check.dependsOn "ktlint"
-compileKotlin.dependsOn "versionTxt"
-tasks.whenTaskAdded { task ->
-    if (task.name == "deploy" || task.name == "deployMain") task.dependsOn "assemble"
-}
 
 repositories {
     google()
@@ -35,10 +27,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
     compile "org.sert2521.sertain:core:$sertainVersion"
-    compile "com.google.code.gson:gson:$gsonVersion"
 
     compile files('jars/CTRE_Phoenix.jar', 'jars/cscore.jar', 'jars/CTRE_Phoenix_WPIAPI.jar', 'jars/navx_frc.jar',
-    'jars/ntcore.jar', 'jars/opencv.jar', 'jars/Pathfinder-Java-1.8.jar', 'jars/WPILib.jar', 'jars/wpiutil.jar'
+    'jars/ntcore.jar', 'jars/opencv.jar', 'jars/Pathfinder-Java-1.8.jar', 'jars/WPILib.jar', 'jars/wpiutil.jar')
 
     ktlint "com.github.shyiko:ktlint:$ktlintVersion"
 }
@@ -85,44 +76,6 @@ task ktlint(type: JavaExec) {
     main = "com.github.shyiko.ktlint.Main"
     classpath = configurations.ktlint
     args "src/**/*.kt"
-}
-
-def getGitHash = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine "git", "rev-parse", "HEAD"
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-def getGitBranch = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine "git", "rev-parse", "--abbrev-ref", "HEAD"
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-def getGitFilesChanged = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine "git", "diff", "--name-only", "HEAD"
-        standardOutput = stdout
-    }
-    return stdout.toString().trim().replace("\n", ", ")
-}
-
-task versionTxt()  {
-    doLast {
-        String resourcesDir = "$projectDir/src/main/resources"
-        new File("$resourcesDir/branch.txt").text = getGitBranch()
-        new File("$resourcesDir/commit.txt").text = getGitHash()
-        new File("$resourcesDir/changes.txt").text = getGitFilesChanged()
-        new File("$resourcesDir/buildtime.txt").text =
-                new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())
-    }
 }
 
 wrapper {
