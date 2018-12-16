@@ -37,15 +37,8 @@ dependencies {
     compile "org.sert2521.sertain:core:$sertainVersion"
     compile "com.google.code.gson:gson:$gsonVersion"
 
-    compile files('jars/CTRE_Phoenix.jar')
-    compile files('jars/cscore.jar')
-    compile files('jars/CTRE_Phoenix_WPIAPI.jar')
-    compile files('jars/navx_frc.jar')
-    compile files('jars/ntcore.jar')
-    compile files('jars/opencv.jar')
-    compile files('jars/Pathfinder-Java-1.8.jar')
-    compile files('jars/WPILib.jar')
-    compile files('jars/wpiutil.jar')
+    compile files('jars/CTRE_Phoenix.jar', 'jars/cscore.jar', 'jars/CTRE_Phoenix_WPIAPI.jar', 'jars/navx_frc.jar',
+    'jars/ntcore.jar', 'jars/opencv.jar', 'jars/Pathfinder-Java-1.8.jar', 'jars/WPILib.jar', 'jars/wpiutil.jar'
 
     ktlint "com.github.shyiko:ktlint:$ktlintVersion"
 }
