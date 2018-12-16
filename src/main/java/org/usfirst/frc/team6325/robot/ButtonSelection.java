@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6325.robot;
 
 import edu.wpi.first.wpilibj.buttons.*;
+import org.usfirst.frc.team6325.robot.IDConfig;
+import org.usfirst.frc.team6325.robot.OI;
 
 import java.util.*;
 
