@@ -1,9 +1,9 @@
 package org.usfirst.frc.team6325.robot;
 
 
-class IDs()
+public class IDs()
 {
-    fun IDs()
+    public fun IDs()
     {
         // Driver Controls/OI
 
