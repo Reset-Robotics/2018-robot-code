@@ -6,9 +6,9 @@ import org.usfirst.frc.team6325.robot.commands.Lift.JoystickLiftIntake
 import com.ctre.phoenix.motorcontrol.can.Spark;
 
 
-object LiftIntake : Subsystem()
+class LiftIntake : Subsystem()
 {
-    val liftIntakeWheels by lazy { Spark(IDs.pwmMotorIDs.get("Lift-Intake-Wheels")) }
+    fun LiftIntake() = val liftIntakeWheels by lazy { Spark(IDs.pwmMotorIDs.get("Lift-Intake-Wheels")) }
 
     fun spinLiftIntake(pow: Double) = liftIntakeWheels.set(pow)
 

@@ -15,33 +15,33 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-object Drivetrain : Subsystem()
+class Drivetrain : Subsystem()
 {
-    val driveLeftMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Master")) }
-    val driveLeftBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Back")) }
-    val driveLeftFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Front")) }
-    val driveRightMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Master")) }
-    val driveRightBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Back")) }
-    val driveRightFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Front")) }
-    val navx by lazy { AHRS(SPI.Port.kMXP) }
-    val shifter by lazy { DoubleSolenoid(IDs.shifterSolenoidPorts.get("Left-Port"), IDs.shifterSolenoidPorts.get("Right-Port")) }
-    var isHighGear: Boolean
-    val timer by lazy { Timer() }
-    var isProfileFinished: Boolean = false
-
-    // PID values for turning to angles
-    val turnP = 0.006
-    val turnI = 0.0
-    val turnD = 0.0
-    val turnF = 0.0
-    val turnThreshold = 5.0 // how many degrees the robot has to be within for it to stop looking for the required angle
-    val turnRate = 0.0
-
-    val turnController by lazy { PIDController(turnP, turnI, turnD, turnF, navx, this) }
-
-
     fun Drivetrain()
     {
+        val driveLeftMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Master")) }
+        val driveLeftBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Back")) }
+        val driveLeftFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Front")) }
+        val driveRightMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Master")) }
+        val driveRightBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Back")) }
+        val driveRightFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Front")) }
+        val navx by lazy { AHRS(SPI.Port.kMXP) }
+        val shifter by lazy { DoubleSolenoid(IDs.shifterSolenoidPorts.get("Left-Port"), IDs.shifterSolenoidPorts.get("Right-Port")) }
+        var isHighGear: Boolean
+        val timer by lazy { Timer() }
+        var isProfileFinished: Boolean = false
+
+        // PID values for turning to angles
+        val turnP: Double = 0.006
+        val turnI: Double = 0.0
+        val turnD: Double = 0.0
+        val turnF: Double = 0.0
+        val turnThreshold: Double = 5.0 // how many degrees the robot has to be within for it to stop looking for the required angle
+        val turnRate: Double = 0.0
+
+        val turnController by lazy { PIDController(turnP, turnI, turnD, turnF, navx, this) }
+
+
         // Set slave motors to follow masters
         this.driveLeftBack.follow(driveLeftMaster)
         this.driveLeftFront.follow(driveLeftMaster)
@@ -216,10 +216,10 @@ object Drivetrain : Subsystem()
             r = right.calculate(-driveRightMaster.getSelectedSensorPosition(0))
         }
 
-        val gyro_heading = navx.getYaw()
-        val angle_setpoint = Pathfinder.r2d(left.getHeading())
-        val angleDifference = Pathfinder.boundHalfDegrees(angle_setpoint - gyro_heading)
-        val turn = 0.8 * (-1.0/80.0) * angleDifference
+        val gyro_heading: Double = navx.getYaw()
+        val angle_setpoint: Double = Pathfinder.r2d(left.getHeading())
+        val angleDifference: Double = Pathfinder.boundHalfDegrees(angle_setpoint - gyro_heading)
+        val turn: Double = 0.8 * (-1.0/80.0) * angleDifference
         if(!reverse)
             drive(l + turn, r - turn)
         else
@@ -264,20 +264,20 @@ object Drivetrain : Subsystem()
 
     class MotionProfiling
     {
-        val kp = 1
-        val ki = 0.0
-        val kd = 0.05
+        val kp: Double = 1
+        val ki: Double = 0.0
+        val kd: Double = 0.05
 
-        val max_velocity = 7.0
-        val kv = 1 / max_velocity
-        val max_acceleration = 3.0
-        val max_jerk = 60.0
-        val ka = 0.0
-        val wheel_diameter = 0.5
-        val wheel_base_width = 27.11/12.0
-        val wheel_circumference = 6*Math.PI
-        val ticks_per_rev = 4096*7
-        val distancePerPulse = (wheel_diameter*Math.PI)/ticks_per_rev
-        val dt = 0.05
+        val max_velocity: Double = 7.0
+        val kv: Double = 1 / max_velocity
+        val max_acceleration: Double = 3.0
+        val max_jerk: Double = 60.0
+        val ka: Double = 0.0
+        val wheel_diameter: Double = 0.5
+        val wheel_base_width: Double = 27.11/12.0
+        val wheel_circumference: Double = 6*Math.PI
+        val ticks_per_rev: Double = 4096*7
+        val distancePerPulse: Double = (wheel_diameter*Math.PI)/ticks_per_rev
+        val dt: Double = 0.05
     }
 }

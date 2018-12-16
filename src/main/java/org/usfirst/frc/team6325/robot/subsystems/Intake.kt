@@ -6,11 +6,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Spark;
 
-object Intake : Subsystem()
+class Intake : Subsystem()
 {
-    val leftIntakeWheel by lazy { Spark(IDs.pwmMotorIDs.get("Left-Intake-Wheel")) }
-    val rightIntakeWheel by lazy { Spark(IDs.pwmMotorIDs.get("Right-Intake-Wheel")) }
-    private val intakePiston by lazy { DoubleSolenoid(IDs.intakeSolenoidPorts.get("Left-Port"), IDs.intakeSolenoidPorts.get("Right-Port")) }
+    fun Intake()
+    {
+        val leftIntakeWheel by lazy { Spark(IDs.pwmMotorIDs.get("Left-Intake-Wheel")) }
+        val rightIntakeWheel by lazy { Spark(IDs.pwmMotorIDs.get("Right-Intake-Wheel")) }
+        private val intakePiston by lazy { DoubleSolenoid(IDs.intakeSolenoidPorts.get("Left-Port"), IDs.intakeSolenoidPorts.get("Right-Port")) }
+    }
 
     fun setIntakePower(power: Double)
     {

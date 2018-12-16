@@ -6,9 +6,9 @@ import org.usfirst.frc.team6325.robot.IDs
 import edu.wpi.first.wpilibj.Spark
 
 
-object BackBelts : Subsystem()
+class BackBelts : Subsystem()
 {
-    val backBelts by lazy { Spark(IDs.pwmMotorIDs.get("Back-Belts")) }
+    fun BackBelts() = val backBelts by lazy { Spark(IDs.pwmMotorIDs.get("Back-Belts")) }
 
     fun moveBackBelts(pow: Double) = backBelts.set(pow)
 

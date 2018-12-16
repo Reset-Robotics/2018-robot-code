@@ -16,25 +16,22 @@ import org.usfirst.frc.team6325.robot.subsystems.*
 
 class Polybius : Robot() 
 {
-    val backBelts by lazy { BackBelts() }
-    val drivetrain by lazy { Drivetrain() }
-    val intake by lazy { Intake() }
-    val lift by lazy { Lift() }
-    val liftIntake by lazy { LiftIntake() }
-    var oi: OI
-    var start: Double
-    var time: Double
-    var autonomousCommand: Command
-    var chooser: SendableChooser<Command> by lazy { SendableChooser<>() }
-    var positionChooser: SendableChooser<Command> by lazy { SendableChooser<>() }
-    var preferenceChooser: SendableChooser<Command> by lazy { SendableChooser<>() }
-    var cubesChooser: SendableChooser<Command> by lazy { SendableChooser<>() }
-
-
-
     // WPILib robotInit()
     override fun onCreate() 
     {
+    	val backBelts by lazy { BackBelts() }
+    	val drivetrain by lazy { Drivetrain() }
+    	val intake by lazy { Intake() }
+    	val lift by lazy { Lift() }
+    	val liftIntake by lazy { LiftIntake() }
+    	var start: Double
+    	var time: Double
+    	var autonomousCommand: Command
+    	var chooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
+    	var positionChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
+    	var preferenceChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
+    	var cubesChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
+
         var oi: OI by lazy { OI() }
 		chooser.addDefault("Default Auto", by lazy { ArcadeJoystickDrive() })
 		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE)

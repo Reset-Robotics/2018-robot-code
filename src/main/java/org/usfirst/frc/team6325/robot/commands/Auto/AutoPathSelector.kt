@@ -314,9 +314,6 @@ class AutoPathSelector : CommandGroup
 	
 	class Baseline : CommandGroup
 	{
-		fun Baseline() 
-		{
-			addSequential(by lazy { MoveDistance(5, 0.5, 135000) });
-		}
+		fun Baseline() = addSequential(by lazy { MoveDistance(5, 0.5, 135000) });
 	}
 }
