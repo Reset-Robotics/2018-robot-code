@@ -90,11 +90,18 @@ class Drivetrain : Subsystem()
         driveRightMaster.set(0)
     }
 
-    fun shiftIn() = shifter.set(Value.kForward)
+    fun shift(shiftMode: String)
+    {
+        when (shiftMode) 
+        {
+            'high' -> shifter.set(Value.kReverse)
+            'low' -> shifter.set(Value.kForward)
+            'toggle' -> toggleShift()
+            else -> shifter.set(Value.kReverse)
+        }
+    }
 
-    fun shiftOut() = shifter.set(Value.kReverse)
-
-    fun shift()
+    fun toggleShift()
     {
         if(shifter.get()==Value.kForward)
         {

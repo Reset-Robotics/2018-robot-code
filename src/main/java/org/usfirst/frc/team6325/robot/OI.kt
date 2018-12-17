@@ -19,50 +19,6 @@ import edu.wpi.first.wpilibj.buttons.*
 import edu.wpi.first.wpilibj.GenericHID
 
 
-<<<<<<< Updated upstream
-
-class OI
-{
-fun OI()
-{
-		var ids by lazy { IDs() }
-
-		val joystickLeft by lazy { Joystick(ids.joystickLeftIds.get("USB-ID")) }
-		val joystickRight by lazy { Joystick(ids.joystickRightIDs.get("USB-ID")) }
-		val xboxController by lazy { XboxController(ids.xboxIDs.get("USB-ID")) }
-		val xboxJoystickLeft by lazy { Joystick(ids.xboxIDs.get("Left-Joystick-Y-Axis")) }
-		val xboxJoystickRight by lazy { Joystick(ids.xboxIDs.get("Right-Joystick-Y-Axis")) }
-		val sliderRawAxisNumber: Double = Polybius.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"))
-		val drivetrainLeft: Double
-		val drivetrainRight: Double
-		var shiftDrivetrain: Button
-		var backBeltsIn: Button
-		var backBeltsOut: Button
-		var toggleIntakePistons: Button
-		var intakeWheelsForward: Button
-		var intakeWheelsReverse: Button
-		var stopIntakes: Button
-		var liftWheelsOut: Button
-		var liftWheelsIn: Button
-
-
-		//none of these commands exist yet
-
-    	//shiftDrivetrain.whenPressed(ShiftTransmission())
-    	//backBeltsIn.whenPressed(BackIntakeForward(0))
-    	//toggleIntakePistons.whenPressed(ToggleClamp())
-    
-    	//intakeWheelsReverse.whileHeld(SpinIntakeWheels(-1))
-		//intakeWheelsReverse.whileHeld(LiftIntake(1))
-		//intakeWheelsReverse.whenReleased(LiftIntake(0))
-		
-		//stopIntakes.whenPressed(StopIntakeWheels())
-		//stopIntakes.whenPressed(LiftIntake(0))
-		
-		//intakeWheelsForward.whileHeld(SpinIntakeWheels(1))
-		//intakeWheelsForward.whileHeld(LiftOuttake())
-	
-=======
 public class OI
 {
 	public fun OI()
@@ -103,7 +59,6 @@ public class OI
 		//intakeWheelsForward.whileHeld(SpinIntakeWheels(1))
 		//intakeWheelsForward.whileHeld(LiftOuttake())
 
->>>>>>> Stashed changes
 		//liftWheelsOut.whileHeld(LiftOuttake())
 		//liftWheelsOut.whenReleased(LiftIntake(0))
 	
