@@ -23,16 +23,16 @@ public class OI
 {
 	public fun OI()
 	{
-		val ids by lazy { IDs() }
+		val ids: IDs by lazy { IDs() }
 
-		val joystickLeft by lazy { Joystick(ids.joystickLeftIDs.get("USB-ID")) }
-		val joystickRight by lazy { Joystick(ids.joystickRightIDs.get("USB-ID")) }
-		val xboxController by lazy { XboxController(ids.xboxIDs.get("USB-ID")) }
-		val xboxJoystickLeft by lazy { Joystick(ids.xboxIDs.get("Left-Joystick-Y-Axis")) }
-		val xboxJoystickRight by lazy { Joystick(ids.xboxIDs.get("Right-Joystick-Y-Axis")) }
-		val sliderRawAxisNumber = Polybius.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"))
-		val drivetrainLeft
-		val drivetrainRight
+		val joystickLeft: Joystick by lazy { Joystick(ids.joystickLeftIDs.get("USB-ID")) }
+		val joystickRight: Joystick by lazy { Joystick(ids.joystickRightIDs.get("USB-ID")) }
+		val xboxController: XboxController by lazy { XboxController(ids.xboxIDs.get("USB-ID")) }
+		val xboxJoystickLeft: Joystick by lazy { Joystick(ids.xboxIDs.get("Left-Joystick-Y-Axis")) }
+		val xboxJoystickRight: Joystick by lazy { Joystick(ids.xboxIDs.get("Right-Joystick-Y-Axis")) }
+		val sliderRawAxisNumber: Int = Polybius.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"))
+		//val drivetrainLeft
+		//val drivetrainRight
 		val shiftDrivetrain: Button
 		val backBeltsIn: Button
 		val backBeltsOut: Button

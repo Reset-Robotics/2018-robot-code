@@ -4,7 +4,7 @@ import org.sertain.command.*
 import org.usfirst.frc.team6325.robot.Polybius
 
 
-class ArcadeJoystickDrive : Command()
+public class ArcadeJoystickDrive : Command()
 {
     init { requires Polybius.drivetrain }
 
