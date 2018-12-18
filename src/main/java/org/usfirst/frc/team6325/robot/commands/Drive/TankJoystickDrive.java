@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6325.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team6325.robot.ButtonSelection;
+//import org.usfirst.frc.team6325.robot.ButtonSelection;
 import org.usfirst.frc.team6325.robot.Robot;
 
 
@@ -17,15 +17,15 @@ public class TankJoystickDrive extends Command
 	@Override
 	protected void execute() 
 	{
-		ButtonSelection btns = new ButtonSelection();
+		//ButtonSelection btns = new ButtonSelection();
 
 		//double sliderRawAxisNumber = Robot.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"));
 		double sliderModifier = 1 - ((Robot.oi.sliderRawAxisNumber + 1)/2);
-		System.err.println("SliderModifer is " + sliderModifier);
-		double left = Robot.oi.drivetrainLeft * sliderModifier;
-		//System.err.println("left joystick output number is " + left);
-		double right = Robot.oi.drivetrainRight * sliderModifier;
-		//System.err.println("right joystick output number is " + right);
+		//System.err.println("SliderModifer is " + sliderModifier);
+		double left = Robot.oi.joystickLeft.getY() * sliderModifier;
+		System.err.println("left joystick output number is " + left);
+		double right = Robot.oi.joystickRight.getY() * sliderModifier;
+		System.err.println("right joystick output number is " + right);
 		Robot.drivetrain.drive(left, right);
 	}
 

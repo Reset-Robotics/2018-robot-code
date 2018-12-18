@@ -16,7 +16,7 @@ public class TypeToggleTank extends Command
 	@Override
 	protected void execute() 
 	{
-		Robot.oi.selectedDrivetrain = "TankJoystickDrive";
+		//Robot.oi.selectedDrivetrain = "TankJoystickDrive";
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

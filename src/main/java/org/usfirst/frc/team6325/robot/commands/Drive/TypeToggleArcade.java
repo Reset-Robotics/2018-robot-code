@@ -16,7 +16,7 @@ public class TypeToggleArcade extends Command
 	@Override
 	protected void execute() 
 	{
-		Robot.oi.selectedDrivetrain = "ArcadeJoystickDrive";
+		//Robot.oi.selectedDrivetrain = "ArcadeJoystickDrive";
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -295,10 +295,7 @@ public class Drivetrain extends Subsystem implements PIDOutput
     
     public void initDefaultCommand() 
     {
-        if (Robot.oi.selectedDrivetrainCommand != null)
-            setDefaultCommand(Robot.oi.selectedDrivetrainCommand);
-        else
-            setDefaultCommand(new TankJoystickDrive());
+        setDefaultCommand(new TankJoystickDrive());
 	}
 	
     public void autoTurn() 
