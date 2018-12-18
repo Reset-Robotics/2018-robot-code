@@ -38,8 +38,7 @@ deploy {
 // Defining my dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX)
 // and NavX.
 dependencies {
-    compile files('jars/WPILib.jar', 'jars/cscore.jar', 'jars/CTRE_Phoenix.jar', 'jars/CTRE_Phoenix_WPIAPI.jar', 'jars/navx_frc.jar', 'jars/ntcore.jar',
-    'jars/opencv.jar', 'jars/Pathfinder-Java-1.8.jar', 'jars/wpiutil.jar')
+    compile fileTree(include: ['*.jar'], dir: 'jars')
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
