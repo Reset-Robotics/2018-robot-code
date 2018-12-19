@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj.command.Scheduler;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser
+//import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive
@@ -22,11 +22,8 @@ class Polybius : Robot()
     public val intake: Intake = Intake()
     public val lift: Lift = Lift()
     public val liftIntake: LiftIntake = LiftIntake()
-	// Miscellaneous Variables
-    public var start: Double
-    public var time: Double
 	// Autonomous Command/Chooser Initialization
-    public var autonomousCommand: Command
+    public var autonomousCommand: Command = null
     public var chooser: SendableChooser<Command> = SendableChooser<Command>()
     public var positionChooser: SendableChooser<Command> = SendableChooser<Command>()
     public var preferenceChooser: SendableChooser<Command> = SendableChooser<Command>()

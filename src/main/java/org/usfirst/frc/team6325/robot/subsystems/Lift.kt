@@ -8,15 +8,17 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode
 
-object Lift : Subsystem()
+class Lift : Subsystem()
 {
-    val leftMaster by lazy { WPI_TalonSRX(IDs.liftMotorIDs.get("Left-Master")) }
-    val right by lazy { WPI_TalonSRX(IDs.liftMotorIDs.get("Right-Master")) }
-    private val CRUISE_VELOCITY = 19000
-    private val CRUISE_ACCELERATION = 11000
-    private val CRUISE_VELOCITY_DOWN = CRUISE_VELOCITY * 0.7
-    private val CRUISE_ACCELERATION_DOWN = CRUISE_ACCELERATION * 0.6
+    fun Lift()
+    {
+        val ids: IDs = IDs()
 
-    
-    
+        val left: WPI_TalonSRX = WPI_TalonSRX((ids.liftMotorIDs.get("Left-Master"))!!)
+        val right: WPI_TalonSRX = WPI_TalonSRX((ids.liftMotorIDs.get("Right-Master"))!!)
+        private val CRUISE_VELOCITY: Int = 19000
+        private val CRUISE_ACCELERATION: Int = 11000
+        private val CRUISE_VELOCITY_DOWN: Double = CRUISE_VELOCITY * 0.7
+        private val CRUISE_ACCELERATION_DOWN: Double = CRUISE_ACCELERATION * 0.6 
+    }
 }
