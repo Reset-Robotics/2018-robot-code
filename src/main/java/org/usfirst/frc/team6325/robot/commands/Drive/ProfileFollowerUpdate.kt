@@ -11,7 +11,7 @@ import jaci.pathfinder.followers.EncoderFollower
 
 public class ProfileFollowerUpdate : Command
 {
-    public fun ProfileFollowerUpdate(leftCSV: String, rightCSV: String, reversed: Boolean)
+    public fun ProfileFollowerUpdate(leftCSV: String, rightCSV: String, reversed: Boolean = false)
     {
         requires(Polybius.drivetrain)
         File leftMotionProfile = File(leftCSV)
