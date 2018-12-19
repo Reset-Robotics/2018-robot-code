@@ -11,7 +11,7 @@ import jaci.pathfinder.followers.EncoderFollower
 
 public class ProfileFollowerUpdate : Command
 {
-    public fun ProfileFollowerUpdate(leftCSV: String, rightCSV: String)
+    public fun ProfileFollowerUpdate(leftCSV: String, rightCSV: String, reversed: Boolean)
     {
         requires(Polybius.drivetrain)
         File leftMotionProfile = File(leftCSV)
@@ -32,12 +32,25 @@ public class ProfileFollowerUpdate : Command
         var left: EncoderFollower = EncoderFollower(leftTra)
         var right: EncoderFollower = EncoderFollower(rightTra)
 
-        left.configureEncoder((int) Math.round(leftMotor.getSelectedPosition()), 30000, 0.5)
-        right.configureEncoder((int) Math.round(rightMotor.getSelectedPosition()), 30000, 0.5)
+        if (reversed == true) // reversed
+        {
+            left.configureEncoder(leftEncPosRounded, 4096*7, 0.5)
+            right.configureEncoder(rightEncPosRounded, 4096*7, 0.5)
 
-        val MAX_VELOCITY: Double = 1.0 / 4.0
-        left.configurePIDVA(0.4, 0.0, 0.07, MAX_VELOCITY, 0)
-        right.configurePIDVA(0.4, 0.0, 0.07, MAX_VELOCITY, 0)
+            val MAX_VELOCITY: Double = 1.0 / 4.0
+            left.configurePIDVA(0.9, 0.0, 0.07, MAX_VELOCITY, 0)
+            right.configurePIDVA(0.9, 0.0, 0.07, MAX_VELOCITY, 0)
+        }
+        else // normal
+        {
+            left.configureEncoder((int) Math.round(leftMotor.getSelectedPosition()), 30000, 0.5)
+            right.configureEncoder((int) Math.round(rightMotor.getSelectedPosition()), 30000, 0.5)
+
+            val MAX_VELOCITY: Double = 1.0 / 4.0
+            left.configurePIDVA(0.4, 0.0, 0.07, MAX_VELOCITY, 0)
+            right.configurePIDVA(0.4, 0.0, 0.07, MAX_VELOCITY, 0)
+        }
+
     }
 
     override fun onDestroy()
@@ -55,13 +68,24 @@ public class ProfileFollowerUpdate : Command
     override fun execute()
     {
         super.execute()
-        val l: Double = left.calculate((int) Math.round(leftMotor.getSelectedSensorPosition()))
-        val r: Double = right.calculate((int) Math.round(rightMotor.getSelectedSensorPosition()))
         val GYRO_HEADING: Double = Polybius.drivetrain.navx.getAngle()
         val DESIRED_HEADING: Double = Pathfinder.r2d(left.getHeading())
         val ANGLE_DIFFERENCE: Double = Pathfinder.boundHalfDegrees(DESIRED_HEADING - GYRO_HEADING)
         println("Desired angle  " + DESIRED_HEADING + "Current heading " + GYRO_HEADING + "Angle difference " + ANGLE_DIFFERENCE)
-        val turn: Double = 1.2  * (-1.0/80.0) * ANGLE_DIFFERENCE
+        
+        if (reversed == true) // reversed
+        {
+            val l: Double = left.calculate((int) Math.round(-leftMotor.getSelectedSensorPosition()))
+            val r: Double = right.calculate((int) Math.round(-rightMotor.getSelectedSensorPosition()))
+            val turn: Double = -1 * 0.8 * (-1.0/80.0) * ANGLE_DIFFERENCE
+        }
+        else // normal
+        {
+            val l: Double = left.calculate((int) Math.round(leftMotor.getSelectedSensorPosition()))
+            val r: Double = right.calculate((int) Math.round(rightMotor.getSelectedSensorPosition()))
+            val turn: Double = 1.2  * (-1.0/80.0) * ANGLE_DIFFERENCE
+        }
+
         println("Left: " + (l))
         println("Right: " + (r))
         println("Left + turn: " + (l+turn))
