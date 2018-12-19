@@ -6,7 +6,7 @@ import org.usfirst.frc.team6325.robot.Polybius
 
 public class ArcadeJoystickDrive : Command()
 {
-    init { requires Polybius.drivetrain }
+    init() = requires Polybius.drivetrain
 
     override fun execute()
     {
