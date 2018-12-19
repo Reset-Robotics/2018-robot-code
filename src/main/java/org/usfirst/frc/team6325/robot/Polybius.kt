@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj.command.Scheduler;
-import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive
@@ -16,24 +16,29 @@ import org.usfirst.frc.team6325.robot.subsystems.*
 
 class Polybius : Robot() 
 {
+	// Subsystem Initialization
+	public val backBelts: BackBelts = BackBelts()
+    public val drivetrain: Drivetrain = Drivetrain()
+    public val intake: Intake = Intake()
+    public val lift: Lift = Lift()
+    public val liftIntake: LiftIntake = LiftIntake()
+	// Miscellaneous Variables
+    public var start: Double
+    public var time: Double
+	// Autonomous Command/Chooser Initialization
+    public var autonomousCommand: Command
+    public var chooser: SendableChooser<Command> = SendableChooser<Command>()
+    public var positionChooser: SendableChooser<Command> = SendableChooser<Command>()
+    public var preferenceChooser: SendableChooser<Command> = SendableChooser<Command>()
+    public var cubesChooser: SendableChooser<Command> = SendableChooser<Command>()
+
+	// OI Initialization
+    public var oi: OI = OI()
+
     // WPILib robotInit()
     override fun onCreate() 
     {
-    	val backBelts by lazy { BackBelts() }
-    	val drivetrain by lazy { Drivetrain() }
-    	val intake by lazy { Intake() }
-    	val lift by lazy { Lift() }
-    	val liftIntake by lazy { LiftIntake() }
-    	var start: Double
-    	var time: Double
-    	var autonomousCommand: Command
-    	var chooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
-    	var positionChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
-    	var preferenceChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
-    	var cubesChooser: SendableChooser<Command> by lazy { SendableChooser<Command>() }
-
-        var oi: OI by lazy { OI() }
-		chooser.addDefault("Default Auto", by lazy { ArcadeJoystickDrive() })
+		chooser.addDefault("Default Auto", ArcadeJoystickDrive())
 		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE)
 		positionChooser.addObject(AutoPosition.LEFT.getName(), AutoPosition.LEFT)
 		positionChooser.addObject(AutoPosition.RIGHT.getName(), AutoPosition.RIGHT)
@@ -51,7 +56,7 @@ class Polybius : Robot()
 		SmartDashboard.putData("Auto Position", positionChooser)
 		SmartDashboard.putData("Auto Preference", preferenceChooser)
 		SmartDashboard.putData("Auto Cubes", cubesChooser)
-        SmartDashboard.putData("Reset Gyro", by lazy { ResetGyro() })
+        SmartDashboard.putData("Reset Gyro", ResetGyro())
     }
 
     // WPILib disabledPeriodic()
@@ -154,19 +159,19 @@ class Polybius : Robot()
 			if (preference.getName() == "Scale")
 			{
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
             }
         }
         if (preference.getName() == "Baseline") 
-			autonomousCommand = by lazy { AutoPathSelector.Baseline() }
+			autonomousCommand = AutoPathSelector.Baseline()
 		
 		Polybius.drivetrain.resetEncoders()
 		Polybius.intake.clampIn()

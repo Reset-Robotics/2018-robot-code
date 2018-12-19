@@ -3,11 +3,18 @@ package org.usfirst.frc.team6325.robot;
 
 public class IDs()
 {
+    public var joystickLeftIDs: HashMap<String, Int> = HashMap<String, Int>() // holds ids for different buttons and axes on the left driver joystick
+    public var joystickRightIDs: HashMap<String, Int> = HashMap<String, Int>() // holds ids for different buttons and axes on the right driver joystick
+    public var xboxIDs: HashMap<String, Int> = HashMap<String, Int>() // holds ids for different buttons and axes on the xbox controller
+    public var driveMotorIDs: HashMap<String, Int> = HashMap<String, Int>() // holds all our talon ids for drive motors
+    public var liftMotorIDs: HashMap<String, Int> = HashMap<String, Int>() // holds all our motor controller ids for lift motors
+    public var pwmMotorIDs: HashMap<String, Int> = HashMap<String, Int>() // holds all our PWM ids
+    public var shifterSolenoidPorts: HashMap<String, Int> = HashMap<String, Int>() // holds our solenoid ports on the PCM for our drivetrain shifter
+    public var intakeSolenoidPorts: HashMap<String, Int> = HashMap<String, Int>() // holds our solenoid ports on the PCM for our intake pistons
+
     public fun IDs()
     {
         // Driver Controls/OI
-
-        val joystickLeftIDs = HashMap<String, Int>() // holds ids for different buttons and axes on the left driver joystick
         joystickLeftIDs.put("USB-ID", 0)
         joystickLeftIDs.put("X-Axis", 0)
         joystickLeftIDs.put("Y-Axis", 1)
@@ -20,7 +27,6 @@ public class IDs()
         joystickLeftIDs.put("Top-Button-Top-Right", 6)
         joystickLeftIDs.put("SliderAxis", 3)
 
-        val joystickRightIDs = HashMap<String, Int>() // holds ids for different buttons and axes on the right driver joystick
         joystickRightIDs.put("USB-ID", 1)
         joystickRightIDs.put("X-Axis", 0)
         joystickRightIDs.put("Y-Axis", 1)
@@ -32,7 +38,6 @@ public class IDs()
         joystickRightIDs.put("Top-Button-Top-Left", 5)
         joystickRightIDs.put("Top-Button-Top-Right", 6)
 
-        val xboxIDs = HashMap<String, Int>() // holds ids for different buttons and axes on the xbox controller
         xboxIDs.put("USB-ID", 2)
         xboxIDs.put("A-Button", 1)
         xboxIDs.put("B-Button", 2)
@@ -49,7 +54,6 @@ public class IDs()
 
         // Motor Controllers
 
-        val driveMotorIDs = HashMap<String, Int>() // holds all our talon ids for drive motors
         driveMotorIDs.put("Right-Master", 2)
         driveMotorIDs.put("Right-Front", 7)
         driveMotorIDs.put("Right-Back", 9)
@@ -57,24 +61,20 @@ public class IDs()
         driveMotorIDs.put("Left-Front", 4)
         driveMotorIDs.put("Left-Back", 8)
 
-        val liftMotorIDs = HashMap<String, Int>() // holds all our motor controller ids for lift motors
         liftMotorIDs.put("Left-Master", 0)
         liftMotorIDs.put("Right-Master", 1)
 
-        val pwmMotorIDs = HashMap<String, Int>() // holds all our PWM ids
         pwmMotorIDs.put("Back-Belts", 0)
         pwmMotorIDs.put("Right-Intake-Wheel", 1)
         pwmMotorIDs.put("Left-Intake-Wheel", 2)
         pwmMotorIDs.put("Lift-Intake-Wheels", 3)
 
 
-       // Pneumatics
+        // Pneumatics
 
-        val shifterSolenoidPorts = HashMap<String, Int>() // holds our solenoid ports on the PCM for our drivetrain shifter
         shifterSolenoidPorts.put("Left-Port", 0)
         shifterSolenoidPorts.put("Right-Port", 1)
 
-        val intakeSolenoidPorts = HashMap<String, Int>() // holds our solenoid ports on the PCM for our intake pistons
         intakeSolenoidPorts.put("Left-Port", 2)
         intakeSolenoidPorts.put("Right-Port", 3)
     }

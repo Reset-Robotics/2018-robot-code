@@ -21,28 +21,32 @@ import edu.wpi.first.wpilibj.GenericHID
 
 public class OI
 {
+	val ids: IDs = IDs()
+	// Joysticks/Controllers
+	val joystickLeft: Joystick = Joystick((ids.joystickLeftIDs.get("USB-ID"))!!)
+	val joystickRight: Joystick = Joystick((ids.joystickRightIDs.get("USB-ID"))!!)
+	val xboxController: XboxController = XboxController((ids.xboxIDs.get("USB-ID"))!!)
+	val xboxJoystickLeft: Joystick = Joystick((ids.xboxIDs.get("Left-Joystick-Y-Axis"))!!)
+	val xboxJoystickRight: Joystick = Joystick((ids.xboxIDs.get("Right-Joystick-Y-Axis"))!!)
+	// Drivetrain Variables
+	var sliderRawAxisNumber: Double = joystickLeft.getRawAxis((ids.joystickLeftIDs.get("SliderAxis"))!!)
+	//val drivetrainLeft
+	//val drivetrainRight
+	val shiftDrivetrain: Button = JoystickButton(joystickLeft, (ids.joystickLeftIDs.get("Trigger"))!!)
+	// BackBelt Buttons
+	val backBeltsIn: Button = JoystickButton(xboxController, (ids.xboxIDs.get("B-Button"))!!)
+	val backBeltsOut: Button = JoystickButton(xboxController, (ids.xboxIDs.get("X-Button"))!!)
+	// Intake Buttons
+	val toggleIntakePistons: Button = JoystickButton(joystickRight, (ids.joystickRightIDs.get("Trigger"))!!)
+	val intakeWheelsForward: Button = JoystickButton(joystickLeft, (ids.joystickLeftIDs.get("Top-Button-Top-Right"))!!)
+	val intakeWheelsReverse: Button = JoystickButton(joystickRight, (ids.joystickRightIDs.get("Top-Button-Top-Left"))!!)
+	val stopIntakes: Button = JoystickButton(joystickRight, (ids.joystickRightIDs.get("Side-Thumb"))!!)
+	val liftWheelsOut: Button = JoystickButton(xboxController, (ids.xboxIDs.get("A-Button"))!!)
+	val liftWheelsIn: Button = JoystickButton(xboxController, (ids.xboxIDs.get("Y-Button"))!!)
+
+
 	public fun OI()
 	{
-		val ids: IDs by lazy { IDs() }
-
-		val joystickLeft: Joystick by lazy { Joystick(ids.joystickLeftIDs.get("USB-ID")) }
-		val joystickRight: Joystick by lazy { Joystick(ids.joystickRightIDs.get("USB-ID")) }
-		val xboxController: XboxController by lazy { XboxController(ids.xboxIDs.get("USB-ID")) }
-		val xboxJoystickLeft: Joystick by lazy { Joystick(ids.xboxIDs.get("Left-Joystick-Y-Axis")) }
-		val xboxJoystickRight: Joystick by lazy { Joystick(ids.xboxIDs.get("Right-Joystick-Y-Axis")) }
-		val sliderRawAxisNumber: Int = Polybius.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"))
-		//val drivetrainLeft
-		//val drivetrainRight
-		val shiftDrivetrain: Button
-		val backBeltsIn: Button
-		val backBeltsOut: Button
-		val toggleIntakePistons: Button
-		val intakeWheelsForward: Button
-		val intakeWheelsReverse: Button
-		val stopIntakes: Button
-		val liftWheelsOut: Button
-		val liftWheelsIn: Button
-
     	//none of these commands exist yet
 
 	    //shiftDrivetrain.whenPressed(ShiftTransmission())
