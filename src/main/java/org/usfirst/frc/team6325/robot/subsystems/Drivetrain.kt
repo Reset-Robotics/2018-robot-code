@@ -17,31 +17,31 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 class Drivetrain : Subsystem()
 {
+    val ids: IDs = IDs()
+    val driveLeftMaster: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Left-Master"))!!)
+    val driveLeftBack: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Left-Back"))!!)
+    val driveLeftFront: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Left-Front"))!!)
+    val driveRightMaster: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Right-Master"))!!)
+    val driveRightBack: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Right-Back"))!!)
+    val driveRightFront: WPI_TalonSRX = WPI_TalonSRX((ids.driveMotorsIDs.get("Right-Front"))!!)
+    val navx: AHRS = AHRS(SPI.Port.kMXP)
+    val shifter: DoubleSolenoid = DoubleSolenoid((ids.shifterSolenoidPorts.get("Left-Port"))!!, (ids.shifterSolenoidPorts.get("Right-Port"))!!)
+    var isHighGear: Boolean = null
+    val timer: Timer = Timer()
+    var isProfileFinished: Boolean = false
+
+    // PID values for turning to angles
+    val turnP: Double = 0.006
+    val turnI: Double = 0.0
+    val turnD: Double = 0.0
+    val turnF: Double = 0.0
+    val turnThreshold: Double = 5.0 // how many degrees the robot has to be within for it to stop looking for the required angle
+    val turnRate: Double = 0.0
+
+    val turnController: PIDController = PIDController(turnP, turnI, turnD, turnF, navx, this)
+
     fun Drivetrain()
     {
-        val driveLeftMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Master")) }
-        val driveLeftBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Back")) }
-        val driveLeftFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Left-Front")) }
-        val driveRightMaster by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Master")) }
-        val driveRightBack by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Back")) }
-        val driveRightFront by lazy { WPI_TalonSRX(IDs.driveMotorsIDs.get("Right-Front")) }
-        val navx by lazy { AHRS(SPI.Port.kMXP) }
-        val shifter by lazy { DoubleSolenoid(IDs.shifterSolenoidPorts.get("Left-Port"), IDs.shifterSolenoidPorts.get("Right-Port")) }
-        var isHighGear: Boolean
-        val timer by lazy { Timer() }
-        var isProfileFinished: Boolean = false
-
-        // PID values for turning to angles
-        val turnP: Double = 0.006
-        val turnI: Double = 0.0
-        val turnD: Double = 0.0
-        val turnF: Double = 0.0
-        val turnThreshold: Double = 5.0 // how many degrees the robot has to be within for it to stop looking for the required angle
-        val turnRate: Double = 0.0
-
-        val turnController by lazy { PIDController(turnP, turnI, turnD, turnF, navx, this) }
-
-
         // Set slave motors to follow masters
         this.driveLeftBack.follow(driveLeftMaster)
         this.driveLeftFront.follow(driveLeftMaster)
@@ -156,32 +156,32 @@ class Drivetrain : Subsystem()
 
     fun initPath(leftCSV: String, rightCSV: String): EncoderFollower[]
     {
-        val leftMotionProfile by lazy { File(leftCSV) }
-        val rightMotionProfile by lazy { File(rightCSV) }
+        val leftMotionProfile: File = File(leftCSV)
+        val rightMotionProfile: File = File(rightCSV)
         System.err.println("Path file about to read")
         var leftTrajectory: Trajectory = Pathfinder.readFromCSV(leftMotionProfile)
         var rightTrajectory: Trajectory = Pathfinder.readFromCSV(rightMotionProfile)
         System.err.println("Path file successfully read")
-        private val left by lazy { EncoderFollower(leftTrajectory) }
-        private val right by lazy { EncoderFollower(rightTrajectory) }
+        private val left: EncoderFollower = EncoderFollower(leftTrajectory)
+        private val right: EncoderFollower = EncoderFollower(rightTrajectory)
         left.configureEncoder(driveLeftMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter)
         right.configureEncoder(driveRightMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
         left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
         navx.zeroYaw()
-        return by lazy { EncoderFollower[]{left, right,}; }
+        return EncoderFollower[]{left, right,}
     }
 
     fun initPath(path: Waypoint[]): EncoderFollower[]
     {
-        private var left: EncoderFollower by lazy { EncoderFollower() }
-        private var right: EncoderFollower by lazy { EncoderFollower() }
-        private val cfg by lazy { Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, Drivetrain.MotionProfiling.dt, 
-        Drivetrain.MotionProfiling.max_velocity, Drivetrain.MotionProfiling.max_acceleration, Drivetrain.MotionProfiling.max_jerk); }
+        private var left: EncoderFollower = EncoderFollower()
+        private var right: EncoderFollower = EncoderFollower()
+        private val cfg: Trajectory.Config = Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH, Drivetrain.MotionProfiling.dt, 
+        Drivetrain.MotionProfiling.max_velocity, Drivetrain.MotionProfiling.max_acceleration, Drivetrain.MotionProfiling.max_jerk);
         var pathHash: String = String.valueOf(generateHashCode(path))
         SmartDashboard.putString("Path Hash", pathHash)
-        var toFollow: Trajectory
-        val trajectory by lazy { File("/home/lvuser/paths/" + pathHash + ".csv") }
+        var toFollow: Trajectory = null
+        val trajectory: File = File("/home/lvuser/paths/" + pathHash + ".csv")
 
         if (!trajectory.exists())
         {
@@ -195,14 +195,14 @@ class Drivetrain : Subsystem()
             toFollow = Pathfinder.readFromCSV(trajectory)
         }
 
-        val modifier by lazy { TankModifier(toFollow).modify(Drivetrain.MotionProfiling.wheel_base_width) }
-        left by lazy EncoderFollower(modifier.getLeftTrajectory())
-        right by lazy EncoderFollower(modifier.getRightTrajectory())
-        left.configureEncoder(driveLeftMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
-        right.configureEncoder(driveRightMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter);
-        left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
-        right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka);
-        return by lazy { EncoderFollower[]{left, right,}; }
+        val modifier: TankModifier = TankModifier(toFollow).modify(Drivetrain.MotionProfiling.wheel_base_width)
+        left: EncoderFollower = EncoderFollower(modifier.getLeftTrajectory())
+        right: EncoderFollower = EncoderFollower(modifier.getRightTrajectory())
+        left.configureEncoder(driveLeftMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter)
+        right.configureEncoder(driveRightMaster.getSelectedSensorPosition(0), MotionProfiling.ticks_per_rev, MotionProfiling.wheel_diameter)
+        left.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka)
+        right.configurePIDVA(MotionProfiling.kp, MotionProfiling.ki, MotionProfiling.kd, MotionProfiling.kv, MotionProfiling.ka)
+        return EncoderFollower[]{left, right,}
     }
 
     fun executePath(followers: EncoderFollower[], reverse: boolean)
@@ -247,10 +247,10 @@ class Drivetrain : Subsystem()
 
     override fun initDefaultCommand()
     {
-        if (Robot.oi.selectedDrivetrainCommand != null)
-            setDefaultCommand(Robot.oi.selectedDrivetrainCommand)
+        if (Polybius.oi.selectedDrivetrainCommand != null)
+            setDefaultCommand(Polybius.oi.selectedDrivetrainCommand)
         else
-            setDefaultCommand by lazy { TankJoystickDrive() }
+            setDefaultCommand = TankJoystickDrive()
     }
 
     fun autoTurn() = drive(turnRate, -turnRate)

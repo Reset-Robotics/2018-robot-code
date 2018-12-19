@@ -3,14 +3,14 @@ package org.usfirst.frc.team6325.robot.commands.Auto
 import edu.wpi.first.wpilibj.DriverStation
 
 
-class GamedataFetcher
+public class GamedataFetcher
 {
-    fun GamedataFetcher()
-    {
-        var switchSide: Char = ' '
-        var scaleSide: Char = ' ' 
-        var gameData: String = DriverStation.getInstance().getGameSpecificMessage()
+    public var switchSide: Char = ' '
+    public var scaleSide: Char = ' ' 
+    public var gameData: String = DriverStation.getInstance().getGameSpecificMessage()
 
+    public fun GamedataFetcher()
+    {
         try 
         {
             this.switchSide = gameData.charAt(0)
