@@ -64,7 +64,7 @@ class Polybius : Robot()
 		SmartDashboard.putData("Auto Position", positionChooser)
 		SmartDashboard.putData("Auto Preference", preferenceChooser)
 		SmartDashboard.putData("Auto Cubes", cubesChooser)
-        SmartDashboard.putData("Reset Gyro", by lazy { ResetGyro() })
+        SmartDashboard.putData("Reset Gyro", ResetGyro())
     }
 
     // WPILib autonomousInit()
@@ -78,35 +78,35 @@ class Polybius : Robot()
 	    System.err.println("cubes = " + cubes);
 	    var classNameString: String = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName())
 	    System.err.println(classNameString)
-		val gamedata by lazy { GamedataFetcher() }
+		val gamedata: GamedataFetcher = GamedataFetcher()
 
         if (position.getName() == "Middle")
 		{
 		    if (preference.getName() == "Switch")
 		    {
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
 		    }
 		    if (preference.getName() == "Scale")
 		    {
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = by lazy { AutoPathSelector.MiddleScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		    }
 		 }
 		if (position.getName() == "Left")
@@ -114,28 +114,28 @@ class Polybius : Robot()
 		    if (preference.getName() == "Switch")
 		    {
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneTwo")
-					autonomousCommand = by lazy { AutoPathSelector.LeftSwitch.One(gamedata.switchSide) }
+					autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
 			}
 		    if (preference.getName() == "Scale")
 		    {
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.LeftScale.One(gamedata.scaleSide) }
+		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
 		    	if (cubes.getName() == "OneTwo")
-					autonomousCommand = by lazy { AutoPathSelector.LeftScale.One(gamedata.scaleSide) }
+					autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
 		    }
 		}
 		if (position.getName() == "Right")
@@ -143,15 +143,15 @@ class Polybius : Robot()
 			if (preference.getName() == "Switch")
 			{
 		    	if (cubes.getName() == "One")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
 		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = by lazy { AutoPathSelector.RightSwitch.One(gamedata.switchSide) }
+		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
 			}
 			if (preference.getName() == "Scale")
 			{
