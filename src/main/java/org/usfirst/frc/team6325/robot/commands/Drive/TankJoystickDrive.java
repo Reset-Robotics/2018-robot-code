@@ -22,9 +22,9 @@ public class TankJoystickDrive extends Command
 		//double sliderRawAxisNumber = Robot.oi.joystickLeft.getRawAxis(ids.joystickLeftIDs.get("SliderAxis"));
 		double sliderModifier = 1 - ((Robot.oi.sliderRawAxisNumber + 1)/2);
 		//System.err.println("SliderModifer is " + sliderModifier);
-		double left = Robot.oi.joystickLeft.getY() * sliderModifier;
+		double left = -Robot.oi.joystickLeft.getY() * sliderModifier;
 		System.err.println("left joystick output number is " + left);
-		double right = Robot.oi.joystickRight.getY() * sliderModifier;
+		double right = -Robot.oi.joystickRight.getY() * sliderModifier;
 		System.err.println("right joystick output number is " + right);
 		Robot.drivetrain.drive(left, right);
 	}

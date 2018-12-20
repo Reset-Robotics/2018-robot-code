@@ -68,7 +68,6 @@ public class Drivetrain extends Subsystem implements PIDOutput
 		this.leftDriveMaster.setInverted(false);
 		this.backLeft.setInverted(false);
 		this.frontLeft.setInverted(true);
-		this.rightDriveMaster.setInverted(false);
 		//leftDriveMaster.setSensorPhase(true);
 
 		// Set Talon Mode
