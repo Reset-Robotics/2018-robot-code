@@ -6,7 +6,7 @@ public class AutoChooser
     public enum class AutoPosition
     {
         LEFT("Left"),
-        MIDLE("Middle"),
+        MIDDLE("Middle"),
         RIGHT("Right")
 
         var name: String = null

@@ -1,12 +1,13 @@
 package org.usfirst.frc.team6325.robot
 
 import org.sertain.*
+import org.sertain.command.Command
+import org.sertain.util.SendableChooser
 import edu.wpi.first.wpilibj.CameraServer
 import edu.wpi.first.wpilibj.livewindow.LiveWindow
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj.command.Scheduler;
-//import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*
+import org.usfirst.frc.team6325.robot.commands.Auto.AutoChooser.*
 import org.usfirst.frc.team6325.robot.commands.Auto.AutoPathSelector
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher
 import org.usfirst.frc.team6325.robot.commands.Drive.ArcadeJoystickDrive
@@ -23,11 +24,25 @@ class Polybius : Robot()
     public val lift: Lift = Lift()
     public val liftIntake: LiftIntake = LiftIntake()
 	// Autonomous Command/Chooser Initialization
-    public var autonomousCommand: Command = null
-    public var chooser: SendableChooser<Command> = SendableChooser<Command>()
-    public var positionChooser: SendableChooser<Command> = SendableChooser<Command>()
-    public var preferenceChooser: SendableChooser<Command> = SendableChooser<Command>()
-    public var cubesChooser: SendableChooser<Command> = SendableChooser<Command>()
+    public lateinit var autonomousCommand: Command
+    public var positionChooser = SendableChooser(
+		AutoPosition.MIDDLE.getName() to AutoPosition.MIDDLE,
+		AutoPosition.LEFT.getName() to AutoPosition.LEFT,
+		AutoPosition.RIGHT.getName() to AutoPosition.RIGHT
+	)
+    public var preferenceChooser = SendableChooser(
+		AutoPreference.SWITCH.getName() to AutoPreference.SWITCH,
+		AutoPreference.SCALE.getName() to AutoPreference.SCALE,
+		AutoPreference.SIMPLE.getName() to AutoPreference.SIMPLE,
+		AutoPreference.BASELINE.getName() to AutoPreference.BASELINE
+	)
+    public var cubesChooser = SendableChooser(
+		AutoCubes.ONE.getName() to AutoCubes.ONE,
+		AutoCubes.TWO.getName() to AutoCubes.TWO,
+		AutoCubes.THREE.getName() to AutoCubes.THREE,
+		AutoCubes.ONEONE.getName() to AutoCubes.ONEONE,
+		AutoCubes.ONETWO.getName() to AutoCubes.ONETWO
+	)
 
 	// OI Initialization
     public var oi: OI = OI()
@@ -35,21 +50,6 @@ class Polybius : Robot()
     // WPILib robotInit()
     override fun onCreate() 
     {
-		chooser.addDefault("Default Auto", ArcadeJoystickDrive())
-		positionChooser.addDefault(AutoPosition.MIDDLE.getName(), AutoPosition.MIDDLE)
-		positionChooser.addObject(AutoPosition.LEFT.getName(), AutoPosition.LEFT)
-		positionChooser.addObject(AutoPosition.RIGHT.getName(), AutoPosition.RIGHT)
-		preferenceChooser.addDefault(AutoPreference.SWITCH.getName(), AutoPreference.SWITCH)
-		preferenceChooser.addObject(AutoPreference.SCALE.getName(), AutoPreference.SCALE)
-		preferenceChooser.addObject(AutoPreference.SIMPLE.getName(), AutoPreference.SIMPLE)
-		preferenceChooser.addObject(AutoPreference.BASELINE.getName(), AutoPreference.BASELINE)
-		cubesChooser.addDefault(AutoCubes.ONE.getName(), AutoCubes.ONE)
-		cubesChooser.addObject(AutoCubes.TWO.getName(), AutoCubes.TWO)
-		cubesChooser.addObject(AutoCubes.THREE.getName(), AutoCubes.THREE)
-		cubesChooser.addObject(AutoCubes.ONEONE.getName(), AutoCubes.ONEONE)
-		cubesChooser.addObject(AutoCubes.ONETWO.getName(), AutoCubes.ONETWO)
-
-		SmartDashboard.putData("Auto Mode", chooser)
 		SmartDashboard.putData("Auto Position", positionChooser)
 		SmartDashboard.putData("Auto Preference", preferenceChooser)
 		SmartDashboard.putData("Auto Cubes", cubesChooser)
