@@ -24,7 +24,6 @@ class Polybius : Robot()
     public val lift: Lift = Lift()
     public val liftIntake: LiftIntake = LiftIntake()
 	// Autonomous Command/Chooser Initialization
-    public lateinit var autonomousCommand: Command
     public var positionChooser = SendableChooser(
 		AutoPosition.MIDDLE.getName() to AutoPosition.MIDDLE,
 		AutoPosition.LEFT.getName() to AutoPosition.LEFT,
@@ -60,7 +59,6 @@ class Polybius : Robot()
     override fun executeDisabled()
     {
         Scheduler.getInstance().run()
-        SmartDashboard.putData("Auto Mode", chooser)
 		SmartDashboard.putData("Auto Position", positionChooser)
 		SmartDashboard.putData("Auto Preference", preferenceChooser)
 		SmartDashboard.putData("Auto Cubes", cubesChooser)
@@ -72,110 +70,44 @@ class Polybius : Robot()
     {
         var position: AutoPosition = positionChooser.getSelected()
         System.err.println("position = " + position)
-        var preference: AutoPosition = preferenceChooser.getSelected()
+        var preference: AutoPreference? = null
+		preference?.let { preferenceChooser!!.getSelected() }
 	    System.err.println("preference = " + preference)
-        var cubes: AutoPosition = cubesChooser.getSelected()
+        var cubes: AutoCubes? = null
+		cubes?.let { cubesChooser!!.getSelected() }
 	    System.err.println("cubes = " + cubes);
-	    var classNameString: String = ("AutoPathSelector." + position.getName() + preference.getName() + "." + cubes.getName())
+	    var classNameString: String? = ("AutoPathSelector." + position!!.getName() + preference!!.getName() + "." + cubes!!.getName())
 	    System.err.println(classNameString)
 		val gamedata: GamedataFetcher = GamedataFetcher()
 
-        if (position.getName() == "Middle")
+        if (positionChooser.getName() == "Middle")
 		{
-		    if (preference.getName() == "Switch")
-		    {
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = AutoPathSelector.MiddleSwitch.One(gamedata.switchSide)
-		    }
-		    if (preference.getName() == "Scale")
-		    {
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
-		    }
-		 }
-		if (position.getName() == "Left")
-		{
-		    if (preference.getName() == "Switch")
-		    {
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneTwo")
-					autonomousCommand = AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
-			}
-		    if (preference.getName() == "Scale")
-		    {
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneTwo")
-					autonomousCommand = AutoPathSelector.LeftScale.One(gamedata.scaleSide)
-		    }
+			if (preferenceChooser.getName() == "Switch")
+				AutoPathSelector.MiddleSwitch.One(gamedata.switchSide).start()
+			if (preferenceChooser.getName() == "Scale")
+				AutoPathSelector.MiddleScale.One(gamedata.scaleSide)
 		}
-		if (position.getName() == "Right")
+		if (positionChooser.getName() == "Left") 
 		{
-			if (preference.getName() == "Switch")
-			{
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
-		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = AutoPathSelector.RightSwitch.One(gamedata.switchSide)
-			}
-			if (preference.getName() == "Scale")
-			{
-		    	if (cubes.getName() == "One")
-		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Two")
-		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "Three")
-		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneOne")
-		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
-		    	if (cubes.getName() == "OneTwo")
-		    		autonomousCommand = AutoPathSelector.RightScale.One(gamedata.scaleSide)
-            }
-        }
-        if (preference.getName() == "Baseline") 
-			autonomousCommand = AutoPathSelector.Baseline()
+			if (preferenceChooser.getName() == "Switch")
+				AutoPathSelector.LeftSwitch.One(gamedata.switchSide)
+			if (preferenceChooser.getName() == "Scale")
+				AutoPathSelector.LeftScale.One(gamedata.scaleSide)
+		}
+		if (positionChooser.getName() == "Right")
+		{
+			if (preferenceChooser.getName() == "Switch")
+				AutoPathSelector.RightSwitch.One(gamedata.switchSide)
+			if (preferenceChooser.getName() == "Scale")
+				AutoPathSelector.RightScale.One(gamedata.scaleSide)
+		}
+		if (preferenceChooser.getName() == "Baseline")
+			AutoPathSelector.Baseline()
 		
 		Polybius.drivetrain.resetEncoders()
 		Polybius.intake.clampIn()
 		Polybius.drivetrain.navx.zeroYaw()
 		Polybius.drivetrain.shiftIn()
-		if (autonomousCommand != null)
-            autonomousCommand.start()
     }
 
     // WPILib autonomousPeriodic()

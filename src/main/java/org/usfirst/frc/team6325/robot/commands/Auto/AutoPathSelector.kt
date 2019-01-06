@@ -1,11 +1,12 @@
 package org.usfirst.frc.team6325.robot.commands.Auto
 
 import org.usfirst.frc.team6325.robot.commands.Drive.ProfileFollowerUpdate
-import org.usfirst.frc.team6325.robot.commands.Intake.*
+//import org.usfirst.frc.team6325.robot.commands.Intake.*
 import org.usfirst.frc.team6325.robot.commands.Lift.*
 import org.usfirst.frc.team6325.robot.subsystems.Lift
 import org.usfirst.frc.team6325.robot.commands.Auto.GamedataFetcher
 import org.sertain.command.CommandGroup
+import org.sertain.command.Command
 
 class AutoPathSelector : CommandGroup 
 {
@@ -13,7 +14,7 @@ class AutoPathSelector : CommandGroup
 	{
 		class One : CommandGroup
 		{
-			fun One(side: Char) 
+			val One(side) = Command(side)
 			{
 				System.err.println("MiddleSwitchOneCube")
 				val gamedata: GamedataFetcher = GamedataFetcher()

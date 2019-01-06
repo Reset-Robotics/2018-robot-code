@@ -4,10 +4,10 @@ import org.sertain.command.*
 import org.usfirst.frc.team6325.robot.Polybius
 
 
-public class ResetGyro : Command()
+public class ResetGyro : Command(), SendableBase
 {
     init { requires Polybius.drivetrain }
 
-    override fun onCreate() = Polybius.drivetrain.resetGyro()
-    override fun isCompleted() = return true
+    override fun execute() = Polybius.drivetrain.resetGyro()
+    override fun onDestroy() = return true
 }
